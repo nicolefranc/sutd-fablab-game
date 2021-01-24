@@ -8,10 +8,8 @@ export default class Game extends Phaser.Scene {
     preload() {}
 
     create() {
-        this.add.text(400, 250, 'Game')
-        // this.add.image(0, 0, 'fablab_tiles')
         const map = this.make.tilemap({ key: 'tilemap' })
-        const tileset = map.addTilesetImage('fablab', 'tiles')
+        const tileset = map.addTilesetImage('fablab_tiles', 'tiles')
         const floor = map.createLayer('Floor', tileset)
         const walls = map.createLayer('Walls', tileset)
 
