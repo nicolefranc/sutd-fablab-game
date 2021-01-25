@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 
-import TitleScreen from './scenes/TitleScene'
 import Game from './scenes/Game'
 
 const config = {
@@ -16,7 +15,6 @@ const config = {
 const game = new Phaser.Game(config);
 
 // Add screens to the scene
-game.scene.add('titlescreen', TitleScreen)
 game.scene.add('game', Game)
 
-game.scene.start('titlescreen')
+game.scene.start('game')
