@@ -39,14 +39,6 @@ export default class Resources {
     static get waitingTools() {
         return {
             "laserCutter": {
-                "tileIds": [6]
-            }
-        }
-    }
-
-    static get waitingTools() {
-        return {
-            "laserCutter": {
                 "tileIds": [7],
                 "multiplyOffset": [1,0],
                 "addOffset": [0,Resources.tileLength/2],
