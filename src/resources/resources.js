@@ -40,10 +40,9 @@ export default class Resources {
         return {
             "laserCutter": {
                 "tileIds": [7],
-                "multiplyOffset": [1,0],
-                "addOffset": [0,Resources.tileLength/2],
+                "multiplyOffset": [1,0.5],
                 "physicsBodyProportions": [0.9,0.8],
-                "texture": "blankTile",
+                "texture": "blankHorizontalTiles",
                 "materialTable": {
                     "acrylic": {
                         "output": "jigsawAcrylic"
@@ -53,19 +52,38 @@ export default class Resources {
                     }
                 }
             },
-            "3dPrinter": {
+            "threeDPrinter": {
                 "tileIds": [19],
-                "multiplyOffset": [0,0],
-                "addOffset": [Resources.tileLength/2,Resources.tileLength/2],
+                "multiplyOffset": [0.5,0.5],
                 "physicsBodyProportions": [0.8,0.8],
-                "texture": "blankHorizontalTiles",
+                "texture": "blankTile",
                 "materialTable": {
                     "filament": {
-                        "output": "3dPrint"
+                        "output": "threeDPrint"
                     }
                 }
             }
         }
+    }
+
+    static get waitingToolIds() {
+        var returnIds = [];
+        for (var i in Resources.waitingTools) returnIds.push(...Resources.waitingTools[i]["tileIds"]);
+        return returnIds;
+    }
+
+    static isWaitingTool(id) {
+        return Resources.waitingToolIds.indexOf(id) !== -1;
+    }
+
+    static get assemblyTable() {
+        return {
+            "tileIds": [10]
+        }
+    }
+
+    static isAssemblyTable(id) {
+        return Resources.assemblyTable["tileIds"].indexOf(id) !== -1;
     }
 
 }

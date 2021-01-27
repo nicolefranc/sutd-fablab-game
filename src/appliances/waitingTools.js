@@ -5,10 +5,8 @@ export default class WaitingTool extends Appliance{
 
     constructor(scene,gridX,gridY,toolType) {
         if (!(toolType in Resources.waitingTools)) throw "WaitingTool class: Invalid toolType specified.";
-        var x = ((Resources.waitingTools[toolType]["multiplyOffset"][0] + gridX) * Resources.tileLength)
-        + Resources.waitingTools[toolType]["addOffset"][0];
-        var y = ((Resources.waitingTools[toolType]["multiplyOffset"][1] + gridY) * Resources.tileLength)
-        + Resources.waitingTools[toolType]["addOffset"][1];
+        var x = ((Resources.waitingTools[toolType]["multiplyOffset"][0] + gridX) * Resources.tileLength);
+        var y = ((Resources.waitingTools[toolType]["multiplyOffset"][1] + gridY) * Resources.tileLength);
         var texture = Resources.waitingTools[toolType]["texture"];
 
         super(scene,x,y,texture,0);
@@ -98,7 +96,7 @@ export default class WaitingTool extends Appliance{
     }
 }
 
-Phaser.GameObjects.GameObjectFactory.register('laserCutter', function (gridX, gridY) {
+Phaser.GameObjects.GameObjectFactory.register("laserCutter", function (gridX, gridY) {
     var sprite = new WaitingTool(this.scene,gridX,gridY,"laserCutter");
     
     this.displayList.add(sprite);
@@ -108,4 +106,16 @@ Phaser.GameObjects.GameObjectFactory.register('laserCutter', function (gridX, gr
 
     sprite.body.setSize(sprite.width * Resources.waitingTools["laserCutter"]["physicsBodyProportions"][0],
      sprite.height * Resources.waitingTools["laserCutter"]["physicsBodyProportions"][1]);
+});
+
+Phaser.GameObjects.GameObjectFactory.register("threeDPrinter", function (gridX, gridY) {
+    var sprite = new WaitingTool(this.scene,gridX,gridY,"threeDPrinter");
+    
+    this.displayList.add(sprite);
+    this.updateList.add(sprite);
+
+    this.scene.physics.world.enableBody(sprite,Phaser.Physics.Arcade.STATIC_BODY);
+
+    sprite.body.setSize(sprite.width * Resources.waitingTools["threeDPrinter"]["physicsBodyProportions"][0],
+     sprite.height * Resources.waitingTools["threeDPrinter"]["physicsBodyProportions"][1]);
 });
