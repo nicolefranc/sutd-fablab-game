@@ -10,6 +10,9 @@ import Resources from '../resources/resources'
 import MaterialBoxes from '../appliances/materialBoxes'
 import WaitingTools from '../appliances/waitingTools'
 import AssemblyTable from '../appliances/assemblyTable'
+import Player from '../sprites/Player.js'
+
+import PlayerPlaceholderSprite from '../resources/Gurl/down-00.png'
 
 export default class Game extends Phaser.Scene {
 
@@ -19,11 +22,16 @@ export default class Game extends Phaser.Scene {
 
     preload() {
         this.preloadTiles();
+        
+        this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     create() {
         this.loadTiles();
         this.loadAppliances();
+
+        this.player = this.add.player(250,400,"playersprite");
+        this.player.scale = 0.3;
     }
 
     preloadTiles() {
@@ -31,6 +39,9 @@ export default class Game extends Phaser.Scene {
         this.load.image('blankHorizontalTiles',blankHorizontalTiles);
         this.load.image('blankVerticalTiles',blankVerticalTiles);
         this.load.image('tiles',fablabTiles);
+
+        this.load.image('playersprite', PlayerPlaceholderSprite);
+
         this.load.tilemapTiledJSON('tilemap', fablabTilesJson);
     }
 
@@ -79,5 +90,9 @@ export default class Game extends Phaser.Scene {
                 break;
             }
         }
+    }
+
+    update(){
+        this.player.update(this.cursors);
     }
 }

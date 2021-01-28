@@ -12,7 +12,7 @@ export default class MaterialBox extends Appliance {
     preUpdate(time,delta) {}
 
     interact(item) {
-        if (item === materialType) return null;
+        if (item === this.materialType) return null;
         if (item === null) return this.materialType;
         return item;
     }

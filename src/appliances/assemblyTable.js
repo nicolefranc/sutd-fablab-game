@@ -9,8 +9,6 @@ export default class AssemblyTable extends Appliance {
         this.requiredItems = null;
     }
 
-    preUpdate(time,dt) {}
-
     attachScoreController(scoreController) {
         this.scoreController = scoreController;
         this.requiredItems = scoreController.getRequiredItems();

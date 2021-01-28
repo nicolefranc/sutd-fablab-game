@@ -6,7 +6,11 @@ export default class Appliance extends Phaser.Physics.Arcade.Sprite{
     }
 
     preUpdate(time,delta){
-        throw "Appliance abstract class: preUpdate() function not available."
+        this.tint = 0xffffff;
+    }
+
+    onLook(){
+        this.tint = 0xaaaaaa;
     }
 
     interact(item){

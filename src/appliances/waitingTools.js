@@ -24,6 +24,9 @@ export default class WaitingTool extends Appliance{
     }
 
     preUpdate(time,dt) {
+        if (this.state === 0){
+            this.tint = 0xffffff;
+        }
         if (this.state === 1){
             this.processProgress += dt;
             if (this.processProgress >= this.processPeriod) {
@@ -91,9 +94,17 @@ export default class WaitingTool extends Appliance{
         }
     }
 
-    static get stateTint() {
-        return ["0x000000","0x0000ff","0xffff00","0xff0000","0x00ff00"]
+    onLook(){
+        if (this.state === 0){
+            this.tint = 0xaaaaaa;
+        }
     }
+
+    static get stateTint() {
+        return [0xffffff,0x0000ff,0xffff00,0xff0000,0x00ff00]
+    }
+
+    
 }
 
 Phaser.GameObjects.GameObjectFactory.register("laserCutter", function (gridX, gridY) {
