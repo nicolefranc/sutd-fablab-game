@@ -86,4 +86,65 @@ export default class Resources {
         return Resources.assemblyTable["tileIds"].indexOf(id) !== -1;
     }
 
+    static get items() {
+        return {
+            "acrylic": {
+                "product": false
+            },
+            "metalSheet": {
+                "product": false
+            },
+            "filament": {
+                "product": false
+            },
+            "pcb": {
+                "product": false
+            },
+            "wood": {
+                "product": false
+            },
+            "jigsawAcrylic": {
+                "product": true
+            },
+            "jigsawMetal": {
+                "product": true
+            },
+            "jigsawWood": {
+                "product": true
+            },
+            "threeDPrint": {
+                "product": true
+            },
+            "printedPcb": {
+                "product": true
+            },
+            "cutAcrylic": {
+                "product": true
+            },
+            "cutWood": {
+                "product": true
+            },
+            "cutMetal": {
+                "product": true
+            },
+            "acrylicStrips": {
+                "product": true
+            },
+            "woodStrips": {
+                "product": true
+            },
+            "metalStrips": {
+                "product": true
+            }
+        }
+    }
+
+    static get productItems() {
+        var returnArray = [];
+        for (var i in Resources.items) {
+            if (Resources.items[i].product) returnArray.push(i);
+        }
+        return returnArray;
+    }
+
 }

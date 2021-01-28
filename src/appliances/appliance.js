@@ -6,11 +6,12 @@ export default class Appliance extends Phaser.Physics.Arcade.Sprite{
     }
 
     preUpdate(time,delta){
-        this.tint = 0xffffff;
+        //this.tint = 0xffffff;
     }
 
     onLook(){
-        this.tint = 0xaaaaaa;
+        this.tint = "0xaaaaaa";
+        //this.setBlendMode(Phaser.BlendModes.MULTIPLY);
     }
 
     interact(item){

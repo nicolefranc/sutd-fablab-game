@@ -1,16 +1,18 @@
 import Appliance from "../appliances/appliance.js"
 
 export default class Player extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x,y,texture,frame){
+    constructor(scene,x,y,texture,frame,scoreController){
         super(scene,x,y,texture,frame);
         this.heldItem = null;
         this.dirnx = 0;
         this.dirny = 0;
+        this.scoreController = scoreController;
         //this.anims.play("gurl-down");
     }
 
     setItem(item){
-        console.log("New item: "+item);
+        //console.log("New item: "+item);
+        this.scoreController.setItem(item);
         this.heldItem = item;
     }
 
@@ -51,8 +53,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     }
 }
 
-Phaser.GameObjects.GameObjectFactory.register('player', function (x, y, texture, frame) {
-	var sprite = new Player(this.scene, x, y, texture, frame)
+Phaser.GameObjects.GameObjectFactory.register('player', function (x, y, texture, frame, scoreController) {
+	var sprite = new Player(this.scene, x, y, texture, frame, scoreController)
 
 	this.displayList.add(sprite)
 	this.updateList.add(sprite)

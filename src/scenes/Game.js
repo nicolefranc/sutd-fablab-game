@@ -11,6 +11,7 @@ import MaterialBoxes from '../appliances/materialBoxes'
 import WaitingTools from '../appliances/waitingTools'
 import AssemblyTable from '../appliances/assemblyTable'
 import Player from '../sprites/Player.js'
+import ScoreController from '../controllers/scoreController'
 
 import PlayerPlaceholderSprite from '../resources/Gurl/down-00.png'
 
@@ -27,11 +28,19 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
+        
         this.loadTiles();
         this.loadAppliances();
 
-        this.player = this.add.player(250,400,"playersprite");
+        this.scoreController = this.add.scoreController(0.25,1,["jigsawAcrylic","jigsawWood","threeDPrint"],3,100);
+
+        this.player = this.add.player(250,400,"playersprite",0,this.scoreController);
         this.player.scale = 0.3;
+
+        for (var i in this.assemblyTables) this.assemblyTables[i].attachScoreController(this.scoreController);
+
+        this.scoreController.start();
+        
     }
 
     preloadTiles() {
@@ -53,6 +62,7 @@ export default class Game extends Phaser.Scene {
     }
 
     loadAppliances() {
+        this.assemblyTables = [];
         for (var i=0;i<fablabTilesJson["layers"].length;i++) {
             var j = fablabTilesJson["layers"][i];
             if (j["name"] === "Walls") {
@@ -77,13 +87,13 @@ export default class Game extends Phaser.Scene {
                             continue;
                         }
                         if (Resources.waitingTools["threeDPrinter"]["tileIds"].indexOf(id) !== -1) {
-                            this.add.threeDPrinter(gridX,gridY);
+                            this.add.threeDPrinter(gridX,gridY)
                             continue;
                         }
                     }
 
                     if (Resources.isAssemblyTable(id)) {
-                        this.add.assemblyTable(gridX,gridY);
+                        this.assemblyTables.push(this.add.assemblyTable(gridX,gridY,this.scoreController));
                         continue;
                     }
                 }

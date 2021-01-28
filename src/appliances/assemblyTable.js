@@ -37,4 +37,5 @@ Phaser.GameObjects.GameObjectFactory.register("assemblyTable", function (gridX,g
 
     sprite.body.setSize(sprite.width * 0.8,
      sprite.height * 0.9);
+    return sprite;
 });
