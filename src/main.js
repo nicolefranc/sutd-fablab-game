@@ -27,4 +27,4 @@ game.scene.add('game', Game)
 
 game.scene.add('LeaderboardScreen', LeaderboardScreen)
 
-game.scene.start('LeaderboardScreen')
+game.scene.start('Game')
