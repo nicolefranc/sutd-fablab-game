@@ -17,9 +17,13 @@ import ScoreController from "../controllers/scoreController";
 
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
 
+import LeaderboardUtils from "../leaderboard/leaderboardUtils";
+
 export default class Game extends Phaser.Scene {
     constructor(config) {
         super(config);
+        //LeaderboardUtils.get("/",(chunk) => {alert(chunk)}, ()=> {});
+        
     }
 
     preload() {
