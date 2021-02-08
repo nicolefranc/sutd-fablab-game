@@ -14,6 +14,8 @@ import Player from '../sprites/Player.js'
 import ScoreController from '../controllers/scoreController'
 
 import PlayerPlaceholderSprite from '../resources/Gurl/down-00.png'
+import playerSpriteSheet from "../resources/players.png"
+import playerSpriteJson from "../resources/players.json"
 
 export default class Game extends Phaser.Scene {
 
@@ -23,6 +25,7 @@ export default class Game extends Phaser.Scene {
 
     preload() {
         this.preloadTiles();
+        this.preloadPlayerAnims();
         
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -34,7 +37,7 @@ export default class Game extends Phaser.Scene {
 
         this.scoreController = this.add.scoreController(0.25,1,["jigsawAcrylic","jigsawWood","threeDPrint"],3,100);
 
-        this.player = this.add.player(250,400,"playersprite",0,this.scoreController);
+        this.player = this.add.player(250,400,"playeranims", "Gurl/down-00.png",this.scoreController);
         this.player.scale = 0.3;
 
         for (var i in this.assemblyTables) this.assemblyTables[i].attachScoreController(this.scoreController);
@@ -43,13 +46,36 @@ export default class Game extends Phaser.Scene {
         
     }
 
+    preloadPlayerAnims() {
+        this.load.image('playersprite', PlayerPlaceholderSprite);
+        this.load.atlas('playeranims', playerSpriteSheet, playerSpriteJson);
+        const dirns = ["down", "up", "right"];
+        const chars = ["Boy", "Gurl"];
+        for (let dirn of dirns){
+            for (let c of chars){
+                const frameNames = this.anims.generateFrameNames("playeranims",{
+                    prefix: c+"/"+dirn+"-",
+                    suffix: ".png",
+                    zeroPad: 2,
+                    frames: 3,
+                    start: 0,
+                });
+                this.anims.create({
+                    key: c + "-" + dirn,
+                    frames: frameNames,
+                    frameRate: 10,
+                    //duration: null,
+                    repeat: -1,
+                });
+            }
+        }
+    }
+
     preloadTiles() {
         this.load.image('blankTile',blankTile);
         this.load.image('blankHorizontalTiles',blankHorizontalTiles);
         this.load.image('blankVerticalTiles',blankVerticalTiles);
         this.load.image('tiles',fablabTiles);
-
-        this.load.image('playersprite', PlayerPlaceholderSprite);
 
         this.load.tilemapTiledJSON('tilemap', fablabTilesJson);
     }

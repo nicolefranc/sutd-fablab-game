@@ -7,7 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.dirnx = 0;
         this.dirny = 0;
         this.scoreController = scoreController;
-        //this.anims.play("gurl-down");
+        this.anims.play("Gurl-down");
     }
 
     setItem(item){
