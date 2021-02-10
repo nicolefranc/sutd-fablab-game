@@ -31,7 +31,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        
+        this.loadPlayerAnims();
         this.loadTiles();
         this.loadAppliances();
 
@@ -49,17 +49,21 @@ export default class Game extends Phaser.Scene {
     preloadPlayerAnims() {
         this.load.image('playersprite', PlayerPlaceholderSprite);
         this.load.atlas('playeranims', playerSpriteSheet, playerSpriteJson);
+    }
+
+    loadPlayerAnims() {
         const dirns = ["down", "up", "right"];
-        const chars = ["Boy", "Gurl"];
+        const chars = ["Boi", "Gurl"];
         for (let dirn of dirns){
             for (let c of chars){
                 const frameNames = this.anims.generateFrameNames("playeranims",{
                     prefix: c+"/"+dirn+"-",
                     suffix: ".png",
                     zeroPad: 2,
-                    frames: 3,
                     start: 0,
+                    end: 2
                 });
+                //alert(frameNames.length);
                 this.anims.create({
                     key: c + "-" + dirn,
                     frames: frameNames,
