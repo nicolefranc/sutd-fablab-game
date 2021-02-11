@@ -19,6 +19,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     /** @param{Phaser.Types.Input.Keyboard.CursorKeys} cursors  */
     update(cursors){
         // figure out how to do virtual joystick type stuff
+        console.log(cursors);
         let down = cursors.down.isDown;
         let up = cursors.up.isDown;
         let left = cursors.left.isDown;
@@ -45,7 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
 
             lookingAt.gameObject.onLook();
 
-            if(Phaser.Input.Keyboard.JustDown(cursors.space)){
+            if(cursors.space && Phaser.Input.Keyboard.JustDown(cursors.space)){
                 let item = lookingAt.gameObject.interact(this.heldItem);
                 this.setItem(item);
             }

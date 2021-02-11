@@ -16,6 +16,7 @@ import Player from "../sprites/Player.js";
 import ScoreController from "../controllers/scoreController";
 
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin'
 
 export default class Game extends Phaser.Scene {
     constructor(config) {
@@ -26,12 +27,16 @@ export default class Game extends Phaser.Scene {
         this.preloadTiles();
         this.preloadAudio();
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.load.plugin('rex-virtual-joystick-plugin"', VirtualJoystickPlugin, true);
     }
 
     create() {
+        console.log(this.scene.systems.game.device.os.macOS);
         this.loadTiles();
         this.loadAppliances();
         this.loadAudio();
+        this.createVirtualJoystick();
         this.scoreController = this.add.scoreController(
             0.25,
             1,
@@ -53,6 +58,26 @@ export default class Game extends Phaser.Scene {
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
         this.scoreController.start();
+    }
+    
+    createVirtualJoystick() {
+        this.joyStick = this.plugins.get('rex-virtual-joystick-plugin"').add(
+            this,
+            {
+                x: 725,
+                y: 425,
+                radius: 50,
+                base: this.add.circle(0, 0, 50, 0x888888),
+                thumb: this.add.circle(0, 0, 25, 0xcccccc),
+                // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
+                // forceMin: 16,
+                // enable: true
+            }
+        ).on('update', this.updateJoystickState, this);
+    }
+
+    updateJoystickState() {
+       this.cursors = this.joyStick.createCursorKeys();
     }
 
     preloadTiles() {
