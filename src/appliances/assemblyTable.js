@@ -11,16 +11,19 @@ export default class AssemblyTable extends Appliance {
 
     attachScoreController(scoreController) {
         this.scoreController = scoreController;
-        this.requiredItems = scoreController.getRequiredItems();
+        scoreController.addAssemblyTable(this);
+    }
+
+    setRequiredItems(requiredItems) {
+        this.requiredItems = requiredItems;
     }
 
     interact(item) {
         if (this.scoreController === null) throw "AssemblyTable class: scoreController not attached";
         if (item === null) return null;
-        var index = this.requiredItems.indexOf(item);
+        const index = this.requiredItems.indexOf(item);
         if (index !== -1) {
             this.scoreController.submit(index);
-            this.requiredItems = this.scoreController.getRequiredItems();
         }
         return null;
     }

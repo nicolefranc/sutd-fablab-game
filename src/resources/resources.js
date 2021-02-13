@@ -1,4 +1,20 @@
-import fablabTilesJson from './tiles/fablab.json'
+import fablabTilesJson from './tiles/fablab.json';
+
+import acrylic from "./Materials/Acrylic Board.png";
+import metalSheet from "./Materials/Metal Board.png";
+import filament from "./Materials/Filament.png";
+import pcb from "./Materials/PCB.png";
+import wood from "./Materials/Wood Board.png";
+import jigsawAcrylic from "./Materials/Acrylic Cut.png";
+import jigsawMetal from "./Materials/Metal Cut.png";
+import jigsawWood from "./Materials/Wood Cut.png";
+import threeDPrint from "./Materials/Filament Print.png";
+import printedPcb from "./Materials/PCB Solder.png";
+import cutAcrylic from "./Materials/Acrylic Drill.png";
+import cutWood from "./Materials/Wood Drill.png";
+import cutMetal from "./Materials/Metal Drill.png";
+import acrylicStrips from "./Materials/Acrylic Strips.png";
+import woodStrips from "./Materials/Wood Strips.png";
 
 export default class Resources {
     
@@ -89,52 +105,64 @@ export default class Resources {
     static get items() {
         return {
             "acrylic": {
-                "product": false
+                "product": false,
+                "image": acrylic
             },
             "metalSheet": {
-                "product": false
+                "product": false,
+                "image": metalSheet
             },
             "filament": {
-                "product": false
+                "product": false,
+                "image": filament
             },
             "pcb": {
-                "product": false
+                "product": false,
+                "image": pcb
             },
             "wood": {
-                "product": false
+                "product": false,
+                "image": wood
             },
             "jigsawAcrylic": {
-                "product": true
+                "product": true,
+                "image": jigsawAcrylic
             },
             "jigsawMetal": {
-                "product": true
+                "product": true,
+                "image": jigsawMetal
             },
             "jigsawWood": {
-                "product": true
+                "product": true,
+                "image": jigsawWood
             },
             "threeDPrint": {
-                "product": true
+                "product": true,
+                "image": threeDPrint
             },
             "printedPcb": {
-                "product": true
+                "product": true,
+                "image": printedPcb
             },
             "cutAcrylic": {
-                "product": true
+                "product": true,
+                "image": cutAcrylic
             },
             "cutWood": {
-                "product": true
+                "product": true,
+                "image": cutWood
             },
             "cutMetal": {
-                "product": true
+                "product": true,
+                "image": cutMetal
             },
             "acrylicStrips": {
-                "product": true
+                "product": true,
+                "image": acrylicStrips
             },
             "woodStrips": {
-                "product": true
-            },
-            "metalStrips": {
-                "product": true
+                "product": true,
+                "image": woodStrips
             }
         }
     }
@@ -145,6 +173,12 @@ export default class Resources {
             if (Resources.items[i].product) returnArray.push(i);
         }
         return returnArray;
+    }
+
+    static preloadMaterialImages(scene) {
+        for (var i in Resources.items) {
+            scene.load.image(i,Resources.items[i]["image"]);
+        }
     }
 
 }

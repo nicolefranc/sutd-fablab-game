@@ -67,12 +67,19 @@ export default class LeaderboardUtils {
     }
 
     static getScores(n,successCallback,errorCallback) {
-        LeaderboardUtils.get("/test.html", (response) => {
+        LeaderboardUtils.get("/get_leaderboard", (response) => {
             var scoresJson = JSON.parse(response);
             var scores = [];
             for (var i in scoresJson) scores.push([scoresJson[i]["name"],parseInt(scoresJson[i]["score"])]);
             scores.sort( function(a,b) {return a[1] - b[1];} );
             successCallback(scores);
+        }, () => {errorCallback(err)});
+    }
+
+    static getMaterials(successCallback,errorCallback) {
+        LeaderboardUtils.get("/get_materials", (response) => {
+            var materialsJson = JSON.parse(response);
+            successCallback(materialsJson);
         }, () => {errorCallback(err)});
     }
 
