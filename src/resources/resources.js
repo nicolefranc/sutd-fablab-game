@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import fablabTilesJson from "./tiles/fablab_complete.json";
-=======
-import fablabTilesJson from './tiles/fablab.json';
-
 import acrylic from "./Materials/Acrylic Board.png";
 import metalSheet from "./Materials/Metal Board.png";
 import filament from "./Materials/Filament.png";
@@ -18,7 +14,6 @@ import cutWood from "./Materials/Wood Drill.png";
 import cutMetal from "./Materials/Metal Drill.png";
 import acrylicStrips from "./Materials/Acrylic Strips.png";
 import woodStrips from "./Materials/Wood Strips.png";
->>>>>>> prototype-2-sean
 
 export default class Resources {
     static get tileLength() {
@@ -168,67 +163,67 @@ export default class Resources {
 
     static get items() {
         return {
-            "acrylic": {
-                "product": false,
-                "image": acrylic
+            acrylic: {
+                product: false,
+                image: acrylic,
             },
-            "metalSheet": {
-                "product": false,
-                "image": metalSheet
+            metalSheet: {
+                product: false,
+                image: metalSheet,
             },
-            "filament": {
-                "product": false,
-                "image": filament
+            filament: {
+                product: false,
+                image: filament,
             },
-            "pcb": {
-                "product": false,
-                "image": pcb
+            pcb: {
+                product: false,
+                image: pcb,
             },
-            "wood": {
-                "product": false,
-                "image": wood
+            wood: {
+                product: false,
+                image: wood,
             },
-            "jigsawAcrylic": {
-                "product": true,
-                "image": jigsawAcrylic
+            jigsawAcrylic: {
+                product: true,
+                image: jigsawAcrylic,
             },
-            "jigsawMetal": {
-                "product": true,
-                "image": jigsawMetal
+            jigsawMetal: {
+                product: true,
+                image: jigsawMetal,
             },
-            "jigsawWood": {
-                "product": true,
-                "image": jigsawWood
+            jigsawWood: {
+                product: true,
+                image: jigsawWood,
             },
-            "threeDPrint": {
-                "product": true,
-                "image": threeDPrint
+            threeDPrint: {
+                product: true,
+                image: threeDPrint,
             },
-            "printedPcb": {
-                "product": true,
-                "image": printedPcb
+            printedPcb: {
+                product: true,
+                image: printedPcb,
             },
-            "cutAcrylic": {
-                "product": true,
-                "image": cutAcrylic
+            cutAcrylic: {
+                product: true,
+                image: cutAcrylic,
             },
-            "cutWood": {
-                "product": true,
-                "image": cutWood
+            cutWood: {
+                product: true,
+                image: cutWood,
             },
-            "cutMetal": {
-                "product": true,
-                "image": cutMetal
+            cutMetal: {
+                product: true,
+                image: cutMetal,
             },
-            "acrylicStrips": {
-                "product": true,
-                "image": acrylicStrips
+            acrylicStrips: {
+                product: true,
+                image: acrylicStrips,
             },
-            "woodStrips": {
-                "product": true,
-                "image": woodStrips
-            }
-        }
+            woodStrips: {
+                product: true,
+                image: woodStrips,
+            },
+        };
     }
 
     static get productItems() {
@@ -241,8 +236,7 @@ export default class Resources {
 
     static preloadMaterialImages(scene) {
         for (var i in Resources.items) {
-            scene.load.image(i,Resources.items[i]["image"]);
+            scene.load.image(i, Resources.items[i]["image"]);
         }
     }
-
 }

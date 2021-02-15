@@ -19,7 +19,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     /** @param{Phaser.Types.Input.Keyboard.CursorKeys} cursors  */
     update(cursors) {
         // figure out how to do virtual joystick type stuff
-        console.log(cursors);
         let down = cursors.down.isDown;
         let up = cursors.up.isDown;
         let left = cursors.left.isDown;

@@ -1,8 +1,9 @@
 import Phaser from "phaser";
+import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import Resources from "../resources/resources";
 
 //TODO add a method an DS to store the array of components that are submitted
-const GAME_DURATION = 1200000; //2 minutes in ms
+const GAME_DURATION = 120000; //2 minutes in ms
 
 export default class ScoreController extends Phaser.GameObjects.Text {
     constructor(scene, gridX, gridY, productItems, orderCount, scoreIncrement) {
@@ -15,7 +16,10 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         this.setColor("0x000000");
         this.time = GAME_DURATION;
         this.acceptItems = true;
+        this.componentCollection = [];
         this.score = 0;
+        this.orderDisplay = null;
+        this.assemblyTables = [];
 
         for (var i in productItems)
             if (Resources.productItems.indexOf(productItems[i]) === -1)
@@ -33,14 +37,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
 
         this.started = false;
         this.item = null;
-        this.orderDisplay = null;
-        this.assemblyTables = [];
     }
-
-    static get timeout() {
-        return 1000;
-    }
-
     start() {
         if (this.orderDisplay === null)
             throw "ScoreController class: orderDisplay not yet attached";
@@ -48,7 +45,9 @@ export default class ScoreController extends Phaser.GameObjects.Text {
             throw "ScoreController class: no assemblyTable attached yet";
         this.started = true;
     }
-
+    setItem(item) {
+        this.item = item;
+    }
     addAssemblyTable(assemblyTable) {
         this.assemblyTables.push(assemblyTable);
         assemblyTable.setRequiredItems(this.requiredItems);
@@ -57,10 +56,6 @@ export default class ScoreController extends Phaser.GameObjects.Text {
     attachOrderDisplay(orderDisplay) {
         this.orderDisplay = orderDisplay;
         this.orderDisplay.initialize(this.requiredItems);
-    }
-
-    setItem(item) {
-        this.item = item;
     }
 
     preUpdate(time, dt) {
@@ -84,7 +79,11 @@ export default class ScoreController extends Phaser.GameObjects.Text {
                 "\n";
         } else outText += "Time's up!\n";
         outText += "Score: " + this.score + "\n\n";
-        outText += "Current item:\n" + this.item;
+        outText += "Current item:\n\t" + this.item + "\n\n";
+        outText += "Required items:\n";
+        for (var i = 0; i < this.requiredItems.length; i++) {
+            outText += "(" + (i + 1) + ") " + this.requiredItems[i] + "\n";
+        }
         this.setText(outText);
     }
 
@@ -103,6 +102,12 @@ export default class ScoreController extends Phaser.GameObjects.Text {
     submit(index) {
         if (!this.started || !this.acceptItems) return;
         this.score += this.scoreIncrement;
+
+        //TODO: Refactor to only push only when there is no such component
+        this.componentCollection.push({
+            name: this.requiredItems[index],
+            quantity: 1,
+        });
         this.requiredItems[index] = null;
         for (var i in this.assemblyTables)
             this.assemblyTables[i].setRequiredItems(this.requiredItems);
@@ -116,6 +121,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
                 this.assemblyTables[i].setRequiredItems(this.requiredItems);
             this.orderDisplay.updateOrder(index, this.requiredItems[j]);
         }, ScoreController.timeout);
+        this.updateDisplay();
     }
 }
 
