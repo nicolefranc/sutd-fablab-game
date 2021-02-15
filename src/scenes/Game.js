@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
-import fablabTiles from "../resources/tiles/fablab_tiles.png";
-import fablabTilesJson from "../resources/tiles/fablab.json";
+import fablabTiles from "../resources/tiles/tile sheet final2.png";
+import fablabTilesJson from "../resources/tiles/fablab_complete.json";
 import blankTile from "../resources/tiles/blankTile.png";
 import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
 import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
@@ -9,6 +9,8 @@ import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 import mainBGM from "../resources/audio/Gameplay.wav";
 
 import Resources from "../resources/resources";
+import Drill from "../appliances/drill";
+import Saw from "../appliances/saw";
 import MaterialBoxes from "../appliances/materialBoxes";
 import WaitingTools from "../appliances/waitingTools";
 import AssemblyTable from "../appliances/assemblyTable";
@@ -71,7 +73,7 @@ export default class Game extends Phaser.Scene {
 
     loadTiles() {
         const map = this.make.tilemap({ key: "tilemap" });
-        const tileset = map.addTilesetImage("fablab_tiles", "tiles");
+        const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         const floor = map.createLayer("Floor", tileset);
         const walls = map.createLayer("Walls", tileset);
     }
@@ -113,9 +115,9 @@ export default class Game extends Phaser.Scene {
                             continue;
                         }
                         if (
-                            Resources.waitingTools["threeDPrinter"][
-                                "tileIds"
-                            ].indexOf(id) !== -1
+                            Resources.waitingTools.threeDPrinter.tileIds.indexOf(
+                                id
+                            ) !== -1
                         ) {
                             this.add.threeDPrinter(gridX, gridY);
                             continue;
@@ -131,6 +133,24 @@ export default class Game extends Phaser.Scene {
                             )
                         );
                         continue;
+                    }
+                    if (Resources.isInteractiveTool(id)) {
+                        if (
+                            Resources.interactiveTools.drill.tileIds.indexOf(
+                                id
+                            ) !== -1
+                        ) {
+                            this.add.drill(gridX, gridY);
+                            continue;
+                        }
+                        if (
+                            Resources.interactiveTools.saw.tileIds.indexOf(
+                                id
+                            ) !== -1
+                        ) {
+                            this.add.saw(gridX, gridY);
+                            continue;
+                        }
                     }
                 }
                 break;
