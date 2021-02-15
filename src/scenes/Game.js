@@ -20,12 +20,18 @@ import ScoreController from "../controllers/scoreController";
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin'
 
+import LeaderboardUtils from "../leaderboard/leaderboardUtils";
+import OrderDisplay from "../controllers/orderDisplay";
+
 export default class Game extends Phaser.Scene {
     constructor(config) {
         super(config);
+        //LeaderboardUtils.get("/",(chunk) => {alert(chunk)}, ()=> {});
+        
     }
 
     preload() {
+        Resources.preloadMaterialImages(this);
         this.preloadTiles();
         this.preloadAudio();
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -41,7 +47,7 @@ export default class Game extends Phaser.Scene {
         this.createVirtualJoystick();
         this.scoreController = this.add.scoreController(
             0.25,
-            1,
+            3,
             ["jigsawAcrylic", "jigsawWood", "threeDPrint"],
             3,
             100
@@ -56,9 +62,10 @@ export default class Game extends Phaser.Scene {
         );
         this.player.scale = 0.3;
 
-        for (var i in this.assemblyTables)
-            this.assemblyTables[i].attachScoreController(this.scoreController);
+        for (var i in this.assemblyTables) this.assemblyTables[i].attachScoreController(this.scoreController);
 
+        this.orderDisplay = new OrderDisplay(0,0,this);
+        this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
     }
     

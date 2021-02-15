@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 
 import Game from './scenes/Game'
+import LeaderboardScreen from './scenes/LeaderboardScreen'
+import DifficultyMenu from './scenes/DifficultyMenu';
 
 const config = {
     type: Phaser.AUTO,
@@ -22,6 +24,10 @@ const config = {
 const game = new Phaser.Game(config);
 
 // Add screens to the scene
-game.scene.add('game', Game)
+game.scene.add('Game', Game)
 
-game.scene.start('game')
+game.scene.add('LeaderboardScreen', LeaderboardScreen)
+
+game.scene.add('DifficultyMenu',DifficultyMenu)
+
+game.scene.start('DifficultyMenu')

@@ -1,4 +1,24 @@
+<<<<<<< HEAD
 import fablabTilesJson from "./tiles/fablab_complete.json";
+=======
+import fablabTilesJson from './tiles/fablab.json';
+
+import acrylic from "./Materials/Acrylic Board.png";
+import metalSheet from "./Materials/Metal Board.png";
+import filament from "./Materials/Filament.png";
+import pcb from "./Materials/PCB.png";
+import wood from "./Materials/Wood Board.png";
+import jigsawAcrylic from "./Materials/Acrylic Cut.png";
+import jigsawMetal from "./Materials/Metal Cut.png";
+import jigsawWood from "./Materials/Wood Cut.png";
+import threeDPrint from "./Materials/Filament Print.png";
+import printedPcb from "./Materials/PCB Solder.png";
+import cutAcrylic from "./Materials/Acrylic Drill.png";
+import cutWood from "./Materials/Wood Drill.png";
+import cutMetal from "./Materials/Metal Drill.png";
+import acrylicStrips from "./Materials/Acrylic Strips.png";
+import woodStrips from "./Materials/Wood Strips.png";
+>>>>>>> prototype-2-sean
 
 export default class Resources {
     static get tileLength() {
@@ -148,64 +168,67 @@ export default class Resources {
 
     static get items() {
         return {
-            acrylic: {
-                product: false,
+            "acrylic": {
+                "product": false,
+                "image": acrylic
             },
-            metalSheet: {
-                product: false,
+            "metalSheet": {
+                "product": false,
+                "image": metalSheet
             },
-            filament: {
-                product: false,
+            "filament": {
+                "product": false,
+                "image": filament
             },
-            pcb: {
-                product: false,
+            "pcb": {
+                "product": false,
+                "image": pcb
             },
-            wood: {
-                product: false,
+            "wood": {
+                "product": false,
+                "image": wood
             },
-            jigsawAcrylic: {
-                product: true,
+            "jigsawAcrylic": {
+                "product": true,
+                "image": jigsawAcrylic
             },
-            jigsawMetal: {
-                product: true,
+            "jigsawMetal": {
+                "product": true,
+                "image": jigsawMetal
             },
-            jigsawWood: {
-                product: true,
+            "jigsawWood": {
+                "product": true,
+                "image": jigsawWood
             },
-            threeDPrint: {
-                product: true,
+            "threeDPrint": {
+                "product": true,
+                "image": threeDPrint
             },
-            printedPcb: {
-                product: true,
+            "printedPcb": {
+                "product": true,
+                "image": printedPcb
             },
-            cutAcrylic: {
-                product: true,
+            "cutAcrylic": {
+                "product": true,
+                "image": cutAcrylic
             },
-            cutWood: {
-                product: true,
+            "cutWood": {
+                "product": true,
+                "image": cutWood
             },
-            cutMetal: {
-                product: true,
+            "cutMetal": {
+                "product": true,
+                "image": cutMetal
             },
-            acrylicStrips: {
-                product: true,
+            "acrylicStrips": {
+                "product": true,
+                "image": acrylicStrips
             },
-            woodStrips: {
-                product: true,
-            },
-            metalStrips: {
-                product: true,
-            },
-            donutMetal: {
-                product: true,
-            },
-            donutAcrylic: {
-                product: true,
-            },
-            donutWood: {
-                product: true,
-            },
-        };
+            "woodStrips": {
+                "product": true,
+                "image": woodStrips
+            }
+        }
     }
 
     static get productItems() {
@@ -215,4 +238,11 @@ export default class Resources {
         }
         return returnArray;
     }
+
+    static preloadMaterialImages(scene) {
+        for (var i in Resources.items) {
+            scene.load.image(i,Resources.items[i]["image"]);
+        }
+    }
+
 }
