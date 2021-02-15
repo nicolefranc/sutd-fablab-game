@@ -24,10 +24,10 @@ const config = {
 const game = new Phaser.Game(config);
 
 // Add screens to the scene
-game.scene.add('game', Game)
+game.scene.add('Game', Game)
 
 game.scene.add('LeaderboardScreen', LeaderboardScreen)
 
 game.scene.add('DifficultyMenu',DifficultyMenu)
 
-game.scene.start('game')
+game.scene.start('DifficultyMenu')

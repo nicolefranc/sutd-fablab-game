@@ -38,6 +38,10 @@ export default class DifficultyMenu extends Phaser.Scene {
                     //console.log("pointerup");
                     if (this.images[i]["active"]) {
                         console.log("Load level " + k);
+                        this.game.scene.pause('DifficultyMenu');
+                        this.game.scene.start('Game');
+                        this.game.scene.bringToTop('Game');
+                        console.log("Test");
                     }
                     this.images[i]["active"] = false;
                     j.scale = 500 / 769 * 1.1;
