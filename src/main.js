@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
 import Game from './scenes/Game'
+import Pause from './scenes/Pause'
 
 const config = {
     type: Phaser.AUTO,
@@ -22,6 +23,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 // Add screens to the scene
-game.scene.add('game', Game)
+game.scene.add('game', Game);
+game.scene.add('pausescene', Pause);
 
-game.scene.start('game')
+game.scene.start('game');

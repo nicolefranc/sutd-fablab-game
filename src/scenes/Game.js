@@ -16,6 +16,7 @@ import ScoreController from '../controllers/scoreController'
 import PlayerPlaceholderSprite from '../resources/Gurl/down-00.png'
 import playerSpriteSheet from "../resources/players.png"
 import playerSpriteJson from "../resources/players.json"
+import PauseButtonSprite from "../resources/pausebutton.png"
 
 export default class Game extends Phaser.Scene {
 
@@ -28,6 +29,8 @@ export default class Game extends Phaser.Scene {
         this.preloadPlayerAnims();
         
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.load.image("pausebutton", PauseButtonSprite);
     }
 
     create() {
@@ -43,6 +46,14 @@ export default class Game extends Phaser.Scene {
         for (var i in this.assemblyTables) this.assemblyTables[i].attachScoreController(this.scoreController);
 
         this.scoreController.start();
+
+        const pb = this.add.image(10,10,"pausebutton");
+        pb.setScrollFactor(0);
+        pb.setInteractive();
+        pb.on("pointerdown", ()=>this.scene.pause("game"));
+
+        this.events.on("pause", () => this.scene.run("pausescene"))
+        this.events.on("resume", () => this.scene.stop("pausescene"))
         
     }
 
