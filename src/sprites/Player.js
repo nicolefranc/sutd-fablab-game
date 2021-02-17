@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 import Appliance from "../appliances/appliance.js";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -7,7 +8,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.dirnx = 0;
         this.dirny = 0;
         this.scoreController = scoreController;
-        //this.anims.play("gurl-down");
+        this.anims.play("Gurl-down", true);
     }
 
     setItem(item) {
@@ -31,7 +32,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.dirnx = vx;
             this.dirny = vy;
         }
-        let speed = 300;
+        if (vx != 0) {
+            this.anims.play("Gurl-right", true);
+            this.flipX = vx == -1;
+        } else if (vy != 0) {
+            this.anims.play(vy == 1 ? "Gurl-down" : "Gurl-up", true);
+            this.flipX = false;
+        } else {
+            this.anims.stop();
+        }
+        let speed = 100;
         let sightLength = 50;
 
         // set animation here

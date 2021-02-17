@@ -80,11 +80,8 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         } else outText += "Time's up!\n";
         outText += "Score: " + this.score + "\n\n";
         outText += "Current item:\n\t" + this.item + "\n\n";
-        outText += "Required items:\n";
-        for (var i = 0; i < this.requiredItems.length; i++) {
-            outText += "(" + (i + 1) + ") " + this.requiredItems[i] + "\n";
-        }
         this.setText(outText);
+        // this.text = outText;
     }
 
     padDisplay(text) {
