@@ -1,0 +1,398 @@
+{
+	"textures": [
+		{
+			"image": "players.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 932,
+				"h": 1854
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Gurl/right-00.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 277,
+						"h": 359
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 277,
+						"h": 359
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 277,
+						"h": 359
+					}
+				},
+				{
+					"filename": "Gurl/right-02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 277,
+						"h": 359
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 277,
+						"h": 359
+					},
+					"frame": {
+						"x": 280,
+						"y": 1,
+						"w": 277,
+						"h": 359
+					}
+				},
+				{
+					"filename": "Gurl/down-01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 257,
+						"h": 386
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 257,
+						"h": 386
+					},
+					"frame": {
+						"x": 559,
+						"y": 1,
+						"w": 257,
+						"h": 386
+					}
+				},
+				{
+					"filename": "Gurl/down-02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 257,
+						"h": 385
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 257,
+						"h": 385
+					},
+					"frame": {
+						"x": 1,
+						"y": 362,
+						"w": 257,
+						"h": 385
+					}
+				},
+				{
+					"filename": "Gurl/right-01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 275,
+						"h": 359
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 275,
+						"h": 359
+					},
+					"frame": {
+						"x": 260,
+						"y": 362,
+						"w": 275,
+						"h": 359
+					}
+				},
+				{
+					"filename": "Gurl/down-00.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 257,
+						"h": 376
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 257,
+						"h": 376
+					},
+					"frame": {
+						"x": 537,
+						"y": 389,
+						"w": 257,
+						"h": 376
+					}
+				},
+				{
+					"filename": "Boi/right-00.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 227,
+						"h": 359
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 227,
+						"h": 359
+					},
+					"frame": {
+						"x": 260,
+						"y": 723,
+						"w": 227,
+						"h": 359
+					}
+				},
+				{
+					"filename": "Boi/right-01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 227,
+						"h": 359
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 227,
+						"h": 359
+					},
+					"frame": {
+						"x": 1,
+						"y": 749,
+						"w": 227,
+						"h": 359
+					}
+				},
+				{
+					"filename": "Boi/right-02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 227,
+						"h": 359
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 227,
+						"h": 359
+					},
+					"frame": {
+						"x": 489,
+						"y": 767,
+						"w": 227,
+						"h": 359
+					}
+				},
+				{
+					"filename": "Boi/down-02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 368
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 368
+					},
+					"frame": {
+						"x": 230,
+						"y": 1084,
+						"w": 213,
+						"h": 368
+					}
+				},
+				{
+					"filename": "Boi/down-01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 367
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 367
+					},
+					"frame": {
+						"x": 1,
+						"y": 1110,
+						"w": 213,
+						"h": 367
+					}
+				},
+				{
+					"filename": "Boi/up-02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 366
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 366
+					},
+					"frame": {
+						"x": 718,
+						"y": 767,
+						"w": 213,
+						"h": 366
+					}
+				},
+				{
+					"filename": "Gurl/up-01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 366
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 366
+					},
+					"frame": {
+						"x": 445,
+						"y": 1128,
+						"w": 213,
+						"h": 366
+					}
+				},
+				{
+					"filename": "Boi/up-01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 365
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 365
+					},
+					"frame": {
+						"x": 216,
+						"y": 1454,
+						"w": 213,
+						"h": 365
+					}
+				},
+				{
+					"filename": "Gurl/up-02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 364
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 364
+					},
+					"frame": {
+						"x": 1,
+						"y": 1479,
+						"w": 213,
+						"h": 364
+					}
+				},
+				{
+					"filename": "Boi/down-00.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 357
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 357
+					},
+					"frame": {
+						"x": 431,
+						"y": 1496,
+						"w": 213,
+						"h": 357
+					}
+				},
+				{
+					"filename": "Boi/up-00.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 357
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 357
+					},
+					"frame": {
+						"x": 646,
+						"y": 1496,
+						"w": 213,
+						"h": 357
+					}
+				},
+				{
+					"filename": "Gurl/up-00.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 213,
+						"h": 357
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 213,
+						"h": 357
+					},
+					"frame": {
+						"x": 660,
+						"y": 1135,
+						"w": 213,
+						"h": 357
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8067824cc61d3d62d029b8c030285701:a95332688215a7bb4ba3e96936bc0eff:46e8da22ce863765fb0bab090ed87b34$"
+	}
+}

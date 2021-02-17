@@ -18,7 +18,10 @@ import Player from "../sprites/Player.js";
 import ScoreController from "../controllers/scoreController";
 
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
-import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin'
+import playerSpriteSheet from "../resources/players.png";
+import playerSpriteJson from "../resources/players.json";
+
+import VirtualJoystickPlugin from "phaser3-rex-plugins/plugins/virtualjoystick-plugin";
 
 import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import OrderDisplay from "../controllers/orderDisplay";
@@ -27,16 +30,20 @@ export default class Game extends Phaser.Scene {
     constructor(config) {
         super(config);
         //LeaderboardUtils.get("/",(chunk) => {alert(chunk)}, ()=> {});
-        
     }
 
     preload() {
         Resources.preloadMaterialImages(this);
         this.preloadTiles();
         this.preloadAudio();
+        this.preloadPlayerAnims();
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.load.plugin('rex-virtual-joystick-plugin"', VirtualJoystickPlugin, true);
+        this.load.plugin(
+            'rex-virtual-joystick-plugin"',
+            VirtualJoystickPlugin,
+            true
+        );
     }
 
     create() {
@@ -44,7 +51,13 @@ export default class Game extends Phaser.Scene {
         this.loadTiles();
         this.loadAppliances();
         this.loadAudio();
-        this.createVirtualJoystick();
+        this.loadPlayerAnims();
+        if (
+            this.scene.systems.game.device.os.android ||
+            this.scene.systems.game.device.os.iOS ||
+            this.scene.systems.game.device.os.windowsPhone
+        )
+            this.createVirtualJoystick();
         this.scoreController = this.add.scoreController(
             0.25,
             3,
@@ -62,17 +75,18 @@ export default class Game extends Phaser.Scene {
         );
         this.player.scale = 0.3;
 
-        for (var i in this.assemblyTables) this.assemblyTables[i].attachScoreController(this.scoreController);
+        for (var i in this.assemblyTables)
+            this.assemblyTables[i].attachScoreController(this.scoreController);
 
-        this.orderDisplay = new OrderDisplay(0,0,this);
+        this.orderDisplay = new OrderDisplay(0, 0, this);
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
     }
-    
+
     createVirtualJoystick() {
-        this.joyStick = this.plugins.get('rex-virtual-joystick-plugin"').add(
-            this,
-            {
+        this.joyStick = this.plugins
+            .get('rex-virtual-joystick-plugin"')
+            .add(this, {
                 x: 725,
                 y: 425,
                 radius: 50,
@@ -81,12 +95,12 @@ export default class Game extends Phaser.Scene {
                 // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
                 // forceMin: 16,
                 // enable: true
-            }
-        ).on('update', this.updateJoystickState, this);
+            })
+            .on("update", this.updateJoystickState, this);
     }
 
     updateJoystickState() {
-       this.cursors = this.joyStick.createCursorKeys();
+        this.cursors = this.joyStick.createCursorKeys();
     }
 
     preloadTiles() {
@@ -101,6 +115,10 @@ export default class Game extends Phaser.Scene {
     }
     preloadAudio() {
         this.load.audio("mainBGM", mainBGM);
+    }
+    preloadPlayerAnims() {
+        this.load.image("playersprite", PlayerPlaceholderSprite);
+        this.load.atlas("playeranims", playerSpriteSheet, playerSpriteJson);
     }
 
     loadTiles() {
@@ -186,6 +204,32 @@ export default class Game extends Phaser.Scene {
                     }
                 }
                 break;
+            }
+        }
+    }
+    loadPlayerAnims() {
+        const dirns = ["down", "up", "right"];
+        const chars = ["Boi", "Gurl"];
+        for (let dirn of dirns) {
+            for (let c of chars) {
+                const frameNames = this.anims.generateFrameNames(
+                    "playeranims",
+                    {
+                        prefix: c + "/" + dirn + "-",
+                        suffix: ".png",
+                        zeroPad: 2,
+                        start: 0,
+                        end: 2,
+                    }
+                );
+                //alert(frameNames.length);
+                this.anims.create({
+                    key: c + "-" + dirn,
+                    frames: frameNames,
+                    frameRate: 10,
+                    //duration: null,
+                    repeat: -1,
+                });
             }
         }
     }
