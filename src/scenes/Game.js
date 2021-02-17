@@ -52,7 +52,12 @@ export default class Game extends Phaser.Scene {
         this.loadAppliances();
         this.loadAudio();
         this.loadPlayerAnims();
-        this.createVirtualJoystick();
+        if (
+            this.scene.systems.game.device.os.android ||
+            this.scene.systems.game.device.os.iOS ||
+            this.scene.systems.game.device.os.windowsPhone
+        )
+            this.createVirtualJoystick();
         this.scoreController = this.add.scoreController(
             0.25,
             3,
