@@ -9,8 +9,7 @@ import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 import mainBGM from "../resources/audio/Gameplay.wav";
 
 import Resources from "../resources/resources";
-import Drill from "../appliances/drill";
-import Saw from "../appliances/saw";
+import InteractiveTools from "../appliances/interactiveTools";
 import MaterialBoxes from "../appliances/materialBoxes";
 import WaitingTools from "../appliances/waitingTools";
 import AssemblyTable from "../appliances/assemblyTable";
@@ -199,6 +198,14 @@ export default class Game extends Phaser.Scene {
                             ) !== -1
                         ) {
                             this.add.saw(gridX, gridY);
+                            continue;
+                        }
+                        if (
+                            Resources.interactiveTools.solderStation.tileIds.indexOf(
+                                id
+                            ) !== -1
+                        ) {
+                            this.add.solderStation(gridX, gridY);
                             continue;
                         }
                     }
