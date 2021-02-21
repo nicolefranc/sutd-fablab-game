@@ -2,6 +2,8 @@ import Appliance from "./appliance";
 import Resources from "../resources/resources";
 import WaitingTool from "./waitingTools";
 
+/* Contains the logic for all interactive tools: saw, drill, solderStation*/
+
 const MAX_PROGRESS = 10000;
 
 export default class InteractiveTool extends Appliance {
@@ -16,7 +18,7 @@ export default class InteractiveTool extends Appliance {
         super(scene, x, y, texture, 0);
         this.state = 0;
         this.materialTable = Resources.interactiveTools[toolType].materialTable;
-        this.currentProgress = 0.0;
+        this.currentProgress = 0;
         this.expectedOutput = null;
         this.childText = scene.add.text(x, y - Resources.tileLength, "Idle", {
             color: "0x000000",
@@ -37,6 +39,10 @@ export default class InteractiveTool extends Appliance {
             case 0:
                 if (item in this.materialTable) {
                     this.state = 1;
+                    /*set this to 1/10 because it's more natural 
+                    to set the progress to be 1/10 after 1 interaction rather than
+                    0/10*/
+                    this.currentProgress = 0.1 * MAX_PROGRESS;
                     this.expectedOutput = this.materialTable[item]["output"];
                     this.childText.setText("Processing");
                     return null;
