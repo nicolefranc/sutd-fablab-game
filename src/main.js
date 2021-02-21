@@ -4,6 +4,7 @@ import Game from "./scenes/Game";
 import LeaderboardScreen from "./scenes/LeaderboardScreen";
 import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
+import SettingsMenu from "./scenes/SettingsMenu";
 
 const config = {
     type: Phaser.AUTO,

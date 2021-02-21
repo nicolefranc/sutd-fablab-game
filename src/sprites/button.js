@@ -43,5 +43,14 @@ export default class Button {
     setScaleAlt(scale) {
         this.image.scale = scale * this.superScale;
     }
+
+    enable(value) {
+        if (value) this.image.setInteractive();
+        else this.image.disableInteractive();
+    }
+
+    setVisible(value) {
+        this.image.visible = value;
+    }
     
 }
