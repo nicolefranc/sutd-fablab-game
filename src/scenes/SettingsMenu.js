@@ -26,9 +26,9 @@ export default class SettingsMenu {
 
         this.simpleImages["background"] = this.scene.add.image(400,250,'settingsMenuBackground');
         this.simpleImages["background"].scale = 1/3.2;
-        this.simpleImages["musicBar"] = this.scene.add.image(1855/3.2,671/3.2,'settingsMenuBar');
+        this.simpleImages["musicBar"] = this.scene.add.image(1857/3.2,671/3.2,'settingsMenuBar');
         this.simpleImages["musicBar"].scale = 1/3.2;
-        this.simpleImages["sfxBar"] = this.scene.add.image(1855/3.2,957/3.2,'settingsMenuBar');
+        this.simpleImages["sfxBar"] = this.scene.add.image(1857/3.2,957/3.2,'settingsMenuBar');
         this.simpleImages["sfxBar"].scale = 1/3.2;
         this.buttons["musicBarMinus"] = new Button(this.scene,1444/3.2,669/3.2,'settingsMenuMinusBtn',1/3.2,()=>{
             if (SettingsMenu.musicVolume <= 0) return;
@@ -51,16 +51,16 @@ export default class SettingsMenu {
             this.updateSfxBar();
         },'settingsMenuPlusBtnPrs');
         for (var i=0;i<18;i++) {
-            this.musicBarArray.push(this.scene.add.image((1532+(666/17*i))/3.2,
+            this.musicBarArray.push(this.scene.add.image((1534+(636/17*i))/3.2,
                 669/3.2,
                 'settingsMenuBarFiller'));
             this.musicBarArray[i].scale = 1/3.2;
-            this.sfxBarArray.push(this.scene.add.image((1532+(666/17*i))/3.2,
+            this.sfxBarArray.push(this.scene.add.image((1534+(636/17*i))/3.2,
                 955/3.2,
                 'settingsMenuBarFiller'));
                 this.sfxBarArray[i].scale = 1/3.2;
         }
-        this.tempHideButton = new Button(this.scene,1855/3.2,400,'settingsMenuPlusBtn',1/3.2,()=>{
+        this.tempHideButton = new Button(this.scene,1857/3.2,400,'settingsMenuPlusBtn',1/3.2,()=>{
             this.hide();
         },'settingsMenuPlusBtnPrs');
 

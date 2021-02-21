@@ -46,6 +46,8 @@ export default class MainMenu extends Phaser.Scene {
             for (var i in this.buttons) this.buttons[i].enable(false);
         },()=>{
             for (var i in this.buttons) this.buttons[i].enable(true);
+            //console.log("Music volume=" + SettingsMenu.musicVolume);
+            //console.log("SFX volume=" + SettingsMenu.sfxVolume);
         });
     }
 }
