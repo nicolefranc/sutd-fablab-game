@@ -22,11 +22,15 @@ export default class Saw extends Appliance {
             color: "0x000000",
         });
         this.childText.setOrigin(0.5, 0.5);
+        this.createProgressBar();
     }
     //update function
     preUpdate(time, dt) {
         if (this.state === 2) {
             this.childText.setText(`Done!`);
+            this.updateProgressBar(1);
+        }else{
+            this.updateProgressBar(this.currentProgress/MAX_PROGRESS);
         }
     }
     //interact
