@@ -11,6 +11,7 @@ import start from "../resources/Main Menu/start.png";
 import startPrs from "../resources/Main Menu/start_prs.png";
 
 import SettingsMenu from "./SettingsMenu";
+import LeaderboardScreen from "./LeaderboardScreen";
 
 export default class MainMenu extends Phaser.Scene {
     constructor(config) {
@@ -26,6 +27,7 @@ export default class MainMenu extends Phaser.Scene {
         this.load.image('startBtn',start);
         this.load.image('startBtnPrs',startPrs);
         SettingsMenu.preloadAssets(this);
+        LeaderboardScreen.preloadAssets(this);
     }
 
     create() {
@@ -41,7 +43,11 @@ export default class MainMenu extends Phaser.Scene {
             this.game.scene.start('DifficultyMenu');
             this.game.scene.bringToTop('DifficultyMenu');
         },'startBtnPrs');
-        this.buttons["leaderboard"] = new Button(this,789/1090*800,568/768*500,'leaderboardBtn',scale,()=>{},'leaderboardBtnPrs');
+        this.buttons["leaderboard"] = new Button(this,789/1090*800,568/768*500,'leaderboardBtn',scale,()=>{
+            this.game.scene.pause('MainMenu');
+            this.game.scene.start('LeaderboardScreen');
+            this.game.scene.bringToTop('LeaderboardScreen');
+        },'leaderboardBtnPrs');
         this.settingsMenu = new SettingsMenu(this,()=>{
             for (var i in this.buttons) this.buttons[i].enable(false);
         },()=>{

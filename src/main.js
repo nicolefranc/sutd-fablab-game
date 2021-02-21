@@ -4,7 +4,10 @@ import Game from "./scenes/Game";
 import LeaderboardScreen from "./scenes/LeaderboardScreen";
 import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
-import SettingsMenu from "./scenes/SettingsMenu";
+
+import font from "./resources/font/Peepo.ttf";
+
+document.head.getElementsByTagName("style")[0].innerHTML += "\n@font-face {font-family: 'peepo';src: url('" + font +"') format('ttf');font-style: normal;font-weight: 400;}";
 
 const config = {
     type: Phaser.AUTO,

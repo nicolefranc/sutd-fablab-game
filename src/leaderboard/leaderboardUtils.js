@@ -84,7 +84,7 @@ export default class LeaderboardUtils {
                 });
                 successCallback(scores);
             },
-            () => {
+            (err) => {
                 errorCallback(err);
             }
         );
@@ -97,7 +97,7 @@ export default class LeaderboardUtils {
                 var materialsJson = JSON.parse(response);
                 successCallback(materialsJson);
             },
-            () => {
+            (err) => {
                 errorCallback(err);
             }
         );
