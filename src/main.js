@@ -5,6 +5,7 @@ import LeaderboardScreen from "./scenes/LeaderboardScreen";
 import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
 import Credits from "./scenes/Credits";
+import Pause from "./scenes/Pause";
 
 const config = {
     type: Phaser.AUTO,
@@ -25,10 +26,12 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-// Add screens to the scene
+// Game screens to the scene
 game.scene.add("DifficultyMenu", DifficultyMenu);
 game.scene.add("Game", Game);
+game.scene.add("Pause", Pause);
 
+//Menu screens
 game.scene.add("LeaderboardScreen", LeaderboardScreen);
 game.scene.add("MainMenu", MainMenu);
 game.scene.add("Credits", Credits);
