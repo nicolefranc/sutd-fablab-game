@@ -20,6 +20,8 @@ import ScoreController from "../controllers/scoreController";
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
 import playerSpriteSheet from "../resources/players.png";
 import playerSpriteJson from "../resources/players.json";
+import cloudJson from "../resources/cloud/cloud_atlas.json";
+import cloudSheet from "../resources/cloud/cloud.png";
 
 import VirtualJoystickPlugin from "phaser3-rex-plugins/plugins/virtualjoystick-plugin";
 
@@ -37,6 +39,7 @@ export default class Game extends Phaser.Scene {
         this.preloadTiles();
         this.preloadAudio();
         this.preloadPlayerAnims();
+        this.preloadCloud();
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.load.plugin(
@@ -48,6 +51,7 @@ export default class Game extends Phaser.Scene {
 
     create() {
         console.log(this.scene.systems.game.device.os.macOS);
+        this.loadCloudAnims();
         this.loadTiles();
         this.loadAppliances();
         this.loadAudio();
@@ -121,11 +125,16 @@ export default class Game extends Phaser.Scene {
         this.load.atlas("playeranims", playerSpriteSheet, playerSpriteJson);
     }
 
+    preloadCloud() {
+        this.load.atlas("cloudsheet", cloudSheet, cloudJson);
+    }
+
     loadTiles() {
         const map = this.make.tilemap({ key: "tilemap" });
         const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         const floor = map.createLayer("Floor", tileset);
         const walls = map.createLayer("Walls", tileset);
+        this.walls = walls;
     }
     loadAudio() {
         const bgm = this.sound.add("mainBGM");
@@ -133,6 +142,7 @@ export default class Game extends Phaser.Scene {
     }
     loadAppliances() {
         this.assemblyTables = [];
+        this.appliances = [];
         for (var i = 0; i < fablabTilesJson["layers"].length; i++) {
             var j = fablabTilesJson["layers"][i];
             if (j["name"] === "Walls") {
@@ -148,7 +158,8 @@ export default class Game extends Phaser.Scene {
                                     id
                                 ) !== -1
                             ) {
-                                this.add.materialBox(gridX, gridY, l);
+                                let matBox = this.add.materialBox(gridX, gridY, l);
+                                this.appliances.push(matBox);
                                 break;
                             }
                         }
@@ -161,7 +172,8 @@ export default class Game extends Phaser.Scene {
                                 "tileIds"
                             ].indexOf(id) !== -1
                         ) {
-                            this.add.laserCutter(gridX, gridY);
+                            let lC = this.add.laserCutter(gridX, gridY);
+                            this.appliances.push(lC);
                             continue;
                         }
                         if (
@@ -169,7 +181,8 @@ export default class Game extends Phaser.Scene {
                                 id
                             ) !== -1
                         ) {
-                            this.add.threeDPrinter(gridX, gridY);
+                            let threedp = this.add.threeDPrinter(gridX, gridY);
+                            this.appliances.push(threedp)
                             continue;
                         }
                     }
@@ -190,7 +203,8 @@ export default class Game extends Phaser.Scene {
                                 id
                             ) !== -1
                         ) {
-                            this.add.drill(gridX, gridY);
+                            let d = this.add.drill(gridX, gridY);
+                            this.appliances.push(d);
                             continue;
                         }
                         if (
@@ -198,7 +212,8 @@ export default class Game extends Phaser.Scene {
                                 id
                             ) !== -1
                         ) {
-                            this.add.saw(gridX, gridY);
+                            let s = this.add.saw(gridX, gridY);
+                            this.appliances.push(s);
                             continue;
                         }
                     }
@@ -232,6 +247,25 @@ export default class Game extends Phaser.Scene {
                 });
             }
         }
+    }
+
+    loadCloudAnims(){
+        const frameNames = this.anims.generateFrameNames(
+            "cloudsheet",
+            {
+                prefix: "cloud",
+                zeroPad: 1,
+                start: 1,
+                end: 3,
+            }
+        );
+        console.log(frameNames);
+        this.anims.create({
+            key: "cloudAnim",
+            frames: frameNames,
+            frameRate: 3,
+            repeat: -1
+        });
     }
 
     update() {

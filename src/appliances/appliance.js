@@ -47,6 +47,16 @@ export default class Appliance extends Phaser.Physics.Arcade.Sprite{
             this.progressBar.fillColor = c;
         }
         this.progressBar.setVisible(progress > 0);
-        this.pbOutline.setVisible(progress > 0)
+        this.pbOutline.setVisible(progress > 0);
     }
+
+    createCloudAnim(){
+        this.cloud = this.scene.add.sprite(this.x, this.y, "playersprite");
+        this.cloud.setScale(0.1);
+        //console.log(this.anims.get("cloudAnim"));
+        this.cloud.anims.play("cloudAnim");
+        this.cloud.setVisible(false);
+    }
+
+    setCloudVisible(v){this.cloud.setVisible(v);}
 }

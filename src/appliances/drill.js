@@ -22,9 +22,11 @@ export default class Drill extends Appliance {
         });
         this.childText.setOrigin(0.5, 0.5);
         this.createProgressBar();
+        this.createCloudAnim();
     }
     //update function
     preUpdate(time, dt) {
+        this.setCloudVisible(this.state === 1);
         if (this.state === 2) {
             this.updateProgressBar(1);
             //state 2; show Done, item can be collected
