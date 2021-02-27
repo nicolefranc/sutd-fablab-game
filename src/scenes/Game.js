@@ -89,7 +89,7 @@ export default class Game extends Phaser.Scene {
 
         this.physics.add.collider(this.player, this.walls);
 
-        if (this.isMobile)
+        //if (this.isMobile)
             this.setupMobile();
     }
 
@@ -98,7 +98,7 @@ export default class Game extends Phaser.Scene {
     }
 
     setupMobile() {
-        this.cameras.main.startFollow(this.player, true);
+        //this.cameras.main.startFollow(this.player, true);
         this.createVirtualJoystick();
 
         this.scene.run("GameUI");
@@ -276,5 +276,13 @@ export default class Game extends Phaser.Scene {
 
     update() {
         this.player.update(this.cursors);
+        if (this.isMobile){
+            let width = this.sys.canvas.width;
+            let height = this.sys.canvas.height;
+            let dx = this.player.x + this.cameras.main.x - width/2;
+            let dy = this.player.y + this.cameras.main.y - height/2;
+            this.cameras.main.x -= dx/10;
+            this.cameras.main.y -= dy/10;
+        }
     }
 }
