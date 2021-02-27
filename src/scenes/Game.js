@@ -1,28 +1,35 @@
 import Phaser from "phaser";
-
+//Tiles
 import fablabTiles from "../resources/tiles/tile sheet final2.png";
 import fablabTilesJson from "../resources/tiles/fablab_complete.json";
 import blankTile from "../resources/tiles/blankTile.png";
 import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
 import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 
+//Audio
 import mainBGM from "../resources/audio/Gameplay.wav";
 
+//Resources
 import Resources from "../resources/resources";
-import Drill from "../appliances/drill";
-import Saw from "../appliances/saw";
+import InteractiveTools from "../appliances/interactiveTools";
 import MaterialBoxes from "../appliances/materialBoxes";
 import WaitingTools from "../appliances/waitingTools";
 import AssemblyTable from "../appliances/assemblyTable";
 import Player from "../sprites/Player.js";
 import ScoreController from "../controllers/scoreController";
 
+//Buttons
+import Button from "../sprites/button";
+import options from "../resources/Main Menu/options.png";
+import optionsPrs from "../resources/Main Menu/options_prs.png";
+
+//Player
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
 import playerSpriteSheet from "../resources/players.png";
 import playerSpriteJson from "../resources/players.json";
 
+//Utils
 import VirtualJoystickPlugin from "phaser3-rex-plugins/plugins/virtualjoystick-plugin";
-
 import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import OrderDisplay from "../controllers/orderDisplay";
 
@@ -37,6 +44,7 @@ export default class Game extends Phaser.Scene {
         this.preloadTiles();
         this.preloadAudio();
         this.preloadPlayerAnims();
+        this.preloadButton();
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.load.plugin(
@@ -78,9 +86,11 @@ export default class Game extends Phaser.Scene {
         for (var i in this.assemblyTables)
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
+        this.loadButton();
         this.orderDisplay = new OrderDisplay(0, 0, this);
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
+        this.physics.add.collider(this.player, this.walls);
     }
 
     createVirtualJoystick() {
@@ -120,12 +130,44 @@ export default class Game extends Phaser.Scene {
         this.load.image("playersprite", PlayerPlaceholderSprite);
         this.load.atlas("playeranims", playerSpriteSheet, playerSpriteJson);
     }
+    preloadButton() {
+        //TODO: change to actual pause btn
+        this.load.image("pauseBtn", options);
+        this.load.image("pauseBtnPrs", optionsPrs);
+    }
 
     loadTiles() {
         const map = this.make.tilemap({ key: "tilemap" });
         const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         const floor = map.createLayer("Floor", tileset);
-        const walls = map.createLayer("Walls", tileset);
+        this.walls = map.createLayer("Walls", tileset);
+        // this.renderCollisionWalls(walls);
+        const debugGraphics = this.add.graphics().setAlpha(0.7);
+        this.walls.renderDebug(debugGraphics, {
+            tileColor: null,
+            collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+            faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+        });
+        this.walls.setCollisionByProperty({ collides: true });
+    }
+    loadButton() {
+        var scale = 500 / 768;
+        const pauseBtn = new Button(
+            this,
+            (1000 / 1090) * 800,
+            (150 / 768) * 500,
+            "pauseBtn",
+            scale / 2,
+            () => {
+                this.pauseGame();
+            },
+            "pauseBtnPrs"
+        );
+        // pauseBtn.setScrollFactor(0);
+        // pauseBtn.setInteractive();
+        // pauseBtn.on("pointerdown", () => this.scene.pause("Game"));
+        // this.events.on("pause", () => this.scene.run("Pause"));
+        // this.events.on("resume", () => this.scene.stop("Pause"));
     }
     loadAudio() {
         const bgm = this.sound.add("mainBGM");
@@ -201,6 +243,14 @@ export default class Game extends Phaser.Scene {
                             this.add.saw(gridX, gridY);
                             continue;
                         }
+                        if (
+                            Resources.interactiveTools.solderStation.tileIds.indexOf(
+                                id
+                            ) !== -1
+                        ) {
+                            this.add.solderStation(gridX, gridY);
+                            continue;
+                        }
                     }
                 }
                 break;
@@ -233,8 +283,19 @@ export default class Game extends Phaser.Scene {
             }
         }
     }
+    pauseGame() {
+        this.menu = this.add.image(500);
+        this.scene.run("Pause");
+        this.scene.pause("Game");
+        this.scene.bringToTop("Pause");
+    }
 
     update() {
         this.player.update(this.cursors);
+        if (this.scoreController.isEndgame) {
+            this.scene.pause("Game");
+            this.scene.run("Endgame");
+            this.scene.bringToTop("Endgame");
+        }
     }
 }

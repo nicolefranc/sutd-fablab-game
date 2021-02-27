@@ -65,6 +65,9 @@ export default class Resources {
                     wood: {
                         output: "jigsawWood",
                     },
+                    metalSheet: {
+                        output: "jigsawMetal",
+                    },
                 },
             },
             threeDPrinter: {
@@ -116,7 +119,7 @@ export default class Resources {
                     },
                 },
             },
-            solder_station: {
+            solderStation: {
                 tileIds: [54],
                 multiplyOffset: [0.5, 0.5],
                 physicsBodyProportions: [0.8, 0.8],
@@ -166,62 +169,77 @@ export default class Resources {
             acrylic: {
                 product: false,
                 image: acrylic,
+                value: 0,
             },
             metalSheet: {
                 product: false,
                 image: metalSheet,
+                value: 0,
             },
             filament: {
                 product: false,
                 image: filament,
+                value: 0,
             },
             pcb: {
                 product: false,
                 image: pcb,
+                value: 0,
             },
             wood: {
                 product: false,
                 image: wood,
+                value: 0,
             },
             jigsawAcrylic: {
                 product: true,
                 image: jigsawAcrylic,
+                value: 20,
             },
             jigsawMetal: {
                 product: true,
                 image: jigsawMetal,
+                value: 30,
             },
             jigsawWood: {
                 product: true,
                 image: jigsawWood,
+                value: 20,
             },
             threeDPrint: {
                 product: true,
                 image: threeDPrint,
+                value: 25,
             },
             printedPcb: {
                 product: true,
                 image: printedPcb,
+                value: 40,
             },
             cutAcrylic: {
                 product: true,
                 image: cutAcrylic,
+                value: 50,
             },
             cutWood: {
                 product: true,
                 image: cutWood,
+                value: 50,
             },
             cutMetal: {
                 product: true,
                 image: cutMetal,
+                value: 60,
             },
             acrylicStrips: {
                 product: true,
                 image: acrylicStrips,
+                value: 55,
             },
             woodStrips: {
                 product: true,
                 image: woodStrips,
+                value: 55,
             },
         };
     }

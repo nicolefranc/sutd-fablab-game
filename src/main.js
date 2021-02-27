@@ -1,9 +1,12 @@
 import Phaser from "phaser";
 
 import Game from "./scenes/Game";
+import Endgame from "./scenes/Endgame";
 import LeaderboardScreen from "./scenes/LeaderboardScreen";
 import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
+import Credits from "./scenes/Credits";
+import Pause from "./scenes/Pause";
 
 import font from "./resources/font/Peepo.ttf";
 
@@ -28,12 +31,14 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-// Add screens to the scene
-game.scene.add("Game", Game);
-
-game.scene.add("LeaderboardScreen", LeaderboardScreen);
-
+// Game screens to the scene
 game.scene.add("DifficultyMenu", DifficultyMenu);
-game.scene.add("MainMenu", MainMenu);
+game.scene.add("Game", Game);
+game.scene.add("Pause", Pause);
 
+//Menu screens
+game.scene.add("LeaderboardScreen", LeaderboardScreen);
+game.scene.add("MainMenu", MainMenu);
+game.scene.add("Credits", Credits);
+game.scene.add("Endgame", Endgame);
 game.scene.start("MainMenu");

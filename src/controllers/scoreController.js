@@ -1,18 +1,19 @@
 import Phaser from "phaser";
 import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import Resources from "../resources/resources";
-
+import EndgameOverlay from "../scenes/Endgame";
 //TODO add a method an DS to store the array of components that are submitted
-const GAME_DURATION = 120000; //2 minutes in ms
+const GAME_DURATION = 6000; //2 minutes in ms
 
 export default class ScoreController extends Phaser.GameObjects.Text {
-    constructor(scene, gridX, gridY, productItems, orderCount, scoreIncrement) {
+    constructor(scene, gridX, gridY, productItems, orderCount) {
         super(
             scene,
             gridX * Resources.tileLength,
             gridY * Resources.tileLength,
             ""
         );
+        this.isEndgame = false;
         this.setColor("0x000000");
         this.time = GAME_DURATION;
         this.acceptItems = true;
@@ -27,7 +28,6 @@ export default class ScoreController extends Phaser.GameObjects.Text {
 
         this.requiredItems = [];
         this.productItems = productItems;
-        this.scoreIncrement = scoreIncrement;
 
         for (var i = 0; i < orderCount; i++) {
             this.requiredItems.push(
@@ -62,6 +62,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         if (this.acceptItems) {
             if (this.started) this.time -= dt;
             if (this.time <= 0) {
+                this.initiateEndGame();
                 this.acceptItems = false;
             }
         }
@@ -98,13 +99,24 @@ export default class ScoreController extends Phaser.GameObjects.Text {
 
     submit(index) {
         if (!this.started || !this.acceptItems) return;
-        this.score += this.scoreIncrement;
+        //TODO: add according to the component's value
+        // this.score += this.scoreIncrement;
 
         //TODO: Refactor to only push only when there is no such component
-        this.componentCollection.push({
-            name: this.requiredItems[index],
-            quantity: 1,
-        });
+        let componentIndex = this.componentCollection.findIndex(
+            (component) => component.name === this.requiredItems[index]
+        );
+        console.log(this.requiredItems[index]);
+        console.log(componentIndex);
+        if (componentIndex == -1) {
+            this.componentCollection.push({
+                name: this.requiredItems[index],
+                quantity: 1,
+            });
+        } else {
+            console.log(this.componentCollection[this.requiredItems[index]]);
+            this.componentCollection[componentIndex].quantity += 1;
+        }
         this.requiredItems[index] = null;
         for (var i in this.assemblyTables)
             this.assemblyTables[i].setRequiredItems(this.requiredItems);
@@ -120,18 +132,35 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         }, ScoreController.timeout);
         this.updateDisplay();
     }
+    initiateEndGame() {
+        console.log(this.componentCollection);
+        this.isEndgame = true;
+        this.displayOverlay();
+        // LeaderboardUtils.submitScore(
+        //     "FCC",
+        //     "cia.filbert@gmail.com",
+        //     "easy",
+        //     this.score,
+        //     this.componentCollection,
+        //     () => {},
+        //     () => {}
+        // );
+    }
+
+    displayOverlay() {
+        console.log("Displaying overlay...");
+    }
 }
 
 Phaser.GameObjects.GameObjectFactory.register(
     "scoreController",
-    function (gridX, gridY, productItems, orderCount, scoreIncrement) {
+    function (gridX, gridY, productItems, orderCount) {
         var text = new ScoreController(
             this.scene,
             gridX,
             gridY,
             productItems,
-            orderCount,
-            scoreIncrement
+            orderCount
         );
 
         this.displayList.add(text);
