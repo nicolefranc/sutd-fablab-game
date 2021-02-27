@@ -1,7 +1,6 @@
 import Button from "../sprites/button";
 //TODO: use the actual button png
-import backButton from "../resources/Main Menu/start.png";
-import backButtonPrs from "../resources/Main Menu/start_prs.png";
+import backButton from "../resources/tutorial/left_button.png";
 import creditsBackground from "../resources/Main Menu/credits_background.png";
 
 export default class Credits extends Phaser.Scene {
@@ -10,7 +9,6 @@ export default class Credits extends Phaser.Scene {
     }
     preload() {
         this.load.image("backButton", backButton);
-        this.load.image("backButtonPrs", backButtonPrs);
         this.load.image("creditsBackground", creditsBackground);
     }
     create() {
@@ -19,10 +17,10 @@ export default class Credits extends Phaser.Scene {
         this.background.setScale(scale);
         const backButton = new Button(
             this,
-            (544 / 1090) * 800,
-            (710 / 768) * 500,
+            (100 / 1090) * 800,
+            (80 / 768) * 500,
             "backButton",
-            scale,
+            0.5,
             () => {
                 this.game.scene.stop("Credits");
                 this.game.scene.start("MainMenu");
