@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser, { Tilemaps } from "phaser";
 import Button from "../sprites/button"
 
 import background from "../resources/Main Menu/background.png";
@@ -31,11 +31,28 @@ export default class MainMenu extends Phaser.Scene {
         this.background.setScale(scale);
         this.buttons = {};
         this.buttons["options"] = new Button(this,305/1090*800,570/768*500,'optionsBtn',scale,()=>{},'optionsBtnPrs');
-        this.buttons["start"] = new Button(this,544/1090*800,426/768*500,'startBtn',scale,()=>{
-            this.game.scene.pause('MainMenu');
-            this.game.scene.start('DifficultyMenu');
-            this.game.scene.bringToTop('DifficultyMenu');
-        },'startBtnPrs');
+        this.buttons["start"] = new Button(
+            this,
+            (544 / 1090) * 800,
+            (426 / 768) * 500,
+            "startBtn",
+            scale,
+            () => {
+                if (this.scale.isFullscreen) {
+                    // this.scale.stopFullscreen();
+                    // On stop fulll screen
+                } else {
+                    // this.scale.scaleMode = Phaser.Scale.FIT;
+                    // this.scale.startFullscreen();
+                    // On start fulll screen
+                }
+
+                this.game.scene.pause("MainMenu");
+                this.game.scene.start("DifficultyMenu");
+                this.game.scene.bringToTop("DifficultyMenu");
+            },
+            "startBtnPrs"
+        );
         this.buttons["leaderboard"] = new Button(this,789/1090*800,568/768*500,'leaderboardBtn',scale,()=>{},'leaderboardBtnPrs');
     }
 }

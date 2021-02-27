@@ -65,6 +65,9 @@ export default class Resources {
                     wood: {
                         output: "jigsawWood",
                     },
+                    metalSheet: {
+                        output: "jigsawMetal",
+                    },
                 },
             },
             threeDPrinter: {
@@ -116,7 +119,7 @@ export default class Resources {
                     },
                 },
             },
-            solder_station: {
+            solderStation: {
                 tileIds: [54],
                 multiplyOffset: [0.5, 0.5],
                 physicsBodyProportions: [0.8, 0.8],
