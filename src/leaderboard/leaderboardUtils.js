@@ -72,15 +72,9 @@ export default class LeaderboardUtils {
         LeaderboardUtils.get(
             `/get_leaderboard?max_entries=${n}`,
             (response) => {
-                var scoresJson = JSON.parse(response);
-                var scores = [];
-                for (var i in scoresJson)
-                    scores.push([
-                        scoresJson[i]["name"],
-                        parseInt(scoresJson[i]["score"]),
-                    ]);
+                var scores = JSON.parse(response);
                 scores.sort(function (a, b) {
-                    return a[1] - b[1];
+                    return a["score"] - b["score"];
                 });
                 successCallback(scores);
             },
@@ -105,7 +99,9 @@ export default class LeaderboardUtils {
 
     static submitScore(
         name,
+        gender,
         email,
+        difficulty,
         score,
         materials,
         successCallback,
@@ -113,9 +109,11 @@ export default class LeaderboardUtils {
     ) {
         var jsonObject = JSON.stringify({
             name: name,
+            gender: gender,
             email: email,
+            difficulty: difficulty,
             score: score,
-            materials: materials,
+            materials: materials
         });
 
         LeaderboardUtils.postJson(

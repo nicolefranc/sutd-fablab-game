@@ -1,7 +1,21 @@
 import Phaser from "phaser";
 import LeaderboardUtils from "../leaderboard/leaderboardUtils"
 
-import leaderboardScreenBackground from "../resources/Leaderboard Screen/background_leaderboard.png";
+import leaderboardScreenBackground from "../resources/Leaderboard Screen/leaderboardmenu_final.png";
+import leaderboardScreenBoyHead from "../resources/Leaderboard Screen/boy_head.png";
+import leaderboardScreenGirlHead from "../resources/Leaderboard Screen/girl_head.png";
+import leaderboardScreenBoyFigure from "../resources/Leaderboard Screen/character_boy_2.png";
+import leaderboardScreenGirlFigure from "../resources/Leaderboard Screen/character_girl.png";
+import leaderboardScreenPodium from "../resources/Leaderboard Screen/podium.png";
+
+import leaderboardScreenPos4 from "../resources/Leaderboard Screen/4.png";
+import leaderboardScreenPos5 from "../resources/Leaderboard Screen/5.png";
+import leaderboardScreenPos6 from "../resources/Leaderboard Screen/6.png";
+import leaderboardScreenPos7 from "../resources/Leaderboard Screen/7.png";
+import leaderboardScreenPos8 from "../resources/Leaderboard Screen/8.png";
+import leaderboardScreenPos9 from "../resources/Leaderboard Screen/9.png";
+import leaderboardScreenPos10 from "../resources/Leaderboard Screen/10.png";
+
 
 export default class LeaderboardScreen extends Phaser.Scene {
     constructor(config) {
@@ -10,6 +24,19 @@ export default class LeaderboardScreen extends Phaser.Scene {
 
     static preloadAssets(scene) {
         scene.load.image('leaderboardScreenBackground',leaderboardScreenBackground);
+        scene.load.image('leaderboardScreenBoyHead',leaderboardScreenBoyHead);
+        scene.load.image('leaderboardScreenGirlHead',leaderboardScreenGirlHead);
+        scene.load.image('leaderboardScreenBoyFigure',leaderboardScreenBoyFigure);
+        scene.load.image('leaderboardScreenGirlFigure',leaderboardScreenGirlFigure);
+        scene.load.image('leaderboardScreenPodium',leaderboardScreenPodium);
+        
+        scene.load.image('leaderboardScreenPos4',leaderboardScreenPos4);
+        scene.load.image('leaderboardScreenPos5',leaderboardScreenPos5);
+        scene.load.image('leaderboardScreenPos6',leaderboardScreenPos6);
+        scene.load.image('leaderboardScreenPos7',leaderboardScreenPos7);
+        scene.load.image('leaderboardScreenPos8',leaderboardScreenPos8);
+        scene.load.image('leaderboardScreenPos9',leaderboardScreenPos9);
+        scene.load.image('leaderboardScreenPos10',leaderboardScreenPos10);
     }
 
     create() {
@@ -19,14 +46,23 @@ export default class LeaderboardScreen extends Phaser.Scene {
         this.text.setOrigin(0.5,0.5);
         this.units = [];
         LeaderboardUtils.getScores(10,(scores)=>{
-            this.text.setText("Leaderboard:\n\n");
-            for (var i in scores) {
-                this.units.push(new LeaderboardScreenScoreUnit(this,400,150+(35*i),scores[i][0],scores[i][1],i+1));
-            }
+            this.loadScores(scores);
         }, (err) => {
-            console.log("test");
-            this.text.text = "Error retrieving score ... please try again later";
+            //console.log("test");
+            //this.text.text = "Error retrieving score ... please try again later";
+            this.loadScores(undefined);
         });
+    }
+
+    loadScores(scores) {
+        this.add.image(439/1318*800,577/768*500,'leaderboardScreenPodium').setScale(500/768);
+        this.add.image(457/1318*800,302/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
+        this.add.image(705/1318*800,404/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
+        this.add.image(178/1318*800,(465+5)/768*500,'leaderboardScreenBoyFigure').setScale(500/768);
+        for (var i=0;i<7;i++) {
+            const j = i+4;
+            this.add.image(1060/1318*800,(208+(81*i))/768*500,'leaderboardScreenPos'+j).setScale(500/768);
+        }
     }
 }
 
