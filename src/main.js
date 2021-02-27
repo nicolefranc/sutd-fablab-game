@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 
 import Game from "./scenes/Game";
+import Endgame from "./scenes/Endgame";
 import LeaderboardScreen from "./scenes/LeaderboardScreen";
 import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
@@ -35,5 +36,5 @@ game.scene.add("Pause", Pause);
 game.scene.add("LeaderboardScreen", LeaderboardScreen);
 game.scene.add("MainMenu", MainMenu);
 game.scene.add("Credits", Credits);
-
+game.scene.add("Endgame", Endgame);
 game.scene.start("MainMenu");

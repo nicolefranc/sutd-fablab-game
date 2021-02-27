@@ -10,8 +10,8 @@ import optionsPrs from "../resources/Main Menu/options_prs.png";
 import start from "../resources/Main Menu/start.png";
 import startPrs from "../resources/Main Menu/start_prs.png";
 //TODO: change to actual button png
-import credits from "../resources/Main Menu/start.png";
-import creditsPrs from "../resources/Main Menu/start_prs.png";
+import credits from "../resources/Main Menu/credits.png";
+import creditsPrs from "../resources/Main Menu/credits_prs.png";
 
 export default class MainMenu extends Phaser.Scene {
     constructor(config) {
@@ -51,9 +51,9 @@ export default class MainMenu extends Phaser.Scene {
             "startBtn",
             scale,
             () => {
-                this.game.scene.pause("MainMenu");
                 this.game.scene.start("DifficultyMenu");
                 this.game.scene.bringToTop("DifficultyMenu");
+                this.game.scene.stop("MainMenu");
             },
             "startBtnPrs"
         );
@@ -73,9 +73,9 @@ export default class MainMenu extends Phaser.Scene {
             "creditsBtn",
             scale,
             () => {
-                this.game.scene.pause("MainMenu");
                 this.game.scene.start("Credits");
                 this.game.scene.bringToTop("Credits");
+                this.game.scene.stop("MainMenu");
             },
             "creditsBtnPrs"
         );

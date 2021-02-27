@@ -41,7 +41,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.anims.stop();
         }
-        let speed = 100;
+        let speed = 300;
         let sightLength = 50;
 
         // set animation here

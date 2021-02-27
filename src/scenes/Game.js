@@ -292,5 +292,10 @@ export default class Game extends Phaser.Scene {
 
     update() {
         this.player.update(this.cursors);
+        if (this.scoreController.isEndgame) {
+            this.scene.pause("Game");
+            this.scene.run("Endgame");
+            this.scene.bringToTop("Endgame");
+        }
     }
 }
