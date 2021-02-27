@@ -56,9 +56,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
 
     loadScores(scores) {
         this.add.image(439/1318*800,577/768*500,'leaderboardScreenPodium').setScale(500/768);
-        this.add.image(457/1318*800,302/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
+        this.add.image(442/1318*800,302/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
         this.add.image(705/1318*800,404/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
-        this.add.image(178/1318*800,(465+5)/768*500,'leaderboardScreenBoyFigure').setScale(500/768);
+        this.add.image(178/1318*800,(465)/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
         for (var i=0;i<7;i++) {
             const j = i+4;
             this.add.image(1060/1318*800,(208+(81*i))/768*500,'leaderboardScreenPos'+j).setScale(500/768);
