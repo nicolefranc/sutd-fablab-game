@@ -40,28 +40,113 @@ export default class LeaderboardScreen extends Phaser.Scene {
     }
 
     create() {
+
+        const score = [
+            {
+                "name": "ABC",
+                "gender": "f",
+                "score": 1000,
+                "rank": 1
+            },
+            {
+                "name": "DEF",
+                "gender": "m",
+                "score": 400,
+                "rank": 2
+            },
+            {
+                "name": "GHI",
+                "gender": "f",
+                "score": 399,
+                "rank": 3
+            },
+            {
+                "name": "JKL",
+                "gender": "m",
+                "score": 398,
+                "rank": 4
+            },
+            {
+                "name": "MNO",
+                "gender": "f",
+                "score": 397,
+                "rank": 5
+            },
+            {
+                "name": "PQR",
+                "gender": "m",
+                "score": 396,
+                "rank": 6
+            },
+            {
+                "name": "KO",
+                "gender": "f",
+                "score": 395,
+                "rank": 7
+            },
+            {
+                "name": "NO",
+                "gender": "m",
+                "score": 34,
+                "rank": 8
+            },
+            {
+                "name": "DIO",
+                "gender": "f",
+                "score": 3.1415,
+                "rank": 9
+            },
+            {
+                "name": "DA!",
+                "gender": "m",
+                "score": 2.7182,
+                "rank": 10
+            }
+        ]
         this.bg = this.add.image(400,250,'leaderboardScreenBackground');
         this.bg.scale = 500/769;
-        this.text = this.add.text(400,250,"Loading...",{"fontFamily": "peepo"});
+        this.text = this.add.text(400,250,"Loading...",{"fontFamily": "peepo","fontSize": 20, "color": "0x000000"});
         this.text.setOrigin(0.5,0.5);
         this.units = [];
         LeaderboardUtils.getScores(10,(scores)=>{
-            this.loadScores(scores);
+            this.text.text = "";
+            this.loadScores(score);
         }, (err) => {
             //console.log("test");
-            //this.text.text = "Error retrieving score ... please try again later";
-            this.loadScores(undefined);
+            this.text.text = "Error retrieving score ... please try again later";
+            //this.loadScores(score);
         });
     }
 
     loadScores(scores) {
-        this.add.image(439/1318*800,577/768*500,'leaderboardScreenPodium').setScale(500/768);
-        this.add.image(442/1318*800,302/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
-        this.add.image(705/1318*800,404/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
-        this.add.image(178/1318*800,(465)/768*500,'leaderboardScreenGirlFigure').setScale(500/768);
+        this.add.image(439/1318*800,(577+22)/768*500,'leaderboardScreenPodium').setScale(500/768);
+        /*
+        this.add.image(695/1318*800,(404+22+5)/768*500,'leaderboardScreenBoyFigure').setScale(500/768);
+        this.add.text(637/1318*800,566/768*500,'BBB',{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000"});
+        this.add.image(178/1318*800,(465+22+5)/768*500,'leaderboardScreenBoyFigure').setScale(500/768);
+        this.add.text(120/1318*800,625/768*500,'CCC',{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000"});
         for (var i=0;i<7;i++) {
             const j = i+4;
             this.add.image(1060/1318*800,(208+(81*i))/768*500,'leaderboardScreenPos'+j).setScale(500/768);
+            this.add.image(1222/1318*800,(207+(81*i))/768*500,'leaderboardScreenBoyHead').setScale(500/768);
+            this.add.text(931/1318*800,(207+(81*i))/768*500,'YEE',{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"left"}).setOrigin(0,0.5);
+            this.add.text(1167/1318*800,(207+(81*i))/768*500,'9999',{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"right"}).setOrigin(1,0.5);
+        }*/
+
+        for (var i=0;i<scores.length;i++) {
+            if (i<3) {
+                const imgParam = [[442,302],[695,404],[178,465]];
+                const textParam = [[384,477],[637,566],[120,625]];
+                this.add.image(imgParam[i][0]/1318*800,(imgParam[i][1]+22+(scores[i]["gender"]==="m"?5:0))/768*500,scores[i]["gender"]==="m"?'leaderboardScreenBoyFigure':'leaderboardScreenGirlFigure').setScale(500/768);
+                this.add.text(textParam[i][0]/1318*800,textParam[i][1]/768*500,scores[i]["name"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000"});
+            }
+            else {
+                const j=i+1;
+                this.add.image(1060/1318*800,(208+(81*(i-3)))/768*500,'leaderboardScreenPos'+j).setScale(500/768);
+                this.add.image(1222/1318*800,(207+(81*(i-3)))/768*500,scores[i]["gender"]==="m"?'leaderboardScreenBoyHead':'leaderboardScreenGirlHead').setScale(500/768);
+                this.add.text(931/1318*800,(207+(81*(i-3)))/768*500,scores[i]["name"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"left"}).setOrigin(0,0.5);
+                this.add.text(1167/1318*800,(207+(81*(i-3)))/768*500,scores[i]["score"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"right"}).setOrigin(1,0.5);
+            }
         }
     }
 }
