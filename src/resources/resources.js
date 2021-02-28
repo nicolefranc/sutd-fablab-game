@@ -23,10 +23,10 @@ export default class Resources {
     static get materialBoxes() {
         return {
             acrylic: {
-                tileIds: [2, 42],
+                tileIds: [58, 42],
             },
             metalSheet: {
-                tileIds: [1, 41],
+                tileIds: [57, 41],
             },
             filament: {
                 tileIds: [4],
@@ -35,7 +35,7 @@ export default class Resources {
                 tileIds: [5],
             },
             wood: {
-                tileIds: [3, 43],
+                tileIds: [59, 43],
             },
         };
     }
@@ -54,7 +54,7 @@ export default class Resources {
     static get waitingTools() {
         return {
             laserCutter: {
-                tileIds: [7],
+                tileIds: [85],
                 multiplyOffset: [1, 0.5],
                 physicsBodyProportions: [0.9, 0.8],
                 texture: "blankHorizontalTiles",
@@ -71,7 +71,7 @@ export default class Resources {
                 },
             },
             threeDPrinter: {
-                tileIds: [21],
+                tileIds: [26],
                 multiplyOffset: [0.5, 0.5],
                 physicsBodyProportions: [0.8, 0.8],
                 texture: "blankTile",
@@ -86,7 +86,7 @@ export default class Resources {
     static get interactiveTools() {
         return {
             drill: {
-                tileIds: [52],
+                tileIds: [60],
                 multiplyOffset: [0.5, 0.5],
                 physicsBodyProportions: [0.8, 0.8],
                 texture: "blankTile",
@@ -103,7 +103,7 @@ export default class Resources {
                 },
             },
             saw: {
-                tileIds: [53],
+                tileIds: [61],
                 multiplyOffset: [0.5, 0.5],
                 physicsBodyProportions: [0.8, 0.8],
                 texture: "blankTile",
@@ -120,7 +120,7 @@ export default class Resources {
                 },
             },
             solderStation: {
-                tileIds: [54],
+                tileIds: [62],
                 multiplyOffset: [0.5, 0.5],
                 physicsBodyProportions: [0.8, 0.8],
                 texture: "blankTile",

@@ -1,7 +1,15 @@
 import Phaser from "phaser";
 
-import fablabTiles from "../resources/tiles/tile sheet final2.png";
-import fablabTilesJson from "../resources/tiles/fablab_complete.json";
+// import fablabTiles from "../resources/tiles/tile sheet final2.png";
+// import fablabTilesJson from "../resources/tiles/fablab_complete.json";
+import fablabTiles from "../resources/tiles/tile-sheet-23feb.png";
+// Easy
+import fablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy.json";
+// Normal
+import fablabTilesJsonNormal from "../resources/tiles/normal/fablab-tiles-normal.json";
+// Hard
+import fablabTilesJsonHard from "../resources/tiles/hard/fablab-tiles-hard.json";
+
 import blankTile from "../resources/tiles/blankTile.png";
 import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
 import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
@@ -35,6 +43,11 @@ export default class Game extends Phaser.Scene {
         super(config);
         //LeaderboardUtils.get("/",(chunk) => {alert(chunk)}, ()=> {});
     }
+
+    init(data) {
+        console.log(data);
+        this.difficulty = data.difficulty;
+    }
     
     preload() {
         Resources.preloadMaterialImages(this);
@@ -58,11 +71,6 @@ export default class Game extends Phaser.Scene {
         this.loadAppliances();
         this.loadAudio();
         this.loadPlayerAnims();
-        // if (
-        //     this.scene.systems.game.device.os.android ||
-        //     this.scene.systems.game.device.os.iOS ||
-        //     this.scene.systems.game.device.os.windowsPhone
-        // )
         this.scoreController = this.add.scoreController(
             0.25,
             3,
@@ -70,10 +78,10 @@ export default class Game extends Phaser.Scene {
             3,
             100
         );
-
+        
         this.player = this.add.player(
             350,
-            350,
+            300,
             "playersprite",
             0,
             this.scoreController
@@ -129,15 +137,32 @@ export default class Game extends Phaser.Scene {
         this.cursors = this.joyStick.createCursorKeys();
     }
 
+    loadTiledJson(args) {
+        console.log('Loading tiles...');
+        console.log(args.difficulty);
+        
+        args.game.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
+    }
+
     preloadTiles() {
         this.load.image("blankTile", blankTile);
         this.load.image("blankHorizontalTiles", blankHorizontalTiles);
         this.load.image("blankVerticalTiles", blankVerticalTiles);
         this.load.image("tiles", fablabTiles);
-
         this.load.image("playersprite", PlayerPlaceholderSprite);
 
-        this.load.tilemapTiledJSON("tilemap", fablabTilesJson);
+        console.log(this.difficulty);
+        switch(this.difficulty) {
+            case 'hard':
+                this.load.tilemapTiledJSON("tilemap", fablabTilesJsonHard);
+                this.tileLayers = fablabTilesJsonHard["layers"];
+            case 'normal':
+                this.load.tilemapTiledJSON("tilemap", fablabTilesJsonNormal);
+                this.tileLayers = fablabTilesJsonNormal["layers"];
+            default:
+                this.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
+                this.tileLayers = fablabTilesJsonEasy["layers"];
+        };
     }
 
     preloadAudio() {
@@ -151,7 +176,8 @@ export default class Game extends Phaser.Scene {
 
     loadTiles() {
         const map = this.make.tilemap({ key: "tilemap" });
-        const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
+        // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
+        const tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
         const floor = map.createLayer("Floor", tileset);
         this.walls = map.createLayer("Walls", tileset);
         this.walls.setCollisionByProperty({ collides: true });
@@ -164,8 +190,8 @@ export default class Game extends Phaser.Scene {
 
     loadAppliances() {
         this.assemblyTables = [];
-        for (var i = 0; i < fablabTilesJson["layers"].length; i++) {
-            var j = fablabTilesJson["layers"][i];
+        for (var i = 0; i < this.tileLayers.length; i++) {
+            var j = this.tileLayers[i];
             if (j["name"] === "Walls") {
                 for (var k = 0; k < j["data"].length; k++) {
                     var gridX = k % j["width"];
@@ -276,5 +302,13 @@ export default class Game extends Phaser.Scene {
 
     update() {
         this.player.update(this.cursors);
+        // if (this.isMobile){
+        //     let width = this.sys.canvas.width;
+        //     let height = this.sys.canvas.height;
+        //     let dx = this.player.x + this.cameras.main.x - width/2;
+        //     let dy = this.player.y + this.cameras.main.y - height/2;
+        //     this.cameras.main.x -= dx/10;
+        //     this.cameras.main.y -= dy/10;
+        // }
     }
 }
