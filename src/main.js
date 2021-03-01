@@ -10,7 +10,11 @@ import Pause from "./scenes/Pause";
 
 import font from "./resources/font/Peepo.ttf";
 
-document.head.getElementsByTagName("style")[0].innerHTML += "\n@font-face {font-family: 'peepo';src: url('" + font +"') format('ttf');font-style: normal;font-weight: 400;}";
+document.head.getElementsByTagName("style")[0].innerHTML +=
+    "\n@font-face {font-family: 'peepo';src: url('" +
+    font +
+    "') format('ttf');font-style: normal;font-weight: 400;}";
+import GameUI from "./scenes/GameUI";
 
 const config = {
     type: Phaser.AUTO,
@@ -35,6 +39,7 @@ const game = new Phaser.Game(config);
 game.scene.add("DifficultyMenu", DifficultyMenu);
 game.scene.add("Game", Game);
 game.scene.add("Pause", Pause);
+game.scene.add("GameUI", GameUI);
 
 //Menu screens
 game.scene.add("LeaderboardScreen", LeaderboardScreen);

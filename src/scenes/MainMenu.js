@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser, { Tilemaps } from "phaser";
 import Button from "../sprites/button";
 
 import background from "../resources/Main Menu/background.png";

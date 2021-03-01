@@ -23,12 +23,14 @@ export default class WaitingTool extends Appliance{
         this.expectedOutput = null;
         this.childText = scene.add.text(x,y-(Resources.tileLength), "Idle", {color: '0x000000'});
         this.childText.setOrigin(0.5,0.5);
+        this.createProgressBar();
     }
 
     preUpdate(time,dt) {
         /*if (this.state === 0){
             this.tint = 0xffffff;
         }*/
+        this.updateProgressBar(this.processProgress/this.processPeriod);
         if (this.state === 1){
             this.processProgress += dt;
             if (this.processProgress >= this.processPeriod) {

@@ -6,6 +6,7 @@ import difficultyMenuNormalButton from "../resources/Difficulty Menu/normal.png"
 import difficultyMenuHardButton from "../resources/Difficulty Menu/hard.png";
 import backButton from "../resources/tutorial/left_button.png";
 import Button from "../sprites/button";
+import eventsCenter from "../events/EventsCenter";
 
 export default class DifficultyMenu extends Phaser.Scene {
     constructor(config) {
@@ -37,7 +38,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("Game");
+                    this.game.scene.start("Game", { difficulty: "easy" });
                     this.game.scene.bringToTop("Game");
                 }
             ),
@@ -51,7 +52,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("Game");
+                    this.game.scene.start("Game", { difficulty: "normal" });
                     this.game.scene.bringToTop("Game");
                 }
             ),
@@ -65,23 +66,11 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("Game");
+                    this.game.scene.start("Game", { difficulty: "hard" });
                     this.game.scene.bringToTop("Game");
                 }
             ),
         };
-        this.images["backButton"] = new Button(
-            this,
-            (100 / 1090) * 800,
-            (110 / 768) * 500,
-            "backButton",
-            0.5,
-            () => {
-                this.game.scene.stop("DifficultyMenu");
-                this.game.scene.start("MainMenu");
-                this.game.scene.bringToTop("MainMenu");
-            }
-        );
         this.images["bg"]["image"].scale = 500 / 769;
     }
 }
