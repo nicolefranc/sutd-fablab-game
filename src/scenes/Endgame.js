@@ -7,12 +7,13 @@ import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
 
 export default class EndgameOverlay extends Phaser.Scene {
-    preload() {
-        this.load.image("mainOverlay", mainOverlay);
-        this.load.image("leaderboardBtn", leaderboardBtn);
-        this.load.image("leaderboardBtnPrs", leaderboardBtnPrs);
-        this.load.image("replayBtn", replayBtn);
-        this.load.image("replayBtnPrs", replayBtnPrs);
+
+    static preloadAssets(scene) {
+        scene.load.image("mainOverlay", mainOverlay);
+        scene.load.image("leaderboardBtn", leaderboardBtn);
+        scene.load.image("leaderboardBtnPrs", leaderboardBtnPrs);
+        scene.load.image("replayBtn", replayBtn);
+        scene.load.image("replayBtnPrs", replayBtnPrs);
     }
 
     //TODO: implement a resume button

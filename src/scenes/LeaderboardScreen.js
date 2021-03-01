@@ -176,16 +176,3 @@ export default class LeaderboardScreen extends Phaser.Scene {
         }
     }
 }
-
-export class LeaderboardScreenScoreUnit {
-    constructor(scene, x, y, name, score, pos) {
-        this.scene = scene;
-        this.rectangle = this.scene.add.rectangle(x, y, 600, 30, "0xffffff");
-        this.text = this.scene.add.text(
-            x,
-            y,
-            pos + "\t" + name + "\t\t\t" + score,
-            { fontFamily: "peepo" }
-        );
-    }
-}

@@ -7,9 +7,9 @@ export default class Credits extends Phaser.Scene {
     constructor(config) {
         super(config);
     }
-    preload() {
-        this.load.image("backButton", backButton);
-        this.load.image("creditsBackground", creditsBackground);
+    static preloadAssets(scene) {
+        scene.load.image("backButton", backButton);
+        scene.load.image("creditsBackground", creditsBackground);
     }
     create() {
         var scale = 500 / 768;

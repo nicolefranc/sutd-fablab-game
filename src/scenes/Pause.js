@@ -9,14 +9,15 @@ import resumeBtn from "../resources/pause/resume_btn.png";
 import resumeBtnPrs from "../resources/pause/resume_btn_prs.png";
 import Button from "../sprites/button";
 export default class Pause extends Phaser.Scene {
-    preload() {
-        this.load.image("pauseOverlay", pauseOverlay);
-        this.load.image("guideBtn", guideBtn);
-        this.load.image("optionsPauseBtn", optionsBtn);
-        this.load.image("quitBtn", quitBtn);
-        this.load.image("quitBtnPrs", quitBtnPrs);
-        this.load.image("resumeBtn", resumeBtn);
-        this.load.image("resumeBtnPrs", resumeBtnPrs);
+    
+    static preloadAssets(scene) {
+        scene.load.image("pauseOverlay", pauseOverlay);
+        scene.load.image("guideBtn", guideBtn);
+        scene.load.image("optionsPauseBtn", optionsBtn);
+        scene.load.image("quitBtn", quitBtn);
+        scene.load.image("quitBtnPrs", quitBtnPrs);
+        scene.load.image("resumeBtn", resumeBtn);
+        scene.load.image("resumeBtnPrs", resumeBtnPrs);
     }
 
     //TODO: implement a resume button
