@@ -7,6 +7,9 @@ import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
 import Credits from "./scenes/Credits";
 import Pause from "./scenes/Pause";
+import QuitGame from "./scenes/QuitGame";
+import GameUI from "./scenes/GameUI";
+
 
 import font from "./resources/font/Peepo.woff";
 
@@ -60,6 +63,8 @@ const game = new Phaser.Game(config);
 game.scene.add("DifficultyMenu", DifficultyMenu);
 game.scene.add("Game", Game);
 game.scene.add("Pause", Pause);
+game.scene.add("GameUI", GameUI);
+game.scene.add("QuitGame", QuitGame);
 
 //Menu screens
 game.scene.add("LeaderboardScreen", LeaderboardScreen);

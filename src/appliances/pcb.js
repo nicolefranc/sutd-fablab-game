@@ -21,12 +21,16 @@ export default class Drill extends Appliance {
             color: "0x000000",
         });
         this.childText.setOrigin(0.5, 0.5);
+        this.createProgressBar();
     }
     //update function
     preUpdate(time, dt) {
         if (this.state === 2) {
+            this.updateProgressBar(1);
             //state 2; show Done, item can be collected
             this.childText.setText(`Done!`);
+        } else {
+            this.updateProgressBar(this.currentProgress/MAX_PROGRESS);
         }
     }
     //interact
