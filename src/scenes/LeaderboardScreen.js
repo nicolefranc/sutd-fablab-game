@@ -138,7 +138,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
                 const imgParam = [[442,302],[695,404],[178,465]];
                 const textParam = [[384,477],[637,566],[120,625]];
                 this.add.image(imgParam[i][0]/1318*800,(imgParam[i][1]+22+(scores[i]["gender"]==="m"?5:0))/768*500,scores[i]["gender"]==="m"?'leaderboardScreenBoyFigure':'leaderboardScreenGirlFigure').setScale(500/768);
-                this.add.text(textParam[i][0]/1318*800,textParam[i][1]/768*500,scores[i]["name"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000"});
+                this.add.text(textParam[i][0]/1318*800,textParam[i][1]/768*500,scores[i]["name"] + ": " + scores[i]["score"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"center"}).setOrigin(0.25,0);
             }
             else {
                 const j=i+1;
