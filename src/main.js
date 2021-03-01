@@ -8,14 +8,37 @@ import MainMenu from "./scenes/MainMenu";
 import Credits from "./scenes/Credits";
 import Pause from "./scenes/Pause";
 import QuitGame from "./scenes/QuitGame";
-
-import font from "./resources/font/Peepo.ttf";
-
-document.head.getElementsByTagName("style")[0].innerHTML +=
-    "\n@font-face {font-family: 'peepo';src: url('" +
-    font +
-    "') format('ttf');font-style: normal;font-weight: 400;}";
 import GameUI from "./scenes/GameUI";
+
+
+import font from "./resources/font/Peepo.woff";
+
+var WebFont = require('webfontloader');
+
+var fontFamilyName = "peepo";
+
+var markup = [
+    '@font-face {\n',
+    '\tfont-family: \'', fontFamilyName, '\';\n',
+    '\tfont-style: \'normal\';\n',
+    '\tfont-weight: \'normal\';\n',
+    '\tsrc: url(\'', font, '\') format(\'woff\');\n',
+    '}\n'
+].join('');
+
+var style =  document.createElement('style');
+style.setAttribute('type', 'text/css');
+style.innerHTML = markup;
+document.body.insertBefore(style,document.body.getElementsByTagName("script")[0]);
+
+WebFont.load({
+    custom: {
+        families: [
+            fontFamilyName
+        ]
+    }
+});
+
 
 const config = {
     type: Phaser.AUTO,
