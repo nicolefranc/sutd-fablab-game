@@ -34,6 +34,7 @@ export default class QuitGame extends Phaser.Scene {
             () => {
                 console.log("quit button pressed");
                 this.scene.run("MainMenu");
+                this.sound.play("mainMenuBGM");
                 this.scene.stop("QuitGame");
                 this.scene.stop("Game");
                 this.scene.stop("GameUI");

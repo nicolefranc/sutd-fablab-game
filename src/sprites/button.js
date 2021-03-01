@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-
 export default class Button {
     constructor(scene, x, y, texture, scale, clickCallback, secondaryTexture) {
         this.primaryTexture = texture;

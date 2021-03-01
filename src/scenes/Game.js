@@ -15,7 +15,7 @@ import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
 import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 
 //Audio
-import mainBGM from "../resources/audio/Gameplay.wav";
+import mainBGM from "../resources/audio/Gameplay.mp3";
 
 //Resources
 import Resources from "../resources/resources";
@@ -58,12 +58,10 @@ export default class Game extends Phaser.Scene {
     }
 
     static preloadAssets(scene) {
-        
         Game.preloadTiles(scene);
         Game.preloadAudio(scene);
         Game.preloadPlayerAnims(scene);
         Game.preloadButton(scene);
-        
 
         scene.load.plugin(
             'rex-virtual-joystick-plugin"',
@@ -75,6 +73,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
+        this.sound.stopByKey("mainMenuBGM");
         this.cursors = this.input.keyboard.createCursorKeys();
         this.isMobile =
             this.scene.systems.game.device.os.android ||
@@ -151,7 +150,6 @@ export default class Game extends Phaser.Scene {
         this.cursors = this.joyStick.createCursorKeys();
     }
 
-
     static preloadTiles(scene) {
         scene.load.image("blankTile", blankTile);
         scene.load.image("blankHorizontalTiles", blankHorizontalTiles);
@@ -161,7 +159,6 @@ export default class Game extends Phaser.Scene {
         scene.load.tilemapTiledJSON("tilemap_hard", fablabTilesJsonHard);
         scene.load.tilemapTiledJSON("tilemap_normal", fablabTilesJsonNormal);
         scene.load.tilemapTiledJSON("tilemap_easy", fablabTilesJsonEasy);
-        
     }
 
     static preloadAudio(scene) {
@@ -179,7 +176,7 @@ export default class Game extends Phaser.Scene {
     }
 
     loadTiles() {
-        let map = this.make.tilemap({ key: "tilemap_"+this.difficulty });
+        let map = this.make.tilemap({ key: "tilemap_" + this.difficulty });
         // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         let tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
         let floor = map.createLayer("Floor", tileset);
@@ -222,15 +219,12 @@ export default class Game extends Phaser.Scene {
         this.assemblyTables = [];
         switch (this.difficulty) {
             case "hard":
-                
                 this.tileLayers = fablabTilesJsonHard["layers"];
                 break;
             case "normal":
-                
                 this.tileLayers = fablabTilesJsonNormal["layers"];
                 break;
             default:
-                
                 this.tileLayers = fablabTilesJsonEasy["layers"];
         }
         this.bins = [];

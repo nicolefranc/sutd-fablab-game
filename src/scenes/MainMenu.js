@@ -1,18 +1,18 @@
 import Phaser, { Tilemaps } from "phaser";
-import Button from "../sprites/button";
 
 import background from "../resources/Main Menu/background.png";
-
+import mainMenuBGM from "../resources/audio/Main Menu.mp3";
+//buttons
+import Button from "../sprites/button";
 import leaderboard from "../resources/Main Menu/leaderboard.png";
 import leaderboardPrs from "../resources/Main Menu/leaderboard_prs.png";
 import options from "../resources/Main Menu/options.png";
 import optionsPrs from "../resources/Main Menu/options_prs.png";
 import start from "../resources/Main Menu/start.png";
 import startPrs from "../resources/Main Menu/start_prs.png";
-//TODO: change to actual button png
 import credits from "../resources/Main Menu/credits.png";
 import creditsPrs from "../resources/Main Menu/credits_prs.png";
-
+import btnPrsSound from "../resources/audio/Button Click.mp3";
 import Resources from "../resources/resources";
 import SettingsMenu from "./SettingsMenu";
 import LeaderboardScreen from "./LeaderboardScreen";
@@ -39,6 +39,8 @@ export default class MainMenu extends Phaser.Scene {
         this.load.image("startBtnPrs", startPrs);
         this.load.image("creditsBtn", credits);
         this.load.image("creditsBtnPrs", creditsPrs);
+        this.load.audio("btnPrsSound", btnPrsSound);
+        this.load.audio("mainMenuBGM", mainMenuBGM);
         Resources.preloadMaterialImages(this);
         Credits.preloadAssets(this);
         DifficultyMenu.preloadAssets(this);
@@ -49,10 +51,21 @@ export default class MainMenu extends Phaser.Scene {
         Pause.preloadAssets(this);
         QuitGame.preloadAssets(this);
         SettingsMenu.preloadAssets(this);
-        
     }
 
     create() {
+        if (!this.bgm) {
+            this.bgm = this.sound.add("mainMenuBGM", {
+                volume: SettingsMenu.musicVolume / 18,
+                loop: true,
+            });
+            this.bgm.play();
+        }
+        if (this.bgm.play) {
+            console.log("PLAYING");
+        } else {
+            console.log("NOT PLAYING");
+        }
         var scale = 500 / 768;
         this.background = this.add.image(400, 250, "mainMenuBackground");
         this.background.setScale(scale);
@@ -64,6 +77,9 @@ export default class MainMenu extends Phaser.Scene {
             "optionsBtn",
             scale,
             () => {
+                this.sound.play("btnPrsSound", {
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.settingsMenu.show();
             },
             "optionsBtnPrs"
@@ -75,9 +91,12 @@ export default class MainMenu extends Phaser.Scene {
             "startBtn",
             scale,
             () => {
+                this.sound.play("btnPrsSound", {
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.game.scene.start("DifficultyMenu");
                 this.game.scene.bringToTop("DifficultyMenu");
-                this.game.scene.stop("MainMenu");
+                this.game.scene.pause("MainMenu");
             },
             "startBtnPrs"
         );
@@ -88,6 +107,9 @@ export default class MainMenu extends Phaser.Scene {
             "leaderboardBtn",
             scale,
             () => {
+                this.sound.play("btnPrsSound", {
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.game.scene.pause("MainMenu");
                 this.game.scene.start("LeaderboardScreen");
                 this.game.scene.bringToTop("LeaderboardScreen");
@@ -101,6 +123,9 @@ export default class MainMenu extends Phaser.Scene {
             "creditsBtn",
             scale,
             () => {
+                this.sound.play("btnPrsSound", {
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.game.scene.start("Credits");
                 this.game.scene.bringToTop("Credits");
                 this.game.scene.stop("MainMenu");
@@ -116,5 +141,8 @@ export default class MainMenu extends Phaser.Scene {
                 for (var i in this.buttons) this.buttons[i].enable(true);
             }
         );
+    }
+    update() {
+        this.bgm.volume = SettingsMenu.musicVolume / 18;
     }
 }
