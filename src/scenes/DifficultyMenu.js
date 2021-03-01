@@ -38,6 +38,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuEasyButton",
                 500 / 769,
                 () => {
+                    this.sound.play("btnPrsSound");
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.start("Game", { difficulty: "easy" });
                     this.game.scene.bringToTop("Game");
@@ -52,6 +53,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuNormalButton",
                 500 / 769,
                 () => {
+                    this.sound.play("btnPrsSound");
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.start("Game", { difficulty: "normal" });
                     this.game.scene.bringToTop("Game");
@@ -66,6 +68,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuHardButton",
                 500 / 769,
                 () => {
+                    this.sound.play("btnPrsSound");
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.start("Game", { difficulty: "hard" });
                     this.game.scene.bringToTop("Game");
@@ -79,6 +82,7 @@ export default class DifficultyMenu extends Phaser.Scene {
             "backButton",
             0.5,
             () => {
+                this.sound.play("btnPrsSound");
                 this.game.scene.pause("DifficultyMenu");
                 this.game.scene.start("MainMenu", { isPlaying: true });
                 this.game.scene.bringToTop("MainMenu");
