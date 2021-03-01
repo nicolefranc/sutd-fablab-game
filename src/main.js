@@ -7,6 +7,7 @@ import DifficultyMenu from "./scenes/DifficultyMenu";
 import MainMenu from "./scenes/MainMenu";
 import Credits from "./scenes/Credits";
 import Pause from "./scenes/Pause";
+import QuitGame from "./scenes/QuitGame";
 
 import font from "./resources/font/Peepo.ttf";
 
@@ -40,6 +41,7 @@ game.scene.add("DifficultyMenu", DifficultyMenu);
 game.scene.add("Game", Game);
 game.scene.add("Pause", Pause);
 game.scene.add("GameUI", GameUI);
+game.scene.add("QuitGame", QuitGame);
 
 //Menu screens
 game.scene.add("LeaderboardScreen", LeaderboardScreen);

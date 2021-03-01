@@ -19,6 +19,12 @@ export default class Resources {
     static get tileLength() {
         return fablabTilesJson["tileheight"];
     }
+    static get screenWidth() {
+        return 800;
+    }
+    static get screenHeight() {
+        return 500;
+    }
 
     static get materialBoxes() {
         return {

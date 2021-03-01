@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Resources from "../resources/resources";
 import pauseOverlay from "../resources/pause/pausemenu.png";
 import guideBtn from "../resources/pause/guidetab.png";
 import optionsBtn from "../resources/pause/optionstab.png";
@@ -20,6 +21,10 @@ export default class Pause extends Phaser.Scene {
 
     //TODO: implement a resume button
     create() {
+        this.veil = this.add.graphics({ x: 0, y: 0 });
+        this.veil.fillStyle("0x000000", 0.6);
+        this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
+        this.veil.setScrollFactor(0);
         this.menu = this.add.image(400, 250, "pauseOverlay");
         this.menu.setScale(0.3);
         this.menu.setScrollFactor(0);
@@ -52,6 +57,9 @@ export default class Pause extends Phaser.Scene {
             0.2,
             () => {
                 console.log("quit button pressed");
+                this.scene.run("QuitGame");
+                this.scene.bringToTop("QuitGame");
+                this.scene.stop("Pause");
             },
             "quitBtnPrs"
         );

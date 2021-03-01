@@ -195,13 +195,13 @@ export default class Game extends Phaser.Scene {
     }
 
     loadTiles() {
-        const map = this.make.tilemap({ key: "tilemap" });
+        let map = this.make.tilemap({ key: "tilemap" });
         // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
-        const tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
-        const floor = map.createLayer("Floor", tileset);
+        let tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
+        let floor = map.createLayer("Floor", tileset);
         this.walls = map.createLayer("Walls", tileset);
         // this.renderCollisionWalls(walls);
-        const debugGraphics = this.add.graphics().setAlpha(0.7);
+        let debugGraphics = this.add.graphics().setAlpha(0.7);
         this.walls.renderDebug(debugGraphics, {
             tileColor: null,
             collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
@@ -351,7 +351,6 @@ export default class Game extends Phaser.Scene {
         }
     }
     pauseGame() {
-        this.menu = this.add.image(500);
         this.scene.run("Pause");
         this.scene.pause("Game");
         this.scene.bringToTop("Pause");
