@@ -150,12 +150,6 @@ export default class Game extends Phaser.Scene {
         this.cursors = this.joyStick.createCursorKeys();
     }
 
-    loadTiledJson(args) {
-        console.log("Loading tiles...");
-        console.log(args.difficulty);
-
-        args.game.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
-    }
 
     preloadTiles() {
         this.load.image("blankTile", blankTile);
@@ -165,17 +159,20 @@ export default class Game extends Phaser.Scene {
         this.load.image("playersprite", PlayerPlaceholderSprite);
 
         console.log(this.difficulty);
+        this.load.tilemapTiledJSON("tilemap_hard", fablabTilesJsonHard);
+        this.load.tilemapTiledJSON("tilemap_normal", fablabTilesJsonNormal);
+        this.load.tilemapTiledJSON("tilemap_easy", fablabTilesJsonEasy);
         switch (this.difficulty) {
             case "hard":
-                this.load.tilemapTiledJSON("tilemap", fablabTilesJsonHard);
+                
                 this.tileLayers = fablabTilesJsonHard["layers"];
                 break;
             case "normal":
-                this.load.tilemapTiledJSON("tilemap", fablabTilesJsonNormal);
+                
                 this.tileLayers = fablabTilesJsonNormal["layers"];
                 break;
             default:
-                this.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
+                
                 this.tileLayers = fablabTilesJsonEasy["layers"];
         }
     }
@@ -195,7 +192,7 @@ export default class Game extends Phaser.Scene {
     }
 
     loadTiles() {
-        let map = this.make.tilemap({ key: "tilemap" });
+        let map = this.make.tilemap({ key: "tilemap_"+this.difficulty });
         // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         let tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
         let floor = map.createLayer("Floor", tileset);
