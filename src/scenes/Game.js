@@ -25,7 +25,6 @@ import WaitingTools from "../appliances/waitingTools";
 import AssemblyTable from "../appliances/assemblyTable";
 import Player from "../sprites/Player.js";
 import ScoreController from "../controllers/scoreController";
-import Button from "../sprites/button.js";
 
 //Buttons
 import Button from "../sprites/button";
