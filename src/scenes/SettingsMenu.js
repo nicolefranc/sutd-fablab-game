@@ -5,7 +5,10 @@ import settingsMenuMinusBtn from '../resources/Settings Menu/minus_btn.png';
 import settingsMenuMinusBtnPrs from '../resources/Settings Menu/minus_prs.png';
 import settingsMenuPlusBtn from '../resources/Settings Menu/plus_btn.png';
 import settingsMenuPlusBtnPrs from '../resources/Settings Menu/plus_prs.png';
+import settingsMenuBackBtn from '../resources/Settings Menu/back.png';
+import settingsMenuGuideBtn from '../resources/Settings Menu/GuideBtn.png';
 import Button from '../sprites/button';
+import TutorialMenu from './TutorialMenu';
 
 
 export default class SettingsMenu {
@@ -19,7 +22,6 @@ export default class SettingsMenu {
         this.buttons = {};
         this.musicBarArray = [];
         this.sfxBarArray = [];
-        this.tempHideButton = null;
 
         this.showCallback = showCallback;
         this.hideCallback = hideCallback;
@@ -50,6 +52,13 @@ export default class SettingsMenu {
             SettingsMenu.sfxVolume += 1;
             this.updateSfxBar();
         },'settingsMenuPlusBtnPrs');
+        this.buttons["back"] = new Button(this.scene,1857/3.2+60,400,'settingsMenuBackBtn',1/3.2,()=>{
+            this.hide();
+        },null);
+        this.buttons["guide"] = new Button(this.scene,184/3.2,307/3.2,'settingsMenuGuideBtn',1/3.2,()=>{
+            this.tutorialMenu.show();
+        },'settingsMenuGuideBtn');
+        
         for (var i=0;i<18;i++) {
             this.musicBarArray.push(this.scene.add.image((1534+(636/17*i))/3.2,
                 669/3.2,
@@ -60,9 +69,15 @@ export default class SettingsMenu {
                 'settingsMenuBarFiller'));
                 this.sfxBarArray[i].scale = 1/3.2;
         }
-        this.tempHideButton = new Button(this.scene,1857/3.2,400,'settingsMenuPlusBtn',1/3.2,()=>{
-            this.hide();
-        },'settingsMenuPlusBtnPrs');
+
+        this.text = this.scene.add.text(1857/3.2-40,400,"Back to menu",{"fontFamily": "peepo","fontSize": 20, "color": "0x000000"})
+        .setOrigin(0.5,0.5);
+
+        this.tutorialMenu = new TutorialMenu(this.scene,()=>{
+            for (var i in this.buttons) this.buttons[i].enable(false);
+        },()=>{
+            for (var i in this.buttons) this.buttons[i].enable(true);
+        })
 
         for (var i in this.simpleImages) {
             this.simpleImages[i].visible = false;
@@ -75,8 +90,7 @@ export default class SettingsMenu {
             this.musicBarArray[i].visible = false;
             this.sfxBarArray[i].visible = false;
         }
-        this.tempHideButton.enable(false);
-        this.tempHideButton.setVisible(false);
+        this.text.visible = false;
     }
 
     static preloadAssets(scene) {
@@ -87,6 +101,8 @@ export default class SettingsMenu {
         scene.load.image('settingsMenuMinusBtnPrs',settingsMenuMinusBtnPrs);
         scene.load.image('settingsMenuPlusBtn',settingsMenuPlusBtn);
         scene.load.image('settingsMenuPlusBtnPrs',settingsMenuPlusBtnPrs);
+        scene.load.image('settingsMenuBackBtn',settingsMenuBackBtn);
+        scene.load.image('settingsMenuGuideBtn',settingsMenuGuideBtn);
     }
 
     show() {
@@ -102,8 +118,7 @@ export default class SettingsMenu {
             this.musicBarArray[i].visible = i < SettingsMenu.musicVolume;
             this.sfxBarArray[i].visible = i < SettingsMenu.sfxVolume;
         }
-        this.tempHideButton.enable(true);
-        this.tempHideButton.setVisible(true);
+        this.text.visible = true;
     }
 
     hide() {
@@ -119,8 +134,7 @@ export default class SettingsMenu {
             this.musicBarArray[i].visible = false;
             this.sfxBarArray[i].visible = false;
         }
-        this.tempHideButton.enable(false);
-        this.tempHideButton.setVisible(false);
+        this.text.visible = false;
     }
 
     updateMusicBar() {

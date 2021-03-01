@@ -8,6 +8,8 @@ import quitBtnPrs from "../resources/pause/quit_btn_prs.png";
 import resumeBtn from "../resources/pause/resume_btn.png";
 import resumeBtnPrs from "../resources/pause/resume_btn_prs.png";
 import Button from "../sprites/button";
+import TutorialMenu from "./TutorialMenu";
+import SettingsMenu from "./SettingsMenu";
 export default class Pause extends Phaser.Scene {
     
     static preloadAssets(scene) {
@@ -22,6 +24,7 @@ export default class Pause extends Phaser.Scene {
 
     //TODO: implement a resume button
     create() {
+        
         this.veil = this.add.graphics({ x: 0, y: 0 });
         this.veil.fillStyle("0x000000", 0.6);
         this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
@@ -38,6 +41,7 @@ export default class Pause extends Phaser.Scene {
             0.5,
             () => {
                 console.log("guide button pressed");
+                this.tutorialMenu.show();
             }
         );
         this.buttons["optionsPause"] = new Button(
@@ -48,6 +52,7 @@ export default class Pause extends Phaser.Scene {
             0.5,
             () => {
                 console.log("options button pressed");
+                this.settingsMenu.show();
             }
         );
         this.buttons["quit"] = new Button(
@@ -77,5 +82,23 @@ export default class Pause extends Phaser.Scene {
             },
             "resumeBtnPrs"
         );
+        this.tutorialMenu = new TutorialMenu(this,()=>{
+            for (var i in this.buttons) {
+                this.buttons[i].enable(false);
+            }
+        },()=>{
+            for (var i in this.buttons) {
+                this.buttons[i].enable(true);
+            }
+        });
+        this.settingsMenu = new SettingsMenu(this,()=>{
+            for (var i in this.buttons) {
+                this.buttons[i].enable(false);
+            }
+        },()=>{
+            for (var i in this.buttons) {
+                this.buttons[i].enable(true);
+            }
+        });
     }
 }
