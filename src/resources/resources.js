@@ -1,4 +1,4 @@
-import fablabTilesJson from "./tiles/fablab_complete.json";
+import fablabTilesJson from "./tiles/hard/fablab-tiles-hard.json";
 import acrylic from "./Materials/Acrylic Board.png";
 import metalSheet from "./Materials/Metal Board.png";
 import filament from "./Materials/Filament.png";

@@ -5,10 +5,13 @@ import Phaser from "phaser";
 import fablabTiles from "../resources/tiles/tile-sheet-23feb.png";
 // Easy
 import fablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy.json";
+import mFablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy-mobile.json";
 // Normal
 import fablabTilesJsonNormal from "../resources/tiles/normal/fablab-tiles-normal.json";
+import mFablabTilesJsonNormal from "../resources/tiles/normal/fablab-tiles-normal-mobile.json"
 // Hard
 import fablabTilesJsonHard from "../resources/tiles/hard/fablab-tiles-hard.json";
+import mFablabTilesJsonHard from "../resources/tiles/hard/fablab-tiles-hard-mobile.json"
 
 import blankTile from "../resources/tiles/blankTile.png";
 import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
@@ -45,7 +48,6 @@ export default class Game extends Phaser.Scene {
     }
 
     init(data) {
-        console.log(data);
         this.difficulty = data.difficulty;
     }
     
@@ -61,10 +63,8 @@ export default class Game extends Phaser.Scene {
             VirtualJoystickPlugin,
             true
         );
-        // this.load.image("mPickBtn", mPickBtn);
-        // this.load.image("mPickBtnPressed", mPickBtnPressed);
     }
-    
+        
     create() {
         this.isMobile = this.scene.systems.game.device.os.android || this.scene.systems.game.device.os.iOS || this.scene.systems.game.device.os.iPhone || this.scene.systems.game.device.os.windowsPhone;
         this.loadTiles();
@@ -78,10 +78,15 @@ export default class Game extends Phaser.Scene {
             3,
             100
         );
+
+        var spawn = { x: 450, y: 325 };
+        if (this.isMobile) {
+            spawn = { x: 550, y: 350 };
+        }
         
         this.player = this.add.player(
-            350,
-            300,
+            spawn.x,
+            spawn.y,
             "playersprite",
             0,
             this.scoreController
@@ -137,13 +142,6 @@ export default class Game extends Phaser.Scene {
         this.cursors = this.joyStick.createCursorKeys();
     }
 
-    loadTiledJson(args) {
-        console.log('Loading tiles...');
-        console.log(args.difficulty);
-        
-        args.game.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
-    }
-
     preloadTiles() {
         this.load.image("blankTile", blankTile);
         this.load.image("blankHorizontalTiles", blankHorizontalTiles);
@@ -155,12 +153,15 @@ export default class Game extends Phaser.Scene {
         switch(this.difficulty) {
             case 'hard':
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonHard);
+                this.load.tilemapTiledJSON("mTilemap", mFablabTilesJsonHard);
                 this.tileLayers = fablabTilesJsonHard["layers"];
             case 'normal':
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonNormal);
+                this.load.tilemapTiledJSON("mTilemap", mFablabTilesJsonNormal);
                 this.tileLayers = fablabTilesJsonNormal["layers"];
             default:
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
+                this.load.tilemapTiledJSON("mTilemap", mFablabTilesJsonEasy);
                 this.tileLayers = fablabTilesJsonEasy["layers"];
         };
     }
@@ -175,7 +176,20 @@ export default class Game extends Phaser.Scene {
     }
 
     loadTiles() {
-        const map = this.make.tilemap({ key: "tilemap" });
+        var tilemapKey = "tilemap"
+        if (this.isMobile) {
+            tilemapKey = "mTilemap";
+
+            switch(this.difficulty) {
+                case 'hard':
+                    this.tileLayers = mFablabTilesJsonHard["layers"];
+                case 'normal':
+                    this.tileLayers = mFablabTilesJsonNormal["layers"];
+                default:
+                    this.tileLayers = mFablabTilesJsonEasy["layers"];
+            };
+        }
+        const map = this.make.tilemap({ key: tilemapKey });
         // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         const tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
         const floor = map.createLayer("Floor", tileset);
@@ -302,13 +316,5 @@ export default class Game extends Phaser.Scene {
 
     update() {
         this.player.update(this.cursors);
-        // if (this.isMobile){
-        //     let width = this.sys.canvas.width;
-        //     let height = this.sys.canvas.height;
-        //     let dx = this.player.x + this.cameras.main.x - width/2;
-        //     let dy = this.player.y + this.cameras.main.y - height/2;
-        //     this.cameras.main.x -= dx/10;
-        //     this.cameras.main.y -= dy/10;
-        // }
     }
 }

@@ -127,7 +127,6 @@ Phaser.GameObjects.GameObjectFactory.register(
 
         // sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8);
         sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.5);
-
         return sprite;
     }
 );
