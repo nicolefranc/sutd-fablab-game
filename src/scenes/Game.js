@@ -22,6 +22,7 @@ import Resources from "../resources/resources";
 import InteractiveTools from "../appliances/interactiveTools";
 import MaterialBoxes from "../appliances/materialBoxes";
 import WaitingTools from "../appliances/waitingTools";
+import Bin from "../appliances/bin";
 import AssemblyTable from "../appliances/assemblyTable";
 import Player from "../sprites/Player.js";
 import ScoreController from "../controllers/scoreController";
@@ -168,9 +169,11 @@ export default class Game extends Phaser.Scene {
             case "hard":
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonHard);
                 this.tileLayers = fablabTilesJsonHard["layers"];
+                break;
             case "normal":
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonNormal);
                 this.tileLayers = fablabTilesJsonNormal["layers"];
+                break;
             default:
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonEasy);
                 this.tileLayers = fablabTilesJsonEasy["layers"];
@@ -233,6 +236,7 @@ export default class Game extends Phaser.Scene {
 
     loadAppliances() {
         this.assemblyTables = [];
+        this.bins = [];
         for (var i = 0; i < this.tileLayers.length; i++) {
             var j = this.tileLayers[i];
             if (j["name"] === "Walls") {
@@ -282,6 +286,10 @@ export default class Game extends Phaser.Scene {
                                 this.scoreController
                             )
                         );
+                        continue;
+                    }
+                    if (Resources.isBin(id)) {
+                        this.bins.push(this.add.bin(gridX, gridY));
                         continue;
                     }
                     if (Resources.isInteractiveTool(id)) {

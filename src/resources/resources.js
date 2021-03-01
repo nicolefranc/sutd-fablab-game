@@ -153,6 +153,16 @@ export default class Resources {
     static isWaitingTool(id) {
         return Resources.waitingToolIds.indexOf(id) !== -1;
     }
+    static get bin() {
+        return {
+            multiplyOffset: [0.5, 0.5],
+            tileIDs: [11],
+            texture: "blankTile",
+        };
+    }
+    static isBin(id) {
+        return id === this.bin.tileIDs[0];
+    }
 
     static get assemblyTable() {
         return {
