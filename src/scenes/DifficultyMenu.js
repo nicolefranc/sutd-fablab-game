@@ -13,15 +13,15 @@ export default class DifficultyMenu extends Phaser.Scene {
         super(config);
     }
 
-    preload() {
-        this.load.image("difficultyMenuBg", difficultyMenuBg);
-        this.load.image("difficultyMenuEasyButton", difficultyMenuEasyButton);
-        this.load.image(
+    static preloadAssets(scene) {
+        scene.load.image("difficultyMenuBg", difficultyMenuBg);
+        scene.load.image("difficultyMenuEasyButton", difficultyMenuEasyButton);
+        scene.load.image(
             "difficultyMenuNormalButton",
             difficultyMenuNormalButton
         );
-        this.load.image("difficultyMenuHardButton", difficultyMenuHardButton);
-        this.load.image("backButton", backButton);
+        scene.load.image("difficultyMenuHardButton", difficultyMenuHardButton);
+        scene.load.image("backButton", backButton);
     }
 
     create() {

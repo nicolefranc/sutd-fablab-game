@@ -13,8 +13,16 @@ import startPrs from "../resources/Main Menu/start_prs.png";
 import credits from "../resources/Main Menu/credits.png";
 import creditsPrs from "../resources/Main Menu/credits_prs.png";
 
+import Resources from "../resources/resources";
 import SettingsMenu from "./SettingsMenu";
 import LeaderboardScreen from "./LeaderboardScreen";
+import Credits from "./Credits";
+import DifficultyMenu from "./DifficultyMenu";
+import EndgameOverlay from "./Endgame";
+import GameUI from "./GameUI";
+import Pause from "./Pause";
+import QuitGame from "./QuitGame";
+import Game from "./Game";
 
 export default class MainMenu extends Phaser.Scene {
     constructor(config) {
@@ -31,8 +39,17 @@ export default class MainMenu extends Phaser.Scene {
         this.load.image("startBtnPrs", startPrs);
         this.load.image("creditsBtn", credits);
         this.load.image("creditsBtnPrs", creditsPrs);
-        SettingsMenu.preloadAssets(this);
+        Resources.preloadMaterialImages(this);
+        Credits.preloadAssets(this);
+        DifficultyMenu.preloadAssets(this);
+        EndgameOverlay.preloadAssets(this);
+        Game.preloadAssets(this);
+        GameUI.preloadAssets(this);
         LeaderboardScreen.preloadAssets(this);
+        Pause.preloadAssets(this);
+        QuitGame.preloadAssets(this);
+        SettingsMenu.preloadAssets(this);
+        
     }
 
     create() {

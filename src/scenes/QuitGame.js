@@ -6,13 +6,13 @@ import quitBtnQPrs from "../resources/QuitGame/quitbutton.png";
 import cancelBtn from "../resources/QuitGame/cancelbutton.png";
 import cancelBtnPrs from "../resources/QuitGame/cancelbutton.png";
 import Button from "../sprites/button";
-export default class Pause extends Phaser.Scene {
-    preload() {
-        this.load.image("quitOverlay", quitOverlay);
-        this.load.image("quitBtnQ", quitBtnQ);
-        this.load.image("quitBtnQPrs", quitBtnQPrs);
-        this.load.image("cancelBtn", cancelBtn);
-        this.load.image("cancelBtnPrs", cancelBtnPrs);
+export default class QuitGame extends Phaser.Scene {
+    static preloadAssets(scene) {
+        scene.load.image("quitOverlay", quitOverlay);
+        scene.load.image("quitBtnQ", quitBtnQ);
+        scene.load.image("quitBtnQPrs", quitBtnQPrs);
+        scene.load.image("cancelBtn", cancelBtn);
+        scene.load.image("cancelBtnPrs", cancelBtnPrs);
     }
 
     //TODO: implement a resume button

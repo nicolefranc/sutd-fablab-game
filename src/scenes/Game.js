@@ -57,15 +57,15 @@ export default class Game extends Phaser.Scene {
         this.difficulty = data.difficulty;
     }
 
-    preload() {
-        Resources.preloadMaterialImages(this);
-        this.preloadTiles();
-        this.preloadAudio();
-        this.preloadPlayerAnims();
-        this.preloadButton();
-        this.cursors = this.input.keyboard.createCursorKeys();
+    static preloadAssets(scene) {
+        
+        Game.preloadTiles(scene);
+        Game.preloadAudio(scene);
+        Game.preloadPlayerAnims(scene);
+        Game.preloadButton(scene);
+        
 
-        this.load.plugin(
+        scene.load.plugin(
             'rex-virtual-joystick-plugin"',
             VirtualJoystickPlugin,
             true
@@ -75,6 +75,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.isMobile =
             this.scene.systems.game.device.os.android ||
             this.scene.systems.game.device.os.iOS ||
@@ -151,44 +152,30 @@ export default class Game extends Phaser.Scene {
     }
 
 
-    preloadTiles() {
-        this.load.image("blankTile", blankTile);
-        this.load.image("blankHorizontalTiles", blankHorizontalTiles);
-        this.load.image("blankVerticalTiles", blankVerticalTiles);
-        this.load.image("tiles", fablabTiles);
-        this.load.image("playersprite", PlayerPlaceholderSprite);
-
-        console.log(this.difficulty);
-        this.load.tilemapTiledJSON("tilemap_hard", fablabTilesJsonHard);
-        this.load.tilemapTiledJSON("tilemap_normal", fablabTilesJsonNormal);
-        this.load.tilemapTiledJSON("tilemap_easy", fablabTilesJsonEasy);
-        switch (this.difficulty) {
-            case "hard":
-                
-                this.tileLayers = fablabTilesJsonHard["layers"];
-                break;
-            case "normal":
-                
-                this.tileLayers = fablabTilesJsonNormal["layers"];
-                break;
-            default:
-                
-                this.tileLayers = fablabTilesJsonEasy["layers"];
-        }
+    static preloadTiles(scene) {
+        scene.load.image("blankTile", blankTile);
+        scene.load.image("blankHorizontalTiles", blankHorizontalTiles);
+        scene.load.image("blankVerticalTiles", blankVerticalTiles);
+        scene.load.image("tiles", fablabTiles);
+        scene.load.image("playersprite", PlayerPlaceholderSprite);
+        scene.load.tilemapTiledJSON("tilemap_hard", fablabTilesJsonHard);
+        scene.load.tilemapTiledJSON("tilemap_normal", fablabTilesJsonNormal);
+        scene.load.tilemapTiledJSON("tilemap_easy", fablabTilesJsonEasy);
+        
     }
 
-    preloadAudio() {
-        this.load.audio("mainBGM", mainBGM);
+    static preloadAudio(scene) {
+        scene.load.audio("mainBGM", mainBGM);
     }
 
-    preloadPlayerAnims() {
-        this.load.image("playersprite", PlayerPlaceholderSprite);
-        this.load.atlas("playeranims", playerSpriteSheet, playerSpriteJson);
+    static preloadPlayerAnims(scene) {
+        scene.load.image("playersprite", PlayerPlaceholderSprite);
+        scene.load.atlas("playeranims", playerSpriteSheet, playerSpriteJson);
     }
-    preloadButton() {
+    static preloadButton(scene) {
         //TODO: change to actual pause btn
-        this.load.image("pauseBtn", options);
-        this.load.image("pauseBtnPrs", optionsPrs);
+        scene.load.image("pauseBtn", options);
+        scene.load.image("pauseBtnPrs", optionsPrs);
     }
 
     loadTiles() {
@@ -233,6 +220,19 @@ export default class Game extends Phaser.Scene {
 
     loadAppliances() {
         this.assemblyTables = [];
+        switch (this.difficulty) {
+            case "hard":
+                
+                this.tileLayers = fablabTilesJsonHard["layers"];
+                break;
+            case "normal":
+                
+                this.tileLayers = fablabTilesJsonNormal["layers"];
+                break;
+            default:
+                
+                this.tileLayers = fablabTilesJsonEasy["layers"];
+        }
         this.bins = [];
         for (var i = 0; i < this.tileLayers.length; i++) {
             var j = this.tileLayers[i];

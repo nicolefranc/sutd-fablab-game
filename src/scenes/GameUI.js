@@ -9,9 +9,9 @@ export default class GameUI extends Phaser.Scene {
         super(config)
     }
 
-    preload() {
-        this.load.image("mPickBtn", mPickBtn);
-        this.load.image("mPickBtnPressed", mPickBtnPressed);
+    static preloadAssets(scene) {
+        scene.load.image("mPickBtn", mPickBtn);
+        scene.load.image("mPickBtnPressed", mPickBtnPressed);
     }
 
     create() {
