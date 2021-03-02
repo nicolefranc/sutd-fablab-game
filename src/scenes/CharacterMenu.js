@@ -5,8 +5,7 @@ import boyChara from "../resources/CharacterMenu/boy.png";
 import girlChara from "../resources/CharacterMenu/girl.png";
 import girlBtn from "../resources/CharacterMenu/girl_btn.png";
 import girlBtnPrs from "../resources/CharacterMenu/girl_btn_prs.png";
-//TODO: change to boy btn
-import boyBtn from "../resources/CharacterMenu/boy_btn_prs.png";
+import boyBtn from "../resources/CharacterMenu/boy_btn.png";
 import boyBtnPrs from "../resources/CharacterMenu/boy_btn_prs.png";
 import backButton from "../resources/tutorial/left_button.png";
 import Button from "../sprites/button";

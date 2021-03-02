@@ -86,12 +86,23 @@ export default class Game extends Phaser.Scene {
         this.loadAppliances();
         this.loadAudio();
         this.loadPlayerAnims();
+        switch (this.difficulty) {
+            case "normal":
+                this.componentsAvailable = Resources.getComponentNormal;
+                break;
+            case "hard":
+                this.componentsAvailable = Resources.getComponentHard;
+                break;
+            default:
+                this.componentsAvailable = Resources.getComponentsEasy;
+                break;
+        }
         this.scoreController = this.add.scoreController(
             0.25,
             3,
-            ["jigsawAcrylic", "jigsawWood", "threeDPrint"],
+            this.componentsAvailable,
             3,
-            100
+            this.difficulty
         );
 
         this.player = this.add.player(

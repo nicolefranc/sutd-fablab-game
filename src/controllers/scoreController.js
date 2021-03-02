@@ -3,16 +3,17 @@ import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import Resources from "../resources/resources";
 import EndgameOverlay from "../scenes/Endgame";
 //TODO add a method an DS to store the array of components that are submitted
-const GAME_DURATION = 12000; //2 minutes in ms
+const GAME_DURATION = 120000; //2 minutes in ms
 
 export default class ScoreController extends Phaser.GameObjects.Text {
-    constructor(scene, gridX, gridY, productItems, orderCount) {
+    constructor(scene, gridX, gridY, productItems, orderCount, difficulty) {
         super(
             scene,
             gridX * Resources.tileLength,
             gridY * Resources.tileLength,
             ""
         );
+        this.difficulty = difficulty;
         this.isEndgame = false;
         this.setColor("0x000000");
         this.time = GAME_DURATION;
@@ -100,14 +101,14 @@ export default class ScoreController extends Phaser.GameObjects.Text {
     submit(index) {
         if (!this.started || !this.acceptItems) return;
         //TODO: add according to the component's value
-        // this.score += this.scoreIncrement;
+        if (
+            this.productItems.find((item) => item === this.requiredItems[index])
+        )
+            this.score += Resources.items[this.requiredItems[index]].value;
 
-        //TODO: Refactor to only push only when there is no such component
         let componentIndex = this.componentCollection.findIndex(
             (component) => component.name === this.requiredItems[index]
         );
-        console.log(this.requiredItems[index]);
-        console.log(componentIndex);
         if (componentIndex == -1) {
             this.componentCollection.push({
                 name: this.requiredItems[index],

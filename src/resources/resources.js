@@ -8,10 +8,10 @@ import jigsawAcrylic from "./Materials/Acrylic Cut.png";
 import jigsawMetal from "./Materials/Metal Cut.png";
 import jigsawWood from "./Materials/Wood Cut.png";
 import threeDPrint from "./Materials/Filament Print.png";
-import printedPcb from "./Materials/PCB Solder.png";
-import cutAcrylic from "./Materials/Acrylic Drill.png";
-import cutWood from "./Materials/Wood Drill.png";
-import cutMetal from "./Materials/Metal Drill.png";
+import solderedPcb from "./Materials/PCB Solder.png";
+import drilledAcrylic from "./Materials/Acrylic Drill.png";
+import drilledWood from "./Materials/Wood Drill.png";
+import drilledMetal from "./Materials/Metal Drill.png";
 import acrylicStrips from "./Materials/Acrylic Strips.png";
 import woodStrips from "./Materials/Wood Strips.png";
 
@@ -98,13 +98,13 @@ export default class Resources {
                 texture: "blankTile",
                 materialTable: {
                     jigsawAcrylic: {
-                        output: "donutAcrylic",
+                        output: "drilledAcrylic",
                     },
                     jigsawMetal: {
-                        output: "donutMetal",
+                        output: "drilledMetal",
                     },
                     jigsawWood: {
-                        output: "donutWood",
+                        output: "drilledWood",
                     },
                 },
             },
@@ -132,7 +132,7 @@ export default class Resources {
                 texture: "blankTile",
                 materialTable: {
                     pcb: {
-                        output: "printedPcb",
+                        output: "solderedPcb",
                     },
                 },
             },
@@ -227,24 +227,24 @@ export default class Resources {
                 image: threeDPrint,
                 value: 25,
             },
-            printedPcb: {
+            solderedPcb: {
                 product: true,
-                image: printedPcb,
+                image: solderedPcb,
                 value: 40,
             },
-            cutAcrylic: {
+            drilledAcrylic: {
                 product: true,
-                image: cutAcrylic,
+                image: drilledAcrylic,
                 value: 50,
             },
-            cutWood: {
+            drilledWood: {
                 product: true,
-                image: cutWood,
+                image: drilledWood,
                 value: 50,
             },
-            cutMetal: {
+            drilledMetal: {
                 product: true,
-                image: cutMetal,
+                image: drilledMetal,
                 value: 60,
             },
             acrylicStrips: {
@@ -266,6 +266,21 @@ export default class Resources {
             if (Resources.items[i].product) returnArray.push(i);
         }
         return returnArray;
+    }
+    static get getComponentsEasy() {
+        return ["drilledWood", "jigsawAcrylic", "jigsawWood"];
+    }
+    static get getComponentNormal() {
+        return ["drilledWood", "acrylicStrips", "jigsawMetal", "threeDPrint"];
+    }
+    static get getComponentHard() {
+        return [
+            "drilledAcrylic",
+            "drilledMetal",
+            "acrylicStrips",
+            "threeDPrint",
+            "solderedPcb",
+        ];
     }
 
     static preloadMaterialImages(scene) {
