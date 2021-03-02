@@ -6,8 +6,7 @@ import difficultyMenuNormalButton from "../resources/Difficulty Menu/normal.png"
 import difficultyMenuHardButton from "../resources/Difficulty Menu/hard.png";
 import backButton from "../resources/tutorial/left_button.png";
 import Button from "../sprites/button";
-import eventsCenter from "../events/EventsCenter";
-import MainMenu from "./MainMenu";
+import OrderDisplay from "../controllers/orderDisplay";
 
 export default class DifficultyMenu extends Phaser.Scene {
     constructor(config) {
@@ -26,6 +25,14 @@ export default class DifficultyMenu extends Phaser.Scene {
     }
 
     create() {
+        const data = {
+            orderDisplay: new OrderDisplay(
+                0,
+                0,
+                this.game.scene.getScene("GameUI")
+            ),
+        };
+
         this.images = {};
         this.images["bg"] = {
             image: this.add.image(800 / 2, 500 / 2, "difficultyMenuBg"),
@@ -38,11 +45,10 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuEasyButton",
                 500 / 769,
                 () => {
+                    data.difficulty = "easy";
                     this.sound.play("btnPrsSound");
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", {
-                        difficulty: "easy",
-                    });
+                    this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -55,11 +61,10 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuNormalButton",
                 500 / 769,
                 () => {
+                    data.difficulty = "normal";
                     this.sound.play("btnPrsSound");
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", {
-                        difficulty: "normal",
-                    });
+                    this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -72,11 +77,10 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuHardButton",
                 500 / 769,
                 () => {
+                    data.difficulty = "hard";
                     this.sound.play("btnPrsSound");
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", {
-                        difficulty: "hard",
-                    });
+                    this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),

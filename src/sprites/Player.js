@@ -34,13 +34,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (lookingAt !== undefined) {
                 lookingAt.gameObject.onLook();
 
-                // if (
-                //     cursors.space &&
-                //     Phaser.Input.Keyboard.JustDown(cursors.space)
-                // ) {
                 let item = lookingAt.gameObject.interact(this.heldItem);
                 this.setItem(item);
-                // }
             }
         } else {
             let down = cursors.down.isDown;
@@ -129,7 +124,6 @@ Phaser.GameObjects.GameObjectFactory.register(
 
         // sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8);
         sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.5);
-
         return sprite;
     }
 );

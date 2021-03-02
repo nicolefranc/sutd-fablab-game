@@ -5,10 +5,13 @@ import Phaser from "phaser";
 import fablabTiles from "../resources/tiles/tile-sheet-23feb.png";
 // Easy
 import fablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy.json";
+import mFablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy-mobile.json";
 // Normal
 import fablabTilesJsonNormal from "../resources/tiles/normal/fablab-tiles-normal.json";
+import mFablabTilesJsonNormal from "../resources/tiles/normal/fablab-tiles-normal-mobile.json";
 // Hard
 import fablabTilesJsonHard from "../resources/tiles/hard/fablab-tiles-hard.json";
+import mFablabTilesJsonHard from "../resources/tiles/hard/fablab-tiles-hard-mobile.json";
 
 import blankTile from "../resources/tiles/blankTile.png";
 import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
@@ -53,9 +56,18 @@ export default class Game extends Phaser.Scene {
     }
 
     init(data) {
-        console.log(data);
+        this.orderDisplay = data.orderDisplay;
         this.difficulty = data.difficulty;
         this.gender = data.gender;
+    }
+
+    preload() {
+        this.preloadJsonTiles();
+        this.load.plugin(
+            'rex-virtual-joystick-plugin"',
+            VirtualJoystickPlugin,
+            true
+        );
     }
 
     static preloadAssets(scene) {
@@ -63,18 +75,11 @@ export default class Game extends Phaser.Scene {
         Game.preloadAudio(scene);
         Game.preloadPlayerAnims(scene);
         Game.preloadButton(scene);
-
-        scene.load.plugin(
-            'rex-virtual-joystick-plugin',
-            VirtualJoystickPlugin,
-            true
-        );
-        // this.load.image("mPickBtn", mPickBtn);
-        // this.load.image("mPickBtnPressed", mPickBtnPressed);
     }
 
     create() {
         this.scene.stop("CharacterMenu");
+        this.scene.stop("MainMenu");
         this.sound.stopByKey("mainMenuBGM");
         this.cursors = this.input.keyboard.createCursorKeys();
         this.isMobile =
@@ -105,9 +110,14 @@ export default class Game extends Phaser.Scene {
             this.difficulty
         );
 
+        var spawn = { x: 450, y: 325 };
+        if (this.isMobile) {
+            spawn = { x: 550, y: 350 };
+        }
+
         this.player = this.add.player(
-            350,
-            300,
+            spawn.x,
+            spawn.y,
             "playersprite",
             0,
             this.scoreController
@@ -118,13 +128,16 @@ export default class Game extends Phaser.Scene {
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
         this.loadButton();
-        this.orderDisplay = new OrderDisplay(0, 0, this);
+        // this.orderDisplay = new OrderDisplay(0, 0, this);
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
 
         this.physics.add.collider(this.player, this.walls);
 
-        if (this.isMobile) this.setupMobile();
+        this.scene.run("GameUI");
+        this.scene.bringToTop("GameUI");
+        this.setupMobile();
+        // if (this.isMobile) this.setupMobile();
     }
 
     mobilePickItem(mCursors) {
@@ -134,9 +147,6 @@ export default class Game extends Phaser.Scene {
     setupMobile() {
         this.cameras.main.startFollow(this.player, true);
         this.createVirtualJoystick();
-
-        this.scene.run("GameUI");
-        this.scene.bringToTop("GameUI");
 
         eventsCenter.on("mPickItem", this.mobilePickItem, this);
     }
@@ -163,25 +173,53 @@ export default class Game extends Phaser.Scene {
         this.cursors = this.joyStick.createCursorKeys();
     }
 
+    static preloadAudio(scene) {
+        scene.load.audio("mainBGM", mainBGM);
+    }
+
     static preloadTiles(scene) {
         scene.load.image("blankTile", blankTile);
         scene.load.image("blankHorizontalTiles", blankHorizontalTiles);
         scene.load.image("blankVerticalTiles", blankVerticalTiles);
         scene.load.image("tiles", fablabTiles);
         scene.load.image("playersprite", PlayerPlaceholderSprite);
-        scene.load.tilemapTiledJSON("tilemap_hard", fablabTilesJsonHard);
-        scene.load.tilemapTiledJSON("tilemap_normal", fablabTilesJsonNormal);
-        scene.load.tilemapTiledJSON("tilemap_easy", fablabTilesJsonEasy);
     }
-
-    static preloadAudio(scene) {
-        scene.load.audio("mainBGM", mainBGM);
+    preloadJsonTiles() {
+        switch (this.difficulty) {
+            case "hard":
+                this.load.tilemapTiledJSON("tilemap_hard", fablabTilesJsonHard);
+                this.load.tilemapTiledJSON(
+                    "mTilemap_hard",
+                    mFablabTilesJsonHard
+                );
+                this.tileLayers = fablabTilesJsonHard["layers"];
+                break;
+            case "normal":
+                this.load.tilemapTiledJSON(
+                    "tilemap_normal",
+                    fablabTilesJsonNormal
+                );
+                this.load.tilemapTiledJSON(
+                    "mTilemap_normal",
+                    mFablabTilesJsonNormal
+                );
+                this.tileLayers = fablabTilesJsonNormal["layers"];
+                break;
+            default:
+                this.load.tilemapTiledJSON("tilemap_easy", fablabTilesJsonEasy);
+                this.load.tilemapTiledJSON(
+                    "mTilemap_easy",
+                    mFablabTilesJsonEasy
+                );
+                this.tileLayers = fablabTilesJsonEasy["layers"];
+        }
     }
 
     static preloadPlayerAnims(scene) {
         scene.load.image("playersprite", PlayerPlaceholderSprite);
         scene.load.atlas("playeranims", playerSpriteSheet, playerSpriteJson);
     }
+
     static preloadButton(scene) {
         //TODO: change to actual pause btn
         scene.load.image("pauseBtn", options);
@@ -190,6 +228,17 @@ export default class Game extends Phaser.Scene {
 
     loadTiles() {
         let map = this.make.tilemap({ key: "tilemap_" + this.difficulty });
+        if (this.isMobile) {
+            map = this.make.tilemap({ key: "mTilemap_" + this.difficulty });
+            switch (this.difficulty) {
+                case "hard":
+                    this.tileLayers = mFablabTilesJsonHard["layers"];
+                case "normal":
+                    this.tileLayers = mFablabTilesJsonNormal["layers"];
+                default:
+                    this.tileLayers = mFablabTilesJsonEasy["layers"];
+            }
+        }
         // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
         let tileset = map.addTilesetImage("tile-sheet-23feb", "tiles");
         let floor = map.createLayer("Floor", tileset);
@@ -203,6 +252,7 @@ export default class Game extends Phaser.Scene {
         });
         this.walls.setCollisionByProperty({ collides: true });
     }
+
     loadButton() {
         var scale = 500 / 768;
         const pauseBtn = new Button(
@@ -230,15 +280,28 @@ export default class Game extends Phaser.Scene {
 
     loadAppliances() {
         this.assemblyTables = [];
-        switch (this.difficulty) {
-            case "hard":
-                this.tileLayers = fablabTilesJsonHard["layers"];
-                break;
-            case "normal":
-                this.tileLayers = fablabTilesJsonNormal["layers"];
-                break;
-            default:
-                this.tileLayers = fablabTilesJsonEasy["layers"];
+        if (this.isMobile) {
+            switch (this.difficulty) {
+                case "hard":
+                    this.tileLayers = mFablabTilesJsonHard["layers"];
+                    break;
+                case "normal":
+                    this.tileLayers = mFablabTilesJsonNormal["layers"];
+                    break;
+                default:
+                    this.tileLayers = mFablabTilesJsonEasy["layers"];
+            }
+        } else {
+            switch (this.difficulty) {
+                case "hard":
+                    this.tileLayers = fablabTilesJsonHard["layers"];
+                    break;
+                case "normal":
+                    this.tileLayers = fablabTilesJsonNormal["layers"];
+                    break;
+                default:
+                    this.tileLayers = fablabTilesJsonEasy["layers"];
+            }
         }
         this.bins = [];
         for (var i = 0; i < this.tileLayers.length; i++) {
@@ -367,13 +430,5 @@ export default class Game extends Phaser.Scene {
             this.scene.run("Endgame");
             this.scene.bringToTop("Endgame");
         }
-        // if (this.isMobile){
-        //     let width = this.sys.canvas.width;
-        //     let height = this.sys.canvas.height;
-        //     let dx = this.player.x + this.cameras.main.x - width/2;
-        //     let dy = this.player.y + this.cameras.main.y - height/2;
-        //     this.cameras.main.x -= dx/10;
-        //     this.cameras.main.y -= dy/10;
-        // }
     }
 }

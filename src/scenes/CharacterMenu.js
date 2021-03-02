@@ -26,7 +26,7 @@ export default class CharacterMenu extends Phaser.Scene {
         scene.load.image("backButton", backButton);
     }
     init(data) {
-        this.difficulty = data.difficulty;
+        this.data = data;
     }
     create() {
         this.images = {};
@@ -49,10 +49,9 @@ export default class CharacterMenu extends Phaser.Scene {
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.pause("CharacterMenu");
                     this.game.scene.start("Game", {
-                        difficulty: this.difficulty,
+                        ...this.data,
                         gender: "boy",
                     });
-                    this.game.scene.bringToTop("Game");
                 },
                 "boyBtnPrs"
             ),
@@ -69,10 +68,9 @@ export default class CharacterMenu extends Phaser.Scene {
                     this.game.scene.pause("CharacterMenu");
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.start("Game", {
-                        difficulty: this.difficulty,
+                        ...this.data,
                         gender: "girl",
                     });
-                    this.game.scene.bringToTop("Game");
                 },
                 "girlBtnPrs"
             ),
