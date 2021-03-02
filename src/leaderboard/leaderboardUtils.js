@@ -1,12 +1,12 @@
-const http = require("http");
+const http = require("https");
 
 export default class LeaderboardUtils {
     static get hostname() {
-        return "localhost";
+        return "sutdoverdue.dev";
     }
 
     static get port() {
-        return 8080;
+        return 443;
     }
 
     static get(path, completeCallback, errorCallback) {
@@ -16,6 +16,9 @@ export default class LeaderboardUtils {
                 port: LeaderboardUtils.port,
                 path: path,
                 method: "GET",
+                headers: {
+                    "Host": "sutdoverdue.dev"
+                }
             },
             (res) => {
                 var data = "";
@@ -46,6 +49,7 @@ export default class LeaderboardUtils {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Host": "sutdoverdue.dev"
                 },
             },
             (res) => {
