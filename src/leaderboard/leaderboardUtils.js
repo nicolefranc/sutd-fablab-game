@@ -68,9 +68,9 @@ export default class LeaderboardUtils {
         req.end();
     }
 
-    static getScores(n, successCallback, errorCallback) {
+    static getScores(n, difficulty, successCallback, errorCallback) {
         LeaderboardUtils.get(
-            `/get_leaderboard?max_entries=${n}`,
+            `/get_leaderboard?max_entries=${n}&difficulty=${difficulty}`,
             (response) => {
                 var scores = JSON.parse(response);
                 scores.sort(function (a, b) {

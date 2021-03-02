@@ -59,6 +59,10 @@ export default class TutorialMenu {
 
     show() {
         this.showCallback();
+        this.showCore();
+    }
+
+    showCore() {
         this.simpleImages[0].visible = true;
         for (var i in [0,1]) {
             this.buttons[i].enable(true);
