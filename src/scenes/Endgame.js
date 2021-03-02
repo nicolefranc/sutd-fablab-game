@@ -10,6 +10,11 @@ import Resources from "../resources/resources";
 import SettingsMenu from "../scenes/SettingsMenu";
 
 export default class EndgameOverlay extends Phaser.Scene {
+
+    init(data) {
+        this.data = data;
+    }
+
     static preloadAssets(scene) {
         scene.load.audio("endGameMusic", endGameMusic);
         scene.load.image("mainOverlay", mainOverlay);
@@ -22,7 +27,7 @@ export default class EndgameOverlay extends Phaser.Scene {
     //TODO: implement a resume button
     create() {
         this.endGameMusic = this.sound.add("endGameMusic");
-        this.endGameMusic.play({ volume: SettingsMenu.musicVolume / 3 });
+        this.endGameMusic.play({ volume: SettingsMenu.musicVolume / 4, loop: true });
         this.veil = this.add.graphics({ x: 0, y: 0 });
         this.veil.fillStyle("0x000000", 0.6);
         this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
@@ -38,6 +43,7 @@ export default class EndgameOverlay extends Phaser.Scene {
             0.55,
             () => {
                 console.log("leaderboard button pressed");
+                this.sound.stopAll();
                 this.scene.start("MainMenu");
                 this.scene.bringToTop("MainMenu");
                 this.scene.stop("Game");
@@ -53,10 +59,11 @@ export default class EndgameOverlay extends Phaser.Scene {
             0.7,
             () => {
                 console.log("replay button pressed");
+                this.sound.stopAll();
                 // this.scene.stop("Game");
                 // this.scene.stop("Endgame");
                 this.scene.stop("GameUI");
-                this.scene.start("Game");
+                this.scene.start("Game", this.data);
             },
             "replayBtnPrs"
         );

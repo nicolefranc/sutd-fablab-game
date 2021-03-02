@@ -220,21 +220,25 @@ export default class Resources {
             jigsawAcrylic: {
                 product: true,
                 image: jigsawAcrylic,
+                orderImage: tAcrylicCut,
                 value: 20,
             },
             jigsawMetal: {
                 product: true,
                 image: jigsawMetal,
+                orderImage: tMetalCut,
                 value: 30,
             },
             jigsawWood: {
                 product: true,
                 image: jigsawWood,
+                orderImage: tWoodCut,
                 value: 20,
             },
             threeDPrint: {
                 product: true,
                 image: threeDPrint,
+                orderImage: t3dgear,
                 value: 25,
             },
             solderedPcb: {
@@ -245,28 +249,33 @@ export default class Resources {
             drilledAcrylic: {
                 product: true,
                 image: drilledAcrylic,
+                orderImage: tAcrylicDrill,
                 value: 50,
             },
             drilledWood: {
                 product: true,
                 image: drilledWood,
+                orderImage: tWoodDrill,
                 value: 50,
             },
             drilledMetal: {
                 product: true,
                 image: drilledMetal,
+                orderImage: tMetalDrill,
                 value: 60,
             },
             acrylicStrips: {
                 product: true,
                 image: acrylicStrips,
+                orderImage: tAcrylicStrips,
                 value: 55,
             },
             woodStrips: {
                 product: true,
                 image: woodStrips,
+                orderImage: tWoodStrips,
                 value: 55,
-            },
+            }
         };
     }
 
@@ -296,6 +305,11 @@ export default class Resources {
     static preloadMaterialImages(scene) {
         for (var i in Resources.items) {
             scene.load.image(i, Resources.items[i]["image"]);
+            let imageKey = i + "_task";
+            if (Resources.items[i]["orderImage"]){
+                scene.load.image(imageKey, Resources.items[i]["orderImage"]);
+                console.log(`Added ${imageKey}`);
+            }
         }
     }
 }

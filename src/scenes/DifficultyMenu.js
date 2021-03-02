@@ -26,7 +26,7 @@ export default class DifficultyMenu extends Phaser.Scene {
 
     create() {
         const data = {};
-
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.images = {};
         this.images["bg"] = {
             image: this.add.image(800 / 2, 500 / 2, "difficultyMenuBg"),
@@ -40,7 +40,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     data.difficulty = "easy";
-                    this.sound.play("btnPrsSound");
+                    this.btnPrsSound.play();
                     this.game.scene.pause("DifficultyMenu");
                     this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
@@ -56,7 +56,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     data.difficulty = "normal";
-                    this.sound.play("btnPrsSound");
+                    this.btnPrsSound.play();
                     this.game.scene.pause("DifficultyMenu");
                     this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
@@ -72,7 +72,7 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     data.difficulty = "hard";
-                    this.sound.play("btnPrsSound");
+                    this.btnPrsSound.play();
                     this.game.scene.pause("DifficultyMenu");
                     this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
@@ -86,7 +86,7 @@ export default class DifficultyMenu extends Phaser.Scene {
             "backButton",
             0.5,
             () => {
-                this.sound.play("btnPrsSound");
+                this.btnPrsSound.play();
                 this.game.scene.pause("DifficultyMenu");
                 this.game.scene.start("MainMenu");
                 this.game.scene.bringToTop("MainMenu");
