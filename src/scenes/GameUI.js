@@ -15,10 +15,11 @@ export default class GameUI extends Phaser.Scene {
     }
 
     create() {
-        this.renderButton();
+        this.renderPickButton();
+        this.renderPauseButton();
     }
     
-    renderButton() {
+    renderPickButton() {
         var scale = 300/568;
         var x = 700;
         var y = 400;
@@ -26,5 +27,26 @@ export default class GameUI extends Phaser.Scene {
         this.buttons["mPickBtn"] = new Button(this, x, y,'mPickBtn',scale,()=>{
             eventsCenter.emit('mPickItem', 'mPickItem');
         },'mPickBtnPressed')
+    }
+
+    renderPauseButton() {
+        var scale = 500 / 768;
+        const pauseBtn = new Button(
+            this,
+            (1000 / 1090) * 800,
+            (150 / 768) * 500,
+            "pauseBtn",
+            scale / 2,
+            () => {
+                this.pauseGame();
+            },
+            "pauseBtnPrs"
+        );
+    }
+
+    pauseGame() {
+        this.scene.run("Pause");
+        this.scene.pause("Game");
+        this.scene.bringToTop("Pause");
     }
 }

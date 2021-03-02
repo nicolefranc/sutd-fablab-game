@@ -56,9 +56,9 @@ export default class Game extends Phaser.Scene {
     }
 
     init(data) {
-        this.orderDisplay = data.orderDisplay;
         this.difficulty = data.difficulty;
         this.gender = data.gender;
+        this.data = data;
     }
 
     preload() {
@@ -102,6 +102,7 @@ export default class Game extends Phaser.Scene {
                 this.componentsAvailable = Resources.getComponentsEasy;
                 break;
         }
+        
         this.scoreController = this.add.scoreController(
             0.25,
             3,
@@ -127,8 +128,9 @@ export default class Game extends Phaser.Scene {
         for (var i in this.assemblyTables)
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
-        this.loadButton();
-        // this.orderDisplay = new OrderDisplay(0, 0, this);
+        // this.loadButton();
+
+        this.orderDisplay = new OrderDisplay(0, 0, this.game.scene.getScene("GameUI"));
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
 
@@ -256,25 +258,25 @@ export default class Game extends Phaser.Scene {
         this.walls.setCollisionByProperty({ collides: true });
     }
 
-    loadButton() {
-        var scale = 500 / 768;
-        const pauseBtn = new Button(
-            this,
-            (1000 / 1090) * 800,
-            (150 / 768) * 500,
-            "pauseBtn",
-            scale / 2,
-            () => {
-                this.pauseGame();
-            },
-            "pauseBtnPrs"
-        );
-        // pauseBtn.setScrollFactor(0);
-        // pauseBtn.setInteractive();
-        // pauseBtn.on("pointerdown", () => this.scene.pause("Game"));
-        // this.events.on("pause", () => this.scene.run("Pause"));
-        // this.events.on("resume", () => this.scene.stop("Pause"));
-    }
+    // loadButton() {
+    //     var scale = 500 / 768;
+    //     const pauseBtn = new Button(
+    //         this,
+    //         (1000 / 1090) * 800,
+    //         (150 / 768) * 500,
+    //         "pauseBtn",
+    //         scale / 2,
+    //         () => {
+    //             this.pauseGame();
+    //         },
+    //         "pauseBtnPrs"
+    //     );
+    //     // pauseBtn.setScrollFactor(0);
+    //     // pauseBtn.setInteractive();
+    //     // pauseBtn.on("pointerdown", () => this.scene.pause("Game"));
+    //     // this.events.on("pause", () => this.scene.run("Pause"));
+    //     // this.events.on("resume", () => this.scene.stop("Pause"));
+    // }
 
     loadAudio() {
         const bgm = this.sound.add("mainBGM");
@@ -420,17 +422,17 @@ export default class Game extends Phaser.Scene {
             }
         }
     }
-    pauseGame() {
-        this.scene.run("Pause");
-        this.scene.pause("Game");
-        this.scene.bringToTop("Pause");
-    }
+    // pauseGame() {
+    //     this.scene.run("Pause");
+    //     this.scene.pause("Game");
+    //     this.scene.bringToTop("Pause");
+    // }
 
     update() {
         this.player.update(this.cursors);
         if (this.scoreController.isEndgame) {
             this.scene.pause("Game");
-            this.scene.run("Endgame");
+            this.scene.run("Endgame", this.data);
             this.scene.bringToTop("Endgame");
         }
     }

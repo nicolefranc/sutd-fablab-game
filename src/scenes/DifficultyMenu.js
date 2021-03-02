@@ -25,13 +25,7 @@ export default class DifficultyMenu extends Phaser.Scene {
     }
 
     create() {
-        const data = {
-            orderDisplay: new OrderDisplay(
-                0,
-                0,
-                this.game.scene.getScene("GameUI")
-            ),
-        };
+        const data = {};
 
         this.images = {};
         this.images["bg"] = {
