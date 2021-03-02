@@ -117,6 +117,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
         this.tabs["easy"] = new Button(this,71/2/3.2,152/2/3.2+150,'leaderboardScreenEasyTab',1/3.2,()=>{
             this.tabs["normal"].enableToggle();
             this.tabs["hard"].enableToggle();
+            this.text.text = "";
             this.clearScores();
             if (this.scores["easy"]===null) {
                 this.text.text = "Loading...";
@@ -130,7 +131,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
                         this.text.text = "";
                     }
                     this.timeout = null;
-                },5000);
+                },2500);
             }
             else this.loadScores(this.scores["easy"]);
         },'leaderboardScreenEasyTab',true,'leaderboardScreenEasyTabPrs');
@@ -138,6 +139,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
             this.tabs["easy"].enableToggle();
             this.tabs["hard"].enableToggle();
             this.clearScores();
+            this.text.text = "";
             if (this.timeout !== null) clearTimeout(this.timeout);
             if (this.scores["normal"]===null) {
                 this.text.text = "Loading...";
@@ -150,7 +152,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
                         this.text.text = "";
                     }
                     this.timeout = null;
-                },5000);
+                },2500);
             }
             else this.loadScores(this.scores["normal"]);
         },'leaderboardScreenNormalTab',true,'leaderboardScreenNormalTabPrs');
@@ -158,6 +160,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
             this.tabs["easy"].enableToggle();
             this.tabs["normal"].enableToggle();
             this.clearScores();
+            this.text.text = "";
             if (this.scores["hard"]===null) {
                 this.text.text = "Loading...";
                 if (this.timeout !== null) clearTimeout(this.timeout);
@@ -170,7 +173,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
                         this.text.text = "";
                     }
                     this.timeout = null;
-                },5000);
+                },2500);
             }
             else this.loadScores(this.scores["hard"]);
         },'leaderboardScreenHardTab',true,'leaderboardScreenHardTabPrs');
