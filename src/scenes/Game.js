@@ -32,8 +32,8 @@ import ScoreController from "../controllers/scoreController";
 
 //Buttons
 import Button from "../sprites/button";
-import options from "../resources/Main Menu/options.png";
-import optionsPrs from "../resources/Main Menu/options_prs.png";
+import pauseBtn from "../resources/pause/pause_btn.png";
+import pauseBtnPrs from "../resources/pause/pause_btn_prs.png";
 
 //Player
 import PlayerPlaceholderSprite from "../resources/Gurl/down-00.png";
@@ -122,7 +122,7 @@ export default class Game extends Phaser.Scene {
             0,
             this.scoreController
         );
-        this.player.scale = 0.3;
+        this.player.scale = 0.25;
 
         for (var i in this.assemblyTables)
             this.assemblyTables[i].attachScoreController(this.scoreController);
@@ -222,8 +222,8 @@ export default class Game extends Phaser.Scene {
 
     static preloadButton(scene) {
         //TODO: change to actual pause btn
-        scene.load.image("pauseBtn", options);
-        scene.load.image("pauseBtnPrs", optionsPrs);
+        scene.load.image("pauseBtn", pauseBtn);
+        scene.load.image("pauseBtnPrs", pauseBtnPrs);
     }
 
     loadTiles() {
@@ -233,10 +233,13 @@ export default class Game extends Phaser.Scene {
             switch (this.difficulty) {
                 case "hard":
                     this.tileLayers = mFablabTilesJsonHard["layers"];
+                    break;
                 case "normal":
                     this.tileLayers = mFablabTilesJsonNormal["layers"];
+                    break;
                 default:
                     this.tileLayers = mFablabTilesJsonEasy["layers"];
+                    break;
             }
         }
         // const tileset = map.addTilesetImage("fablab_tileset_complete", "tiles");
