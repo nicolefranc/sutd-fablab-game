@@ -26,14 +26,17 @@ export default class InteractiveTool extends Appliance {
         });
         this.toolType = toolType;
         this.childText.setOrigin(0.5, 0.5);
+        this.createProgressBar();
     }
     //update function
     preUpdate(time, dt) {
+        this.updateProgressBar(this.currentProgress / MAX_PROGRESS);
         if (this.state === 2) {
             //state 2; show Done, item can be collected
-            this.scene.sound.play("completedSFX", {
-                volume: SettingsMenu.sfxVolume,
-            });
+            // this.scene.completedSFX = this.scene.sound.add("completedSFX");
+            // this.scene.sound.play("completedSFX", {
+            //     volume: SettingsMenu.sfxVolume,
+            // });
             this.childText.setText(`Done!`);
         }
     }
@@ -46,16 +49,23 @@ export default class InteractiveTool extends Appliance {
                     this.state = 1;
                     switch (this.toolType) {
                         case "drill":
+                            this.scene.drillSFX = this.scene.sound.add(
+                                "drillSFX"
+                            );
                             this.scene.sound.play("drillSFX", {
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
                         case "saw":
+                            this.scene.sawSFX = this.scene.sound.add("sawSFX");
                             this.scene.sound.play("sawSFX", {
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
                         case "solderStation":
+                            this.scene.solderSFX = this.scene.sound.add(
+                                "solderSFX"
+                            );
                             this.scene.sound.play("solderSFX", {
                                 volume: SettingsMenu.sfxVolume,
                             });
@@ -80,13 +90,6 @@ export default class InteractiveTool extends Appliance {
                         this.state = 2;
                     } else {
                         //increase progress whenever Player interacts with it empty-handed
-                        if (this.currentProgress < MAX_PROGRESS) {
-                            this.childText.setText(
-                                `Processing: \n\t\t\t${Math.floor(
-                                    (100 * this.currentProgress) / MAX_PROGRESS
-                                )}%`
-                            );
-                        }
                         this.currentProgress += 0.1 * MAX_PROGRESS;
                     }
                     return null;

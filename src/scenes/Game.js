@@ -18,7 +18,7 @@ import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
 import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 
 //Audio
-import mainBGM from "../resources/audio/Gameplay.mp3";
+import gameBGM from "../resources/audio/Gameplay.mp3";
 import threeDPrinterSFX from "../resources/audio/3D Printer.mp3";
 import laserCutterSFX from "../resources/audio/Laser Cutter.mp3";
 import sawSFX from "../resources/audio/Saw.mp3";
@@ -185,7 +185,7 @@ export default class Game extends Phaser.Scene {
     }
 
     static preloadAudio(scene) {
-        scene.load.audio("mainBGM", mainBGM);
+        scene.load.audio("gameBGM", gameBGM);
         scene.load.audio("threeDPrinterSFX", threeDPrinterSFX);
         scene.load.audio("drillSFX", drillSFX);
         scene.load.audio("fixingSFX", fixingSFX);
@@ -294,7 +294,7 @@ export default class Game extends Phaser.Scene {
     }
 
     loadAudio() {
-        const bgm = this.sound.add("mainBGM");
+        const bgm = this.sound.add("gameBGM");
         bgm.play();
     }
 
@@ -449,6 +449,7 @@ export default class Game extends Phaser.Scene {
         this.player.update(this.cursors);
         if (this.scoreController.isEndgame) {
             this.scene.pause("Game");
+            this.sound.stopAll();
             this.scene.run("Endgame");
             this.scene.bringToTop("Endgame");
         }

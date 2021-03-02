@@ -90,11 +90,17 @@ export default class WaitingTool extends Appliance {
                     this.state = 1;
                     switch (this.toolType) {
                         case "laserCutter":
+                            this.scene.laserSFX = this.scene.sound.add(
+                                "laserCutterSFX"
+                            );
                             this.scene.sound.play("laserCutterSFX", {
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
                         case "threeDPrinter":
+                            this.scene.printerSFX = this.scene.sound.add(
+                                "threeDPrinterSFX"
+                            );
                             this.scene.sound.play("threeDPrinterSFX", {
                                 volume: SettingsMenu.sfxVolume,
                             });

@@ -1,13 +1,17 @@
 import Phaser from "phaser";
 import Button from "../sprites/button";
+import endGameMusic from "../resources/audio/Ending.mp3";
 import leaderboardBtn from "../resources/endgame/leaderboardbutton.png";
 import leaderboardBtnPrs from "../resources/endgame/leaderboardbuttonpressed.png";
 import mainOverlay from "../resources/endgame/Popup.png";
 import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
+import Resources from "../resources/resources";
+import SettingsMenu from "../scenes/SettingsMenu";
 
 export default class EndgameOverlay extends Phaser.Scene {
     static preloadAssets(scene) {
+        scene.load.audio("endGameMusic", endGameMusic);
         scene.load.image("mainOverlay", mainOverlay);
         scene.load.image("leaderboardBtn", leaderboardBtn);
         scene.load.image("leaderboardBtnPrs", leaderboardBtnPrs);
@@ -17,15 +21,21 @@ export default class EndgameOverlay extends Phaser.Scene {
 
     //TODO: implement a resume button
     create() {
+        this.endGameMusic = this.sound.add("endGameMusic");
+        this.endGameMusic.play({ volume: SettingsMenu.musicVolume / 3 });
+        this.veil = this.add.graphics({ x: 0, y: 0 });
+        this.veil.fillStyle("0x000000", 0.6);
+        this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
+        this.veil.setScrollFactor(0);
         this.mainOverlay = this.add.image(400, 250, "mainOverlay");
         this.mainOverlay.setScale(0.7);
         this.mainOverlay.setScrollFactor(0);
         const nextBtn = new Button(
             this,
-            500,
-            250,
+            550,
+            410,
             "leaderboardBtn",
-            0.5,
+            0.55,
             () => {
                 console.log("leaderboard button pressed");
                 this.scene.start("MainMenu");
@@ -37,8 +47,8 @@ export default class EndgameOverlay extends Phaser.Scene {
         );
         const replayBtn = new Button(
             this,
-            200,
-            250,
+            215,
+            410,
             "replayBtn",
             0.7,
             () => {
