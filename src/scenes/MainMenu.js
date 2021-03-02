@@ -74,8 +74,8 @@ export default class MainMenu extends Phaser.Scene {
         this.buttons = {};
         this.buttons["options"] = new Button(
             this,
-            (305 / 1090) * 800,
-            (570 / 768) * 500,
+            (200 / 1090) * 800,
+            (650 / 768) * 500,
             "optionsBtn",
             scale,
             () => {
@@ -104,8 +104,8 @@ export default class MainMenu extends Phaser.Scene {
         );
         this.buttons["leaderboard"] = new Button(
             this,
-            (789 / 1090) * 800,
-            (568 / 768) * 500,
+            (888 / 1090) * 800,
+            (650 / 768) * 500,
             "leaderboardBtn",
             scale,
             () => {
@@ -121,7 +121,7 @@ export default class MainMenu extends Phaser.Scene {
         this.buttons["credits"] = new Button(
             this,
             (544 / 1090) * 800,
-            (710 / 768) * 500,
+            (650 / 768) * 500,
             "creditsBtn",
             scale,
             () => {
