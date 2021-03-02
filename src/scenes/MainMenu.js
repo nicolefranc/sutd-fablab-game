@@ -150,6 +150,11 @@ export default class MainMenu extends Phaser.Scene {
             },
             "creditsBtnPrs"
         );
+        this.tutorialMenu = new TutorialMenu(
+            this,
+            ()=>{},
+            ()=>{for (var i in this.buttons) {this.buttons[i].enable(true);}}
+        )
         this.settingsMenu = new SettingsMenu(
             this,
             () => {
@@ -157,7 +162,8 @@ export default class MainMenu extends Phaser.Scene {
             },
             () => {
                 for (var i in this.buttons) this.buttons[i].enable(true);
-            }
+            },
+            this.tutorialMenu
         );
     }
     update() {

@@ -12,6 +12,7 @@ import QuitGame from "./scenes/QuitGame";
 import GameUI from "./scenes/GameUI";
 
 import font from "./resources/font/Peepo.woff";
+import InitialTutorial from "./scenes/InitialTutorial";
 
 var WebFont = require("webfontloader");
 
@@ -76,4 +77,5 @@ game.scene.add("LeaderboardScreen", LeaderboardScreen);
 game.scene.add("MainMenu", MainMenu);
 game.scene.add("Credits", Credits);
 game.scene.add("Endgame", Endgame);
+game.scene.add("InitialTutorial", InitialTutorial);
 game.scene.start("MainMenu");

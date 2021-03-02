@@ -105,7 +105,8 @@ export default class Pause extends Phaser.Scene {
                 for (var i in this.buttons) {
                     this.buttons[i].enable(true);
                 }
-            }
+            },
+            this.tutorialMenu
         );
     }
 }

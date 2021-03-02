@@ -54,6 +54,7 @@ import mPickBtnPressed from "../resources/mobile/interactivebuttonpressed.png";
 
 import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import OrderDisplay from "../controllers/orderDisplay";
+import InitialTutorial from "./InitialTutorial";
 
 export default class Game extends Phaser.Scene {
     constructor(config) {
@@ -158,6 +159,7 @@ export default class Game extends Phaser.Scene {
         this.scene.run("GameUI");
         this.scene.bringToTop("GameUI");
         if (this.isMobile) this.setupMobile();
+
     }
 
     mobilePickItem(mCursors) {
@@ -460,6 +462,11 @@ export default class Game extends Phaser.Scene {
     // }
 
     update() {
+        if (InitialTutorial.firstGame) {
+            this.scene.pause("Game");
+            this.scene.run("InitialTutorial");
+            this.scene.bringToTop("InitialTutorial");
+        }
         this.player.update(this.cursors);
         if (this.scoreController.isEndgame) {
             this.scene.pause("Game");

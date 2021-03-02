@@ -14,12 +14,13 @@ export default class SettingsMenu {
     static musicVolume = 9;
     static sfxVolume = 9;
 
-    constructor(scene, showCallback, hideCallback) {
+    constructor(scene, showCallback, hideCallback, tutorialMenu) {
         this.scene = scene;
         this.simpleImages = {};
         this.buttons = {};
         this.musicBarArray = [];
         this.sfxBarArray = [];
+        this.tutorialMenu = tutorialMenu;
 
         this.showCallback = showCallback;
         this.hideCallback = hideCallback;
@@ -112,7 +113,7 @@ export default class SettingsMenu {
             "settingsMenuGuideBtn",
             1 / 3.2,
             () => {
-                this.tutorialMenu.show();
+                this.switchToTutorial();
             },
             "settingsMenuGuideBtn"
         );
@@ -143,16 +144,6 @@ export default class SettingsMenu {
                 color: "0x000000",
             })
             .setOrigin(0.5, 0.5);
-
-        this.tutorialMenu = new TutorialMenu(
-            this.scene,
-            () => {
-                for (var i in this.buttons) this.buttons[i].enable(false);
-            },
-            () => {
-                for (var i in this.buttons) this.buttons[i].enable(true);
-            }
-        );
 
         for (var i in this.simpleImages) {
             this.simpleImages[i].visible = false;
@@ -210,6 +201,22 @@ export default class SettingsMenu {
             this.sfxBarArray[i].visible = false;
         }
         this.text.visible = false;
+    }
+
+    switchToTutorial() {
+        for (var i in this.simpleImages) {
+            this.simpleImages[i].visible = false;
+        }
+        for (var i in this.buttons) {
+            this.buttons[i].enable(false);
+            this.buttons[i].setVisible(false);
+        }
+        for (var i = 0; i < 18; i++) {
+            this.musicBarArray[i].visible = false;
+            this.sfxBarArray[i].visible = false;
+        }
+        this.text.visible = false;
+        this.tutorialMenu.showCore();
     }
 
     updateMusicBar() {
