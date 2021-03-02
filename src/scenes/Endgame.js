@@ -7,7 +7,6 @@ import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
 
 export default class EndgameOverlay extends Phaser.Scene {
-
     static preloadAssets(scene) {
         scene.load.image("mainOverlay", mainOverlay);
         scene.load.image("leaderboardBtn", leaderboardBtn);
@@ -46,6 +45,7 @@ export default class EndgameOverlay extends Phaser.Scene {
                 console.log("replay button pressed");
                 // this.scene.stop("Game");
                 // this.scene.stop("Endgame");
+                this.scene.stop("GameUI");
                 this.scene.start("Game");
             },
             "replayBtnPrs"

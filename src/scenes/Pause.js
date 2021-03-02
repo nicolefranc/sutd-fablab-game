@@ -11,7 +11,6 @@ import Button from "../sprites/button";
 import TutorialMenu from "./TutorialMenu";
 import SettingsMenu from "./SettingsMenu";
 export default class Pause extends Phaser.Scene {
-    
     static preloadAssets(scene) {
         scene.load.image("pauseOverlay", pauseOverlay);
         scene.load.image("guideBtn", guideBtn);
@@ -24,7 +23,6 @@ export default class Pause extends Phaser.Scene {
 
     //TODO: implement a resume button
     create() {
-        
         this.veil = this.add.graphics({ x: 0, y: 0 });
         this.veil.fillStyle("0x000000", 0.6);
         this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
@@ -78,27 +76,36 @@ export default class Pause extends Phaser.Scene {
             () => {
                 console.log("resume button pressed");
                 this.scene.resume("Game");
+                this.sound.resumeAll();
                 this.scene.stop("Pause");
             },
             "resumeBtnPrs"
         );
-        this.tutorialMenu = new TutorialMenu(this,()=>{
-            for (var i in this.buttons) {
-                this.buttons[i].enable(false);
+        this.tutorialMenu = new TutorialMenu(
+            this,
+            () => {
+                for (var i in this.buttons) {
+                    this.buttons[i].enable(false);
+                }
+            },
+            () => {
+                for (var i in this.buttons) {
+                    this.buttons[i].enable(true);
+                }
             }
-        },()=>{
-            for (var i in this.buttons) {
-                this.buttons[i].enable(true);
+        );
+        this.settingsMenu = new SettingsMenu(
+            this,
+            () => {
+                for (var i in this.buttons) {
+                    this.buttons[i].enable(false);
+                }
+            },
+            () => {
+                for (var i in this.buttons) {
+                    this.buttons[i].enable(true);
+                }
             }
-        });
-        this.settingsMenu = new SettingsMenu(this,()=>{
-            for (var i in this.buttons) {
-                this.buttons[i].enable(false);
-            }
-        },()=>{
-            for (var i in this.buttons) {
-                this.buttons[i].enable(true);
-            }
-        });
+        );
     }
 }

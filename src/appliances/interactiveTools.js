@@ -1,6 +1,7 @@
 import Appliance from "./appliance";
 import Resources from "../resources/resources";
 import WaitingTool from "./waitingTools";
+import SettingsMenu from "../scenes/SettingsMenu";
 
 /* Contains the logic for all interactive tools: saw, drill, solderStation*/
 
@@ -23,12 +24,16 @@ export default class InteractiveTool extends Appliance {
         this.childText = scene.add.text(x, y - Resources.tileLength, "Idle", {
             color: "0x000000",
         });
+        this.toolType = toolType;
         this.childText.setOrigin(0.5, 0.5);
     }
     //update function
     preUpdate(time, dt) {
         if (this.state === 2) {
             //state 2; show Done, item can be collected
+            this.scene.sound.play("completedSFX", {
+                volume: SettingsMenu.sfxVolume,
+            });
             this.childText.setText(`Done!`);
         }
     }
@@ -39,6 +44,23 @@ export default class InteractiveTool extends Appliance {
             case 0:
                 if (item in this.materialTable) {
                     this.state = 1;
+                    switch (this.toolType) {
+                        case "drill":
+                            this.scene.sound.play("drillSFX", {
+                                volume: SettingsMenu.sfxVolume,
+                            });
+                            break;
+                        case "saw":
+                            this.scene.sound.play("sawSFX", {
+                                volume: SettingsMenu.sfxVolume,
+                            });
+                            break;
+                        case "solderStation":
+                            this.scene.sound.play("solderSFX", {
+                                volume: SettingsMenu.sfxVolume,
+                            });
+                            break;
+                    }
                     /*set this to 1/10 because it's more natural 
                     to set the progress to be 1/10 after 1 interaction rather than
                     0/10*/
@@ -74,6 +96,9 @@ export default class InteractiveTool extends Appliance {
                 let output = this.expectedOutput;
                 if (item !== null && !(item in this.materialTable)) return item;
                 else {
+                    this.scene.sound.play("completedSFX", {
+                        volume: SettingsMenu.sfxVolume,
+                    });
                     this.expectedOutput = null;
                     //if player is empty-handed, machine turns back to idle
                     if (item === null) {

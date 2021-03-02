@@ -2,13 +2,18 @@ import Phaser from "phaser";
 import Appliance from "../appliances/appliance.js";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame, scoreController) {
+    constructor(scene, x, y, texture, frame, gender, scoreController) {
         super(scene, x, y, texture, frame);
+        if (gender === "boy") {
+            this.gender = "Boi";
+        } else {
+            this.gender = "Gurl";
+        }
         this.heldItem = null;
         this.dirnx = 0;
         this.dirny = 0;
         this.scoreController = scoreController;
-        this.anims.play("Gurl-down", true);
+        this.anims.play(this.gender + "-down", true);
     }
 
     setItem(item) {
@@ -51,10 +56,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.dirny = vy;
             }
             if (vx != 0) {
-                this.anims.play("Gurl-right", true);
+                this.anims.play(this.gender + "-right", true);
                 this.flipX = vx == -1;
             } else if (vy != 0) {
-                this.anims.play(vy == 1 ? "Gurl-down" : "Gurl-up", true);
+                this.anims.play(
+                    vy == 1 ? this.gender + "-down" : this.gender + "-up",
+                    true
+                );
                 this.flipX = false;
             } else {
                 this.anims.stop();
@@ -104,13 +112,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 Phaser.GameObjects.GameObjectFactory.register(
     "player",
-    function (x, y, texture, frame, scoreController) {
+    function (x, y, texture, frame, gender, scoreController) {
         var sprite = new Player(
             this.scene,
             x,
             y,
             texture,
             frame,
+            gender,
             scoreController
         );
 

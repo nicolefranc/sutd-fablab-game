@@ -19,7 +19,13 @@ import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 
 //Audio
 import mainBGM from "../resources/audio/Gameplay.mp3";
-
+import threeDPrinterSFX from "../resources/audio/3D Printer.mp3";
+import laserCutterSFX from "../resources/audio/Laser Cutter.mp3";
+import sawSFX from "../resources/audio/Saw.mp3";
+import solderSFX from "../resources/audio/Solder.mp3";
+import drillSFX from "../resources/audio/Drill (From Zapsplat).wav";
+import fixingSFX from "../resources/audio/Fixing Tools (From Zapsplat).wav";
+import completedSFX from "../resources/audio/Completed Component.mp3";
 //Resources
 import Resources from "../resources/resources";
 import InteractiveTools from "../appliances/interactiveTools";
@@ -56,7 +62,7 @@ export default class Game extends Phaser.Scene {
     }
 
     init(data) {
-        this.orderDisplay = data.orderDisplay;
+        // this.orderDisplay = data.orderDisplay;
         this.difficulty = data.difficulty;
         this.gender = data.gender;
     }
@@ -78,6 +84,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
+        this.inPause = false;
         this.scene.stop("CharacterMenu");
         this.scene.stop("MainMenu");
         this.sound.stopByKey("mainMenuBGM");
@@ -114,12 +121,13 @@ export default class Game extends Phaser.Scene {
         if (this.isMobile) {
             spawn = { x: 550, y: 350 };
         }
-
+        console.log(this.gender);
         this.player = this.add.player(
             spawn.x,
             spawn.y,
             "playersprite",
             0,
+            this.gender,
             this.scoreController
         );
         this.player.scale = 0.25;
@@ -128,7 +136,11 @@ export default class Game extends Phaser.Scene {
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
         this.loadButton();
-        // this.orderDisplay = new OrderDisplay(0, 0, this);
+        this.orderDisplay = new OrderDisplay(
+            0,
+            0,
+            this.game.scene.getScene("GameUI")
+        );
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
 
@@ -136,8 +148,7 @@ export default class Game extends Phaser.Scene {
 
         this.scene.run("GameUI");
         this.scene.bringToTop("GameUI");
-        this.setupMobile();
-        // if (this.isMobile) this.setupMobile();
+        if (this.isMobile) this.setupMobile();
     }
 
     mobilePickItem(mCursors) {
@@ -175,6 +186,13 @@ export default class Game extends Phaser.Scene {
 
     static preloadAudio(scene) {
         scene.load.audio("mainBGM", mainBGM);
+        scene.load.audio("threeDPrinterSFX", threeDPrinterSFX);
+        scene.load.audio("drillSFX", drillSFX);
+        scene.load.audio("fixingSFX", fixingSFX);
+        scene.load.audio("laserCutterSFX", laserCutterSFX);
+        scene.load.audio("sawSFX", sawSFX);
+        scene.load.audio("solderSFX", solderSFX);
+        scene.load.audio("completedSFX", completedSFX);
     }
 
     static preloadTiles(scene) {
@@ -221,7 +239,6 @@ export default class Game extends Phaser.Scene {
     }
 
     static preloadButton(scene) {
-        //TODO: change to actual pause btn
         scene.load.image("pauseBtn", pauseBtn);
         scene.load.image("pauseBtnPrs", pauseBtnPrs);
     }
@@ -421,6 +438,8 @@ export default class Game extends Phaser.Scene {
         }
     }
     pauseGame() {
+        this.sound.pauseAll();
+        this.inPause = true;
         this.scene.run("Pause");
         this.scene.pause("Game");
         this.scene.bringToTop("Pause");
