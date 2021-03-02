@@ -65,7 +65,7 @@ export default class Game extends Phaser.Scene {
         Game.preloadButton(scene);
 
         scene.load.plugin(
-            'rex-virtual-joystick-plugin"',
+            'rex-virtual-joystick-plugin',
             VirtualJoystickPlugin,
             true
         );

@@ -24,13 +24,17 @@ import Pause from "./Pause";
 import QuitGame from "./QuitGame";
 import Game from "./Game";
 import CharacterMenu from "./CharacterMenu";
+import TutorialMenu from "./TutorialMenu";
 
 export default class MainMenu extends Phaser.Scene {
+    static firstLoad = true;
+
     constructor(config) {
         super(config);
     }
 
     preload() {
+        if (!MainMenu.firstLoad) return;
         this.load.image("mainMenuBackground", background);
         this.load.image("leaderboardBtn", leaderboard);
         this.load.image("leaderboardBtnPrs", leaderboardPrs);
@@ -53,6 +57,8 @@ export default class MainMenu extends Phaser.Scene {
         Pause.preloadAssets(this);
         QuitGame.preloadAssets(this);
         SettingsMenu.preloadAssets(this);
+        TutorialMenu.preloadAssets(this);
+        MainMenu.firstLoad = false;
     }
 
     create() {
