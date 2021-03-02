@@ -103,13 +103,24 @@ export default class Game extends Phaser.Scene {
                 break;
         }
         
-        this.scoreController = this.add.scoreController(
-            0.25,
-            3,
+        // this.scoreController = this.add.scoreController(
+        //     0.25,
+        //     3,
+        //     this.componentsAvailable,
+        //     3,
+        //     this.difficulty
+        // );
+        this.scoreController = this.game.scene.getScene("GameUI").add.scoreController(
+            11.1,
+            0.75,
             this.componentsAvailable,
             3,
             this.difficulty
-        );
+        )
+
+        console.log(this.scoreController.style.color);
+        // this.scoreController.setColor("0xE42828");
+        // console.log(this.scoreController.style.color);
 
         var spawn = { x: 450, y: 325 };
         if (this.isMobile) {
