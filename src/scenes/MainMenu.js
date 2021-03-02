@@ -23,6 +23,7 @@ import GameUI from "./GameUI";
 import Pause from "./Pause";
 import QuitGame from "./QuitGame";
 import Game from "./Game";
+import CharacterMenu from "./CharacterMenu";
 
 export default class MainMenu extends Phaser.Scene {
     constructor(config) {
@@ -44,6 +45,7 @@ export default class MainMenu extends Phaser.Scene {
         Resources.preloadMaterialImages(this);
         Credits.preloadAssets(this);
         DifficultyMenu.preloadAssets(this);
+        CharacterMenu.preloadAssets(this);
         EndgameOverlay.preloadAssets(this);
         Game.preloadAssets(this);
         GameUI.preloadAssets(this);

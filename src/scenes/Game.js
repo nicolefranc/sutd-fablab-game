@@ -55,6 +55,7 @@ export default class Game extends Phaser.Scene {
     init(data) {
         console.log(data);
         this.difficulty = data.difficulty;
+        this.gender = data.gender;
     }
 
     static preloadAssets(scene) {
@@ -73,6 +74,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
+        this.scene.stop("CharacterMenu");
         this.sound.stopByKey("mainMenuBGM");
         this.cursors = this.input.keyboard.createCursorKeys();
         this.isMobile =
