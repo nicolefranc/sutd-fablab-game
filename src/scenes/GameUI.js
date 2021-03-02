@@ -15,6 +15,10 @@ export default class GameUI extends Phaser.Scene {
     }
 
     create() {
+        this.renderButton();
+    }
+    
+    renderButton() {
         var scale = 300/568;
         var x = 700;
         var y = 400;

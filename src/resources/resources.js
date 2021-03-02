@@ -14,6 +14,16 @@ import cutWood from "./Materials/Wood Drill.png";
 import cutMetal from "./Materials/Metal Drill.png";
 import acrylicStrips from "./Materials/Acrylic Strips.png";
 import woodStrips from "./Materials/Wood Strips.png";
+/// --- TASKS
+import t3dgear from "./tasks/task 3d gear.png";
+import tAcrylicCut from "./tasks/task acrylic cut.png";
+import tAcrylicDrill from "./tasks/task acrylic drill.png";
+import tAcrylicStrips from "./tasks/task acrylic strips.png";
+import tMetalCut from "./tasks/task metal cut.png";
+import tMetalDrill from "./tasks/task metal drill.png";
+import tWoodCut from "./tasks/task wood cut.png";
+import tWoodDrill from "./tasks/task wood drill.png";
+import tWoodStrips from "./tasks/task wood strips.png";
 
 export default class Resources {
     static get tileLength() {

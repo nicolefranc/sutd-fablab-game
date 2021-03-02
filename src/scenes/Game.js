@@ -48,6 +48,7 @@ export default class Game extends Phaser.Scene {
     }
 
     init(data) {
+        this.orderDisplay = data.orderDisplay;
         this.difficulty = data.difficulty;
     }
     
@@ -96,11 +97,14 @@ export default class Game extends Phaser.Scene {
         for (var i in this.assemblyTables)
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
-        this.orderDisplay = new OrderDisplay(0, 0, this);
+        // this.orderDisplay = new OrderDisplay(0, 0, this);
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
 
         this.physics.add.collider(this.player, this.walls);
+
+        this.scene.run("GameUI");
+        this.scene.bringToTop("GameUI");
 
         if (this.isMobile)
             this.setupMobile();
@@ -113,9 +117,6 @@ export default class Game extends Phaser.Scene {
     setupMobile() {
         this.cameras.main.startFollow(this.player, true);
         this.createVirtualJoystick();
-
-        this.scene.run("GameUI");
-        this.scene.bringToTop("GameUI");
         
         eventsCenter.on('mPickItem', this.mobilePickItem, this);
     }
@@ -149,7 +150,6 @@ export default class Game extends Phaser.Scene {
         this.load.image("tiles", fablabTiles);
         this.load.image("playersprite", PlayerPlaceholderSprite);
 
-        console.log(this.difficulty);
         switch(this.difficulty) {
             case 'hard':
                 this.load.tilemapTiledJSON("tilemap", fablabTilesJsonHard);

@@ -34,13 +34,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (lookingAt !== undefined) {
                 lookingAt.gameObject.onLook();
 
-                // if (
-                //     cursors.space &&
-                //     Phaser.Input.Keyboard.JustDown(cursors.space)
-                // ) {
-                    let item = lookingAt.gameObject.interact(this.heldItem);
-                    this.setItem(item);
-                // }
+                let item = lookingAt.gameObject.interact(this.heldItem);
+                this.setItem(item);
             }
         } else {
             let down = cursors.down.isDown;
