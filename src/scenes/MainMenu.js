@@ -101,6 +101,8 @@ export default class MainMenu extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
+                    
+                this.scale.startFullscreen();
 
                 this.game.scene.start("DifficultyMenu");
                 this.game.scene.bringToTop("DifficultyMenu");
