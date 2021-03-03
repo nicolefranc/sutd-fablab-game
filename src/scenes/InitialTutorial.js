@@ -10,7 +10,7 @@ export default class InitialTutorial extends Phaser.Scene {
             this.scene.resume("Game");
             this.scene.bringToTop("InitialTutorial");
             this.scene.stop("InitialTutorial");
-        });
+        },true);
         this.tutorialMenu.show();
     }
 }
