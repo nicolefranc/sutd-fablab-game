@@ -84,17 +84,11 @@ export default class LeaderboardScreen extends Phaser.Scene {
             this.scene.bringToTop('MainMenu');
         });
 
-        LeaderboardUtils.getScores(10,"easy",(scores)=>{
-            this.scores["easy"] = scores;
-        }, (err) => {});
-        LeaderboardUtils.getScores(10,"normal",(scores)=>{
-            this.scores["normal"] = scores;
-        }, (err) => {});
-        LeaderboardUtils.getScores(10,"hard",(scores)=>{
-            this.scores["hard"] = scores;
-        }, (err) => {});
+        this.scoreRetries = {easy:0,normal:0,hard:0};
+
         this.timeout = null;
 
+        this.checkScoresIfLoaded("easy");
         this.scoreObjects = [];
 
         this.clearScores();
@@ -119,71 +113,62 @@ export default class LeaderboardScreen extends Phaser.Scene {
             this.tabs["hard"].enableToggle();
             this.text.text = "";
             this.clearScores();
-            if (this.scores["easy"]===null) {
-                this.text.text = "Loading...";
-                if (this.timeout !== null) clearTimeout(this.timeout);
-                this.timeout = setTimeout(()=>{
-                    if (this.scores["easy"]===null) {
-                        this.text.text = "Error loading scores. Please try again later.";
-                    }
-                    else{
-                        this.loadScores(this.scores["easy"]);
-                        this.text.text = "";
-                    }
-                    this.timeout = null;
-                },2500);
-            }
-            else this.loadScores(this.scores["easy"]);
+            if (this.timeout !==null) clearTimeout(this.timeout);
+            this.scoreRetries["easy"] = 0;
+            this.checkScoresIfLoaded("easy");
         },'leaderboardScreenEasyTab',true,'leaderboardScreenEasyTabPrs');
         this.tabs["normal"] = new Button(this,71/2/3.2,152*1.5/3.2+150,'leaderboardScreenNormalTab',1/3.2,()=>{
             this.tabs["easy"].enableToggle();
             this.tabs["hard"].enableToggle();
             this.clearScores();
-            this.text.text = "";
-            if (this.timeout !== null) clearTimeout(this.timeout);
-            if (this.scores["normal"]===null) {
-                this.text.text = "Loading...";
-                setTimeout(()=>{
-                    if (this.scores["normal"]===null) {
-                        this.text.text = "Error loading scores. Please try again later.";
-                    }
-                    else{
-                        this.loadScores(this.scores["normal"]);
-                        this.text.text = "";
-                    }
-                    this.timeout = null;
-                },2500);
-            }
-            else this.loadScores(this.scores["normal"]);
+            if (this.timeout !==null) clearTimeout(this.timeout);
+            this.scoreRetries["normal"] = 0;
+            this.checkScoresIfLoaded("normal");
         },'leaderboardScreenNormalTab',true,'leaderboardScreenNormalTabPrs');
         this.tabs["hard"] = new Button(this,71/2/3.2,152*2.5/3.2+150,'leaderboardScreenHardTab',1/3.2,()=>{
             this.tabs["easy"].enableToggle();
             this.tabs["normal"].enableToggle();
             this.clearScores();
-            this.text.text = "";
-            if (this.scores["hard"]===null) {
-                this.text.text = "Loading...";
-                if (this.timeout !== null) clearTimeout(this.timeout);
-                setTimeout(()=>{
-                    if (this.scores["hard"]===null) {
-                        this.text.text = "Error loading scores. Please try again later.";
-                    }
-                    else{
-                        this.loadScores(this.scores["hard"]);
-                        this.text.text = "";
-                    }
-                    this.timeout = null;
-                },2500);
-            }
-            else this.loadScores(this.scores["hard"]);
+            if (this.timeout !==null) clearTimeout(this.timeout);
+            this.scoreRetries["hard"] = 0;
+            this.checkScoresIfLoaded("hard");
         },'leaderboardScreenHardTab',true,'leaderboardScreenHardTabPrs');
         this.tabs["easy"].disableToggle();
+    }
+
+    getScores(difficulty) {
+        LeaderboardUtils.getScores(10,difficulty,(scores)=>{
+            this.scores[difficulty] = scores;
+        }, (err) => {});
     }
 
     clearScores() {
         for (var i in this.scoreObjects) {this.scoreObjects[i].destroy();}
         this.scoreObjects = [];
     }
+
+    checkScoresIfLoaded(difficulty) {
+        if (this.scores[difficulty]!==null) {
+            this.loadScores(this.scores[difficulty]);
+            this.text.text = "";
+        }
+        else {
+            if (this.scoreRetries[difficulty] === 5) {
+                this.text.text = "Error loading scores. Please try again later.";
+                this.timeout = null;
+                return;
+            }
+            if (this.scoreRetries[difficulty] === 0) {
+                this.getScores(difficulty);
+            }
+            var text = "Loading.";
+            for (var i=0;i<this.scoreRetries[difficulty]%3;i++) text += ".";
+            this.text.text = text;
+            this.scoreRetries[difficulty] += 1;
+            this.timeout = setTimeout(()=>{this.checkScoresIfLoaded(difficulty);},500);
+        }
+    }
+
     loadScores(scores) {
         this.scoreObjects.push(this.add.image(439/1318*800,(577+22)/768*500,'leaderboardScreenPodium').setScale(500/768));
         for (var i=0;i<scores.length;i++) {
