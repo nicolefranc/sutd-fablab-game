@@ -29,6 +29,7 @@ export default class CharacterMenu extends Phaser.Scene {
         this.data = data;
     }
     create() {
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.images = {};
         this.images["bg"] = {
             image: this.add.image(800 / 2, 500 / 2, "characterMenuBg"),
@@ -45,7 +46,7 @@ export default class CharacterMenu extends Phaser.Scene {
                 "boyBtn",
                 500 / 769,
                 () => {
-                    this.sound.play("btnPrsSound");
+                    this.btnPrsSound.play();
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.pause("CharacterMenu");
                     this.game.scene.start("Game", {
@@ -64,7 +65,7 @@ export default class CharacterMenu extends Phaser.Scene {
                 "girlBtn",
                 500 / 769,
                 () => {
-                    this.sound.play("btnPrsSound");
+                    this.btnPrsSound.play();
                     this.game.scene.pause("CharacterMenu");
                     this.game.scene.stop("DifficultyMenu");
                     this.game.scene.start("Game", {
@@ -82,7 +83,7 @@ export default class CharacterMenu extends Phaser.Scene {
             "backButton",
             0.5,
             () => {
-                this.sound.play("btnPrsSound");
+                this.btnPrsSound.play();
                 this.game.scene.pause("CharacterMenu");
                 this.game.scene.run("DifficultyMenu");
                 this.game.scene.bringToTop("DifficultyMenu");

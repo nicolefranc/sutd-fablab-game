@@ -78,11 +78,11 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         var outText = "";
         if (this.acceptItems) {
             outText +=
-                "Time left: " +
+                // "Time left: " +
                 this.padDisplay(Math.floor(this.time / 60000)) +
                 ":" +
                 this.padDisplay(Math.floor((this.time % 60000) / 1000)) +
-                "\n";
+                "\n\n";
         } else outText += "Time's up!\n";
         outText += "Score: " + this.score + "\n\n";
         outText += "Current item:\n\t" + this.item + "\n\n";
@@ -174,6 +174,9 @@ Phaser.GameObjects.GameObjectFactory.register(
 
         this.displayList.add(text);
         this.updateList.add(text);
+        console.log(text);
+
+        text.style.setColor("#E42828");
 
         return text;
     }

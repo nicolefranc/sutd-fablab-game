@@ -54,6 +54,7 @@ import mPickBtnPressed from "../resources/mobile/interactivebuttonpressed.png";
 
 import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import OrderDisplay from "../controllers/orderDisplay";
+import InitialTutorial from "./InitialTutorial";
 
 export default class Game extends Phaser.Scene {
     constructor(config) {
@@ -62,9 +63,9 @@ export default class Game extends Phaser.Scene {
     }
 
     init(data) {
-        // this.orderDisplay = data.orderDisplay;
         this.difficulty = data.difficulty;
         this.gender = data.gender;
+        this.data = data;
     }
 
     preload() {
@@ -84,7 +85,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        this.inPause = false;
+        // this.inPause = false;
         this.scene.stop("CharacterMenu");
         this.scene.stop("MainMenu");
         this.sound.stopByKey("mainMenuBGM");
@@ -291,25 +292,20 @@ export default class Game extends Phaser.Scene {
         this.walls.setCollisionByProperty({ collides: true });
     }
 
-    loadButton() {
-        var scale = 500 / 768;
-        const pauseBtn = new Button(
-            this,
-            (1000 / 1090) * 800,
-            (150 / 768) * 500,
-            "pauseBtn",
-            scale / 2,
-            () => {
-                this.pauseGame();
-            },
-            "pauseBtnPrs"
-        );
-        // pauseBtn.setScrollFactor(0);
-        // pauseBtn.setInteractive();
-        // pauseBtn.on("pointerdown", () => this.scene.pause("Game"));
-        // this.events.on("pause", () => this.scene.run("Pause"));
-        // this.events.on("resume", () => this.scene.stop("Pause"));
-    }
+    // loadButton() {
+    //     var scale = 500 / 768;
+    //     const pauseBtn = new Button(
+    //         this,
+    //         (1000 / 1090) * 800,
+    //         (150 / 768) * 500,
+    //         "pauseBtn",
+    //         scale / 2,
+    //         () => {
+    //             this.pauseGame();
+    //         },
+    //         "pauseBtnPrs"
+    //     );
+    // }
 
     loadAudio() {
         const bgm = this.sound.add("gameBGM");
@@ -473,6 +469,11 @@ export default class Game extends Phaser.Scene {
         this.scene.stop("Pause");
         console.log(this.scoreController.inPause);
     }
+    // pauseGame() {
+    //     this.scene.run("Pause");
+    //     this.scene.pause("Game");
+    //     this.scene.bringToTop("Pause");
+    // }
 
     update() {
         if (InitialTutorial.firstGame) {
@@ -486,7 +487,7 @@ export default class Game extends Phaser.Scene {
         if (this.scoreController.isEndgame) {
             this.scene.pause("Game");
             this.sound.stopAll();
-            this.scene.run("Endgame");
+            this.scene.run("Endgame", this.data);
             this.scene.bringToTop("Endgame");
         }
     }

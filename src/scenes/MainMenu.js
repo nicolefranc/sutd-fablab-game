@@ -69,11 +69,7 @@ export default class MainMenu extends Phaser.Scene {
             });
             this.bgm.play();
         }
-        if (this.bgm.play) {
-            console.log("PLAYING");
-        } else {
-            console.log("NOT PLAYING");
-        }
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         var scale = 500 / 768;
         this.background = this.add.image(400, 250, "mainMenuBackground");
         this.background.setScale(scale);
@@ -85,7 +81,7 @@ export default class MainMenu extends Phaser.Scene {
             "optionsBtn",
             scale,
             () => {
-                this.sound.play("btnPrsSound", {
+                this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
                 this.settingsMenu.show();
@@ -99,9 +95,15 @@ export default class MainMenu extends Phaser.Scene {
             "startBtn",
             scale,
             () => {
-                this.sound.play("btnPrsSound", {
+                // this.sound.play("btnPrsSound", {
+                //     volume: SettingsMenu.sfxVolume / 18,
+                // });
+                this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
+                    
+                this.scale.startFullscreen();
+
                 this.game.scene.start("DifficultyMenu");
                 this.game.scene.bringToTop("DifficultyMenu");
                 this.game.scene.pause("MainMenu");
@@ -115,9 +117,13 @@ export default class MainMenu extends Phaser.Scene {
             "leaderboardBtn",
             scale,
             () => {
-                this.sound.play("btnPrsSound", {
+                // this.sound.play("btnPrsSound", {
+                //     volume: SettingsMenu.sfxVolume / 18,
+                // });
+                this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
+
                 this.game.scene.pause("MainMenu");
                 this.game.scene.start("LeaderboardScreen");
                 this.game.scene.bringToTop("LeaderboardScreen");
@@ -131,15 +137,24 @@ export default class MainMenu extends Phaser.Scene {
             "creditsBtn",
             scale,
             () => {
-                this.sound.play("btnPrsSound", {
+                // this.sound.play("btnPrsSound", {
+                //     volume: SettingsMenu.sfxVolume / 18,
+                // });
+                this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
+
                 this.game.scene.start("Credits");
                 this.game.scene.bringToTop("Credits");
-                this.game.scene.stop("MainMenu");
+                this.game.scene.pause("MainMenu");
             },
             "creditsBtnPrs"
         );
+        this.tutorialMenu = new TutorialMenu(
+            this,
+            ()=>{},
+            ()=>{for (var i in this.buttons) {this.buttons[i].enable(true);}}
+        )
         this.settingsMenu = new SettingsMenu(
             this,
             () => {
@@ -147,7 +162,8 @@ export default class MainMenu extends Phaser.Scene {
             },
             () => {
                 for (var i in this.buttons) this.buttons[i].enable(true);
-            }
+            },
+            this.tutorialMenu
         );
     }
     update() {

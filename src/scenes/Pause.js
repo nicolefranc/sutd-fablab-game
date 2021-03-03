@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import eventsCenter from "../events/EventsCenter";
 import Resources from "../resources/resources";
 import pauseOverlay from "../resources/pause/pausemenu.png";
 import guideBtn from "../resources/pause/guidetab.png";
@@ -74,10 +75,7 @@ export default class Pause extends Phaser.Scene {
             "resumeBtn",
             0.2,
             () => {
-                console.log("resume button pressed");
-                this.scene.resume("Game");
-                this.sound.resumeAll();
-                this.scene.stop("Pause");
+                eventsCenter.emit("resumeGame");
             },
             "resumeBtnPrs"
         );
@@ -105,7 +103,8 @@ export default class Pause extends Phaser.Scene {
                 for (var i in this.buttons) {
                     this.buttons[i].enable(true);
                 }
-            }
+            },
+            this.tutorialMenu
         );
     }
 }

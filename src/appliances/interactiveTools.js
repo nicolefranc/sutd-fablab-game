@@ -52,13 +52,13 @@ export default class InteractiveTool extends Appliance {
                             this.scene.drillSFX = this.scene.sound.add(
                                 "drillSFX"
                             );
-                            this.scene.sound.play("drillSFX", {
+                            this.scene.drillSFX.play({
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
                         case "saw":
                             this.scene.sawSFX = this.scene.sound.add("sawSFX");
-                            this.scene.sound.play("sawSFX", {
+                            this.scene.sawSFX.play( {
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
@@ -66,7 +66,7 @@ export default class InteractiveTool extends Appliance {
                             this.scene.solderSFX = this.scene.sound.add(
                                 "solderSFX"
                             );
-                            this.scene.sound.play("solderSFX", {
+                            this.scene.solderSFX.play({
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
@@ -99,9 +99,9 @@ export default class InteractiveTool extends Appliance {
                 let output = this.expectedOutput;
                 if (item !== null && !(item in this.materialTable)) return item;
                 else {
-                    this.scene.sound.play("completedSFX", {
-                        volume: SettingsMenu.sfxVolume,
-                    });
+                    // this.scene.sound.play("completedSFX", {
+                    //     volume: SettingsMenu.sfxVolume,
+                    // });
                     this.expectedOutput = null;
                     //if player is empty-handed, machine turns back to idle
                     if (item === null) {

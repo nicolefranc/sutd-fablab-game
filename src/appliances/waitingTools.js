@@ -93,7 +93,7 @@ export default class WaitingTool extends Appliance {
                             this.scene.laserSFX = this.scene.sound.add(
                                 "laserCutterSFX"
                             );
-                            this.scene.sound.play("laserCutterSFX", {
+                            this.scene.laserSFX.play({
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
@@ -101,7 +101,7 @@ export default class WaitingTool extends Appliance {
                             this.scene.printerSFX = this.scene.sound.add(
                                 "threeDPrinterSFX"
                             );
-                            this.scene.sound.play("threeDPrinterSFX", {
+                            this.scene.printerSFX.play({
                                 volume: SettingsMenu.sfxVolume,
                             });
                             break;
@@ -131,9 +131,9 @@ export default class WaitingTool extends Appliance {
                 return item;
             case 4:
                 if (item !== null && !(item in this.materialTable)) return item;
-                this.scene.sound.play("completedSFX", {
-                    volume: SettingsMenu.sfxVolume,
-                });
+                // this.scene.sound.play("completedSFX", {
+                //     volume: SettingsMenu.sfxVolume,
+                // });
                 this.faultCleared = false;
                 this.faultTimeout = null;
                 this.processProgress = 0;
