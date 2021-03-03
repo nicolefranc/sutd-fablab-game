@@ -59,30 +59,55 @@ export default class LeaderboardScreen extends Phaser.Scene {
         scene.load.image("leaderboardScreenPos10", leaderboardScreenPos10);
 
         scene.load.image("leaderboardScreenEasyTab", leaderboardScreenEasyTab);
-        scene.load.image("leaderboardScreenEasyTabPrs", leaderboardScreenEasyTabPrs);
-        scene.load.image("leaderboardScreenNormalTab", leaderboardScreenNormalTab);
-        scene.load.image("leaderboardScreenNormalTabPrs", leaderboardScreenNormalTabPrs);
+        scene.load.image(
+            "leaderboardScreenEasyTabPrs",
+            leaderboardScreenEasyTabPrs
+        );
+        scene.load.image(
+            "leaderboardScreenNormalTab",
+            leaderboardScreenNormalTab
+        );
+        scene.load.image(
+            "leaderboardScreenNormalTabPrs",
+            leaderboardScreenNormalTabPrs
+        );
         scene.load.image("leaderboardScreenHardTab", leaderboardScreenHardTab);
-        scene.load.image("leaderboardScreenHardTabPrs", leaderboardScreenHardTabPrs);
-        scene.load.image("leaderboardScreenBackBtn", leaderboardScreenBackBtn)
+        scene.load.image(
+            "leaderboardScreenHardTabPrs",
+            leaderboardScreenHardTabPrs
+        );
+        scene.load.image("leaderboardScreenBackBtn", leaderboardScreenBackBtn);
     }
 
     create() {
-        this.bg = this.add.image(400,250,'leaderboardScreenBackground').setScale(500/769);
-        this.text = this.add.text(400,250,"",{"fontFamily": "peepo","fontSize": 20, "color": "0x000000"});
-        this.text.setOrigin(0.5,0.5);
+        this.bg = this.add
+            .image(400, 250, "leaderboardScreenBackground")
+            .setScale(500 / 769);
+        this.text = this.add.text(400, 250, "", {
+            fontFamily: "peepo",
+            fontSize: 20,
+            color: "0x000000",
+        });
+        this.text.setOrigin(0.5, 0.5);
         this.tabs = {};
         this.scores = {
-            "easy":null,
-            "normal":null,
-            "hard":null
+            easy: null,
+            normal: null,
+            hard: null,
         };
 
-        this.backButton = new Button(this,50,125,'leaderboardScreenBackBtn',800/2560*2276/2547,()=>{
-            this.scene.stop('LeaderboardScreen');
-            this.scene.start('MainMenu');
-            this.scene.bringToTop('MainMenu');
-        });
+        this.backButton = new Button(
+            this,
+            50,
+            125,
+            "leaderboardScreenBackBtn",
+            ((800 / 2560) * 2276) / 2547,
+            () => {
+                this.scene.stop("LeaderboardScreen");
+                this.scene.start("MainMenu");
+                this.scene.bringToTop("MainMenu");
+            }
+        );
 
         this.scoreRetries = {easy:0,normal:0,hard:0};
 
@@ -92,21 +117,19 @@ export default class LeaderboardScreen extends Phaser.Scene {
         this.scoreObjects = [];
 
         this.clearScores();
-        if (this.scores["easy"]===null) {
+        if (this.scores["easy"] === null) {
             this.text.text = "Loading...";
-            this.timeout = setTimeout(()=>{
-                if (this.scores["easy"]===null) {
-                    
-                    this.text.text = "Error loading scores. Please try again later.";
-                }
-                else{
+            this.timeout = setTimeout(() => {
+                if (this.scores["easy"] === null) {
+                    this.text.text =
+                        "Error loading scores. Please try again later.";
+                } else {
                     this.loadScores(this.scores["easy"]);
                     this.text.text = "";
                 }
                 this.timeout = null;
-            },5000);
-        }
-        else this.loadScores(this.scores["easy"]);
+            }, 5000);
+        } else this.loadScores(this.scores["easy"]);
 
         this.tabs["easy"] = new Button(this,71/2/3.2,152/2/3.2+150,'leaderboardScreenEasyTab',1/3.2,()=>{
             this.tabs["normal"].enableToggle();
@@ -143,7 +166,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
     }
 
     clearScores() {
-        for (var i in this.scoreObjects) {this.scoreObjects[i].destroy();}
+        for (var i in this.scoreObjects) {
+            this.scoreObjects[i].destroy();
+        }
         this.scoreObjects = [];
     }
 
@@ -170,22 +195,110 @@ export default class LeaderboardScreen extends Phaser.Scene {
     }
 
     loadScores(scores) {
-        this.scoreObjects.push(this.add.image(439/1318*800,(577+22)/768*500,'leaderboardScreenPodium').setScale(500/768));
-        for (var i=0;i<scores.length;i++) {
-            if (i<3) {
-                const imgParam = [[442,302],[695,404],[178,465]];
-                const textParam = [[384,477],[637,566],[120,625]];
-                this.scoreObjects.push(this.add.image(imgParam[i][0]/1318*800,(imgParam[i][1]+22+(scores[i]["gender"]==="m"?5:0))/768*500,scores[i]["gender"]==="m"?'leaderboardScreenBoyFigure':'leaderboardScreenGirlFigure').setScale(500/768));
-                this.scoreObjects.push(this.add.text(textParam[i][0]/1318*800,textParam[i][1]/768*500,scores[i]["name"] + ": " + scores[i]["score"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"center"}).setOrigin(0.25,0));
+        this.scoreObjects.push(
+            this.add
+                .image(
+                    (439 / 1318) * 800,
+                    ((577 + 22) / 768) * 500,
+                    "leaderboardScreenPodium"
+                )
+                .setScale(500 / 768)
+        );
+        for (var i = 0; i < scores.length; i++) {
+            if (i < 3) {
+                const imgParam = [
+                    [442, 302],
+                    [695, 404],
+                    [178, 465],
+                ];
+                const textParam = [
+                    [384, 477],
+                    [637, 566],
+                    [120, 625],
+                ];
+                this.scoreObjects.push(
+                    this.add
+                        .image(
+                            (imgParam[i][0] / 1318) * 800,
+                            ((imgParam[i][1] +
+                                22 +
+                                (scores[i]["gender"] === "m" ? 5 : 0)) /
+                                768) *
+                                500,
+                            scores[i]["gender"] === "m"
+                                ? "leaderboardScreenBoyFigure"
+                                : "leaderboardScreenGirlFigure"
+                        )
+                        .setScale(500 / 768)
+                );
+                this.scoreObjects.push(
+                    this.add
+                        .text(
+                            (textParam[i][0] / 1318) * 800,
+                            (textParam[i][1] / 768) * 500,
+                            scores[i]["name"] + ": " + scores[i]["score"],
+                            {
+                                fontFamily: "peepo",
+                                fontSize: (32 * 500) / 758,
+                                color: "0x000000",
+                                align: "center",
+                            }
+                        )
+                        .setOrigin(0.25, 0)
+                );
+            } else {
+                const j = i + 1;
+                this.scoreObjects.push(
+                    this.add
+                        .image(
+                            (1060 / 1318) * 800,
+                            ((208 + 81 * (i - 3)) / 768) * 500,
+                            "leaderboardScreenPos" + j
+                        )
+                        .setScale(500 / 768)
+                );
+                this.scoreObjects.push(
+                    this.add
+                        .image(
+                            (1222 / 1318) * 800,
+                            ((207 + 81 * (i - 3)) / 768) * 500,
+                            scores[i]["gender"] === "m"
+                                ? "leaderboardScreenBoyHead"
+                                : "leaderboardScreenGirlHead"
+                        )
+                        .setScale(500 / 768)
+                );
+                this.scoreObjects.push(
+                    this.add
+                        .text(
+                            (931 / 1318) * 800,
+                            ((207 + 81 * (i - 3)) / 768) * 500,
+                            scores[i]["name"],
+                            {
+                                fontFamily: "peepo",
+                                fontSize: (32 * 500) / 758,
+                                color: "0x000000",
+                                align: "left",
+                            }
+                        )
+                        .setOrigin(0, 0.5)
+                );
+                this.scoreObjects.push(
+                    this.add
+                        .text(
+                            (1167 / 1318) * 800,
+                            ((207 + 81 * (i - 3)) / 768) * 500,
+                            scores[i]["score"],
+                            {
+                                fontFamily: "peepo",
+                                fontSize: (32 * 500) / 758,
+                                color: "0x000000",
+                                align: "right",
+                            }
+                        )
+                        .setOrigin(1, 0.5)
+                );
             }
-            else {
-                const j=i+1;
-                this.scoreObjects.push(this.add.image(1060/1318*800,(208+(81*(i-3)))/768*500,'leaderboardScreenPos'+j).setScale(500/768));
-                this.scoreObjects.push(this.add.image(1222/1318*800,(207+(81*(i-3)))/768*500,scores[i]["gender"]==="m"?'leaderboardScreenBoyHead':'leaderboardScreenGirlHead').setScale(500/768));
-                this.scoreObjects.push(this.add.text(931/1318*800,(207+(81*(i-3)))/768*500,scores[i]["name"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"left"}).setOrigin(0,0.5));
-                this.scoreObjects.push(this.add.text(1167/1318*800,(207+(81*(i-3)))/768*500,scores[i]["score"],{"fontFamily": "peepo", "fontSize": 32*500/758, "color":"0x000000","align":"right"}).setOrigin(1,0.5));
-            }
-
         }
     }
 }

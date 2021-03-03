@@ -34,6 +34,10 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     preload() {
+        this.loadingText = this.add.text(400,250,"Loading...",{
+            fontFamily: "calibri",
+            fontSize: 30
+        }).setOrigin(0.5,0.5);
         if (!MainMenu.firstLoad) return;
         this.load.image("mainMenuBackground", background);
         this.load.image("leaderboardBtn", leaderboard);
@@ -59,6 +63,8 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     create() {
+        this.scene.stop("LoadingScreen");
+        this.scene.bringToTop("MainMenu");
         var scale = 500 / 768;
         this.background = this.add.image(400, 250, "mainMenuBackground");
         this.background.setScale(scale);
@@ -128,5 +134,8 @@ export default class MainMenu extends Phaser.Scene {
             },
             this.tutorialMenu
         );
+        this.loadingText.visible = false;
+        this.scene.stop("LoadingScreen");
+        this.scene.bringToTop("MainMenu");
     }
 }
