@@ -34,6 +34,12 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     preload() {
+        this.loadingText = this.add
+            .text(400, 250, "Loading...", {
+                fontFamily: "arial",
+                fontSize: 30,
+            })
+            .setOrigin(0.5, 0.5);
         if (!MainMenu.firstLoad) return;
         this.load.image("mainMenuBackground", background);
         this.load.image("leaderboardBtn", leaderboard);
@@ -101,7 +107,7 @@ export default class MainMenu extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                    
+
                 this.scale.startFullscreen();
 
                 this.game.scene.start("DifficultyMenu");
@@ -152,9 +158,13 @@ export default class MainMenu extends Phaser.Scene {
         );
         this.tutorialMenu = new TutorialMenu(
             this,
-            ()=>{},
-            ()=>{for (var i in this.buttons) {this.buttons[i].enable(true);}}
-        )
+            () => {},
+            () => {
+                for (var i in this.buttons) {
+                    this.buttons[i].enable(true);
+                }
+            }
+        );
         this.settingsMenu = new SettingsMenu(
             this,
             () => {
@@ -165,6 +175,9 @@ export default class MainMenu extends Phaser.Scene {
             },
             this.tutorialMenu
         );
+        this.loadingText.visible = false;
+        this.scene.stop("LoadingScreen");
+        this.scene.bringToTop("MainMenu");
     }
     update() {
         this.bgm.volume = SettingsMenu.musicVolume / 18;
