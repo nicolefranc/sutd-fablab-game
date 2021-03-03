@@ -6,11 +6,11 @@ import tutorialMenuLeftButton from "../resources/tutorial/left_button.png";
 import tutorialMenuRightButton from "../resources/tutorial/right_button.png";
 
 export default class TutorialMenu {
-    constructor(scene, showCallback, hideCallback) {
+    constructor(scene, showCallback, hideCallback, isInitialTutorial) {
         this.scene = scene;
         this.simpleImages = [];
         this.buttons = [];
-        this.text;
+        this.text = null;
 
         this.showCallback = showCallback;
         this.hideCallback = hideCallback;
@@ -75,7 +75,7 @@ export default class TutorialMenu {
             .text(
                 (((348 / 2547) * 2276 + 142) / 2560) * 800 + 50,
                 (((1301 / 2547) * 2276 + 88) / 1600) * 500 + 25,
-                "Back to menu",
+                isInitialTutorial === true ? "Start game" : "Back to menu",
                 { fontFamily: "peepo", fontSize: 20, color: "0x000000" }
             )
             .setOrigin(0.5, 0.5);
