@@ -31,9 +31,9 @@ export default class CharacterMenu extends Phaser.Scene {
     create() {
         this.btnPrsSound = this.sound.add("btnPrsSound");
         this.images = {};
-        this.images["bg"] = {
-            image: this.add.image(800 / 2, 500 / 2, "characterMenuBg"),
-        };
+        var scale = 450 / 768;
+        this.images["bg"] = this.add.image(800 / 2, 500 / 2, "characterMenuBg");
+        this.images["bg"].setScale(scale);
         this.images["boyChara"] = this.add.image(800 / 4, 500 / 2, "boyChara");
         this.images["boyChara"].setScale(0.7, 0.7);
         this.images["girlChara"] = this.add.image(600, 500 / 2, "girlChara");
@@ -89,6 +89,5 @@ export default class CharacterMenu extends Phaser.Scene {
                 this.game.scene.bringToTop("DifficultyMenu");
             }
         );
-        this.images["bg"]["image"].scale = 500 / 800;
     }
 }

@@ -1,7 +1,7 @@
 import Button from "../sprites/button";
 
-import tutorialMenuFirstPage from "../resources/tutorial/first_page_rescaled.png";
-import tutorialMenuSecondPage from "../resources/tutorial/second_page_rescaled.png";
+import tutorialMenuFirstPage from "../resources/tutorial/how_to.png";
+import tutorialMenuSecondPage from "../resources/tutorial/equipments.png";
 import tutorialMenuLeftButton from "../resources/tutorial/left_button.png";
 import tutorialMenuRightButton from "../resources/tutorial/right_button.png";
 
@@ -20,12 +20,12 @@ export default class TutorialMenu {
         this.simpleImages.push(
             this.scene.add
                 .image(400, 250, "tutorialMenuFirstPage")
-                .setScale(800 / 2560)
+                .setScale(1100 / 2560)
         );
         this.simpleImages.push(
             this.scene.add
                 .image(400, 250, "tutorialMenuSecondPage")
-                .setScale(800 / 2560)
+                .setScale(1100 / 2560)
         );
 
         this.buttons.push(

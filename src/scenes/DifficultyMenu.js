@@ -28,6 +28,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         const data = {};
         this.btnPrsSound = this.sound.add("btnPrsSound");
         this.images = {};
+        var scale = 450 / 768;
         this.images["bg"] = {
             image: this.add.image(800 / 2, 500 / 2, "difficultyMenuBg"),
         };
@@ -81,8 +82,8 @@ export default class DifficultyMenu extends Phaser.Scene {
         };
         this.images["backButton"] = new Button(
             this,
-            (100 / 1090) * 800,
-            (110 / 768) * 500,
+            (80 / 1090) * 800,
+            (225 / 768) * 500,
             "backButton",
             0.5,
             () => {
@@ -92,6 +93,6 @@ export default class DifficultyMenu extends Phaser.Scene {
                 this.game.scene.bringToTop("MainMenu");
             }
         );
-        this.images["bg"]["image"].scale = 500 / 769;
+        this.images["bg"]["image"].scale = scale;
     }
 }
