@@ -15,6 +15,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         );
         this.difficulty = difficulty;
         this.isEndgame = false;
+        this.isPause = false;
         this.setColor("0x000000");
         this.time = GAME_DURATION;
         this.acceptItems = true;
@@ -60,8 +61,11 @@ export default class ScoreController extends Phaser.GameObjects.Text {
     }
 
     preUpdate(time, dt) {
+        console.log(this.isPause);
         if (this.acceptItems) {
-            if (this.started) this.time -= dt;
+            if (this.isPause === false) {
+                if (this.started) this.time -= dt;
+            }
             if (this.time <= 0) {
                 this.initiateEndGame();
                 this.acceptItems = false;
@@ -96,6 +100,9 @@ export default class ScoreController extends Phaser.GameObjects.Text {
 
     getRequiredItems() {
         return this.requiredItems;
+    }
+    changePause() {
+        this.isPause = !this.isPause;
     }
 
     submit(index) {
@@ -155,13 +162,14 @@ export default class ScoreController extends Phaser.GameObjects.Text {
 
 Phaser.GameObjects.GameObjectFactory.register(
     "scoreController",
-    function (gridX, gridY, productItems, orderCount) {
+    function (gridX, gridY, productItems, orderCount, difficulty) {
         var text = new ScoreController(
             this.scene,
             gridX,
             gridY,
             productItems,
-            orderCount
+            orderCount,
+            difficulty
         );
 
         this.displayList.add(text);

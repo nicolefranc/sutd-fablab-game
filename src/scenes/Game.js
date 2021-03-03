@@ -109,13 +109,27 @@ export default class Game extends Phaser.Scene {
                 this.componentsAvailable = Resources.getComponentsEasy;
                 break;
         }
-        this.scoreController = this.add.scoreController(
-            0.25,
-            3,
-            this.componentsAvailable,
-            3,
-            this.difficulty
-        );
+
+        this.scoreController = this.game.scene
+            .getScene("GameUI")
+            .add.scoreController(
+                0.25,
+                3,
+                this.componentsAvailable,
+                3,
+                this.difficulty
+            );
+        // this.scoreController = this.game.scene.getScene("GameUI").add.scoreController(
+        //     11.1,
+        //     0.75,
+        //     this.componentsAvailable,
+        //     3,
+        //     this.difficulty
+        // )
+
+        console.log(this.scoreController.style.color);
+        // this.scoreController.setColor("0xE42828");
+        // console.log(this.scoreController.style.color);
 
         var spawn = { x: 450, y: 325 };
         if (this.isMobile) {
@@ -135,7 +149,8 @@ export default class Game extends Phaser.Scene {
         for (var i in this.assemblyTables)
             this.assemblyTables[i].attachScoreController(this.scoreController);
 
-        this.loadButton();
+        // this.loadButton();
+
         this.orderDisplay = new OrderDisplay(
             0,
             0,
@@ -143,6 +158,9 @@ export default class Game extends Phaser.Scene {
         );
         this.scoreController.attachOrderDisplay(this.orderDisplay);
         this.scoreController.start();
+        eventsCenter.on("pauseGame", this.pauseGame, this);
+        eventsCenter.on("resumeGame", this.resumeGame, this);
+        eventsCenter.on("startGame", this.startGame, this);
 
         this.physics.add.collider(this.player, this.walls);
 
@@ -437,15 +455,33 @@ export default class Game extends Phaser.Scene {
             }
         }
     }
+    startGame() {
+        this.scoreController.changePause();
+    }
     pauseGame() {
         this.sound.pauseAll();
-        this.inPause = true;
+        this.scoreController.changePause();
         this.scene.run("Pause");
         this.scene.pause("Game");
         this.scene.bringToTop("Pause");
+        console.log(this.scoreController.inPause);
+    }
+    resumeGame() {
+        this.sound.resumeAll();
+        this.scoreController.changePause();
+        this.scene.run("Game");
+        this.scene.stop("Pause");
+        console.log(this.scoreController.inPause);
     }
 
     update() {
+        if (InitialTutorial.firstGame) {
+            this.startGame();
+            this.sound.pauseAll();
+            this.scene.pause("Game");
+            this.scene.run("InitialTutorial");
+            this.scene.bringToTop("InitialTutorial");
+        }
         this.player.update(this.cursors);
         if (this.scoreController.isEndgame) {
             this.scene.pause("Game");
