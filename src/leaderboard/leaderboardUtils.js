@@ -17,8 +17,8 @@ export default class LeaderboardUtils {
                 path: path,
                 method: "GET",
                 headers: {
-                    "Host": "sutdoverdue.dev"
-                }
+                    Host: "sutdoverdue.dev",
+                },
             },
             (res) => {
                 var data = "";
@@ -49,7 +49,7 @@ export default class LeaderboardUtils {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Host": "sutdoverdue.dev"
+                    Host: "sutdoverdue.dev",
                 },
             },
             (res) => {
@@ -78,7 +78,7 @@ export default class LeaderboardUtils {
             (response) => {
                 var scores = JSON.parse(response);
                 scores.sort(function (a, b) {
-                    return a["score"] - b["score"];
+                    return b["score"] - a["score"];
                 });
                 successCallback(scores);
             },
@@ -119,13 +119,13 @@ export default class LeaderboardUtils {
             difficulty: difficulty,
             score: score,
             bonus: bonus,
-            materials: materials
+            materials: materials,
         });
 
         LeaderboardUtils.postJson(
             "/submit_score",
             jsonObject,
-            (response)=>{
+            (response) => {
                 var data = JSON.parse(response);
                 successCallback(data);
             },
