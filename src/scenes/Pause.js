@@ -24,6 +24,7 @@ export default class Pause extends Phaser.Scene {
 
     //TODO: implement a resume button
     create() {
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.veil = this.add.graphics({ x: 0, y: 0 });
         this.veil.fillStyle("0x000000", 0.6);
         this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
@@ -39,6 +40,9 @@ export default class Pause extends Phaser.Scene {
             "guideBtn",
             0.5,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 console.log("guide button pressed");
                 this.tutorialMenu.show();
             }
@@ -50,6 +54,9 @@ export default class Pause extends Phaser.Scene {
             "optionsPauseBtn",
             0.5,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 console.log("options button pressed");
                 this.settingsMenu.show();
             }
@@ -61,6 +68,9 @@ export default class Pause extends Phaser.Scene {
             "quitBtn",
             0.2,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 console.log("quit button pressed");
                 this.scene.run("QuitGame");
                 this.scene.bringToTop("QuitGame");
@@ -75,6 +85,9 @@ export default class Pause extends Phaser.Scene {
             "resumeBtn",
             0.2,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 eventsCenter.emit("resumeGame");
             },
             "resumeBtnPrs"

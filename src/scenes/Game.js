@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import SettingsMenu from "../scenes/SettingsMenu";
 
 // import fablabTiles from "../resources/tiles/tile sheet final2.png";
 // import fablabTilesJson from "../resources/tiles/fablab_complete.json";
@@ -26,6 +27,8 @@ import solderSFX from "../resources/audio/Solder.mp3";
 import drillSFX from "../resources/audio/Drill (From Zapsplat).wav";
 import fixingSFX from "../resources/audio/Fixing Tools (From Zapsplat).wav";
 import completedSFX from "../resources/audio/Completed Component.mp3";
+import pickupSFX from "../resources/audio/Player Picks Up Item.mp3";
+import throwSFX from "../resources/audio/Player Throws Item Away.mp3";
 //Resources
 import Resources from "../resources/resources";
 import InteractiveTools from "../appliances/interactiveTools";
@@ -85,6 +88,7 @@ export default class Game extends Phaser.Scene {
 
     create() {
         // this.inPause = false;
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.scene.stop("CharacterMenu");
         this.scene.stop("MainMenu");
         this.sound.stopByKey("mainMenuBGM");
@@ -211,6 +215,8 @@ export default class Game extends Phaser.Scene {
         scene.load.audio("sawSFX", sawSFX);
         scene.load.audio("solderSFX", solderSFX);
         scene.load.audio("completedSFX", completedSFX);
+        scene.load.audio("throwSFX", throwSFX);
+        scene.load.audio("pickupSFX", pickupSFX);
     }
 
     static preloadTiles(scene) {
@@ -308,7 +314,9 @@ export default class Game extends Phaser.Scene {
 
     loadAudio() {
         const bgm = this.sound.add("gameBGM");
-        bgm.play();
+        bgm.play({
+            volume: SettingsMenu.musicVolume / 18,
+        });
     }
 
     loadAppliances() {
@@ -455,6 +463,9 @@ export default class Game extends Phaser.Scene {
     }
     pauseGame() {
         this.sound.pauseAll();
+        this.btnPrsSound.play({
+            volume: SettingsMenu.sfxVolume / 18,
+        });
         this.scoreController.changePause();
         this.scene.run("Pause");
         this.scene.pause("Game");

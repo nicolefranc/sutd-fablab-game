@@ -7,6 +7,7 @@ import cancelBtn from "../resources/QuitGame/cancelbutton.png";
 import cancelBtnPrs from "../resources/QuitGame/cancelbutton.png";
 import Button from "../sprites/button";
 import MainMenu from "./MainMenu";
+import SettingsMenu from "./SettingsMenu";
 export default class QuitGame extends Phaser.Scene {
     static preloadAssets(scene) {
         scene.load.image("quitOverlay", quitOverlay);
@@ -18,6 +19,7 @@ export default class QuitGame extends Phaser.Scene {
 
     //TODO: implement a resume button
     create() {
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.veil = this.add.graphics({ x: 0, y: 0 });
         this.veil.fillStyle("0x000000", 0.6);
         this.veil.fillRect(0, 0, Resources.screenWidth, Resources.screenHeight);
@@ -33,6 +35,9 @@ export default class QuitGame extends Phaser.Scene {
             "quitBtnQ",
             0.4,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 console.log("quit button pressed");
                 MainMenu.dontPlay = false;
                 this.scene.start("MainMenu");
@@ -50,6 +55,9 @@ export default class QuitGame extends Phaser.Scene {
             "cancelBtn",
             0.4,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 console.log("resume button pressed");
                 this.scene.run("Pause");
                 this.scene.stop("QuitGame");

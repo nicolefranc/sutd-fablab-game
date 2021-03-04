@@ -24,6 +24,7 @@ import tMetalDrill from "./tasks/task metal drill.png";
 import tWoodCut from "./tasks/task wood cut.png";
 import tWoodDrill from "./tasks/task wood drill.png";
 import tWoodStrips from "./tasks/task wood strips.png";
+import tSolderedPcb from "./tasks/task pcb.png";
 
 export default class Resources {
     static get tileLength() {
@@ -244,6 +245,7 @@ export default class Resources {
             solderedPcb: {
                 product: true,
                 image: solderedPcb,
+                orderImage: tSolderedPcb,
                 value: 40,
             },
             drilledAcrylic: {
@@ -275,7 +277,7 @@ export default class Resources {
                 image: woodStrips,
                 orderImage: tWoodStrips,
                 value: 55,
-            }
+            },
         };
     }
 
@@ -306,7 +308,7 @@ export default class Resources {
         for (var i in Resources.items) {
             scene.load.image(i, Resources.items[i]["image"]);
             let imageKey = i + "_task";
-            if (Resources.items[i]["orderImage"]){
+            if (Resources.items[i]["orderImage"]) {
                 scene.load.image(imageKey, Resources.items[i]["orderImage"]);
                 console.log(`Added ${imageKey}`);
             }

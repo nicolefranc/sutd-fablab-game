@@ -53,13 +53,13 @@ export default class InteractiveTool extends Appliance {
                                 "drillSFX"
                             );
                             this.scene.drillSFX.play({
-                                volume: SettingsMenu.sfxVolume,
+                                volume: SettingsMenu.sfxVolume / 5,
                             });
                             break;
                         case "saw":
                             this.scene.sawSFX = this.scene.sound.add("sawSFX");
-                            this.scene.sawSFX.play( {
-                                volume: SettingsMenu.sfxVolume,
+                            this.scene.sawSFX.play({
+                                volume: SettingsMenu.sfxVolume / 5,
                             });
                             break;
                         case "solderStation":

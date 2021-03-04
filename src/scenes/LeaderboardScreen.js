@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import LeaderboardUtils from "../leaderboard/leaderboardUtils";
-
+import SettingsMenu from "./SettingsMenu";
 import leaderboardScreenBackground from "../resources/Leaderboard Screen/leaderboardmenu_final.png";
 import leaderboardScreenBoyHead from "../resources/Leaderboard Screen/boy_head.png";
 import leaderboardScreenGirlHead from "../resources/Leaderboard Screen/girl_head.png";
@@ -80,6 +80,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
     }
 
     create() {
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.bg = this.add
             .image(400, 250, "leaderboardScreenBackground")
             .setScale(500 / 769);
@@ -103,6 +104,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
             "leaderboardScreenBackBtn",
             ((800 / 2560) * 2276) / 2547,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.scene.stop("LeaderboardScreen");
                 this.scene.start("MainMenu");
                 this.scene.bringToTop("MainMenu");
@@ -138,6 +142,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
             "leaderboardScreenEasyTab",
             1 / 3.2,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.tabs["normal"].enableToggle();
                 this.tabs["hard"].enableToggle();
                 this.text.text = "";
@@ -157,6 +164,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
             "leaderboardScreenNormalTab",
             1 / 3.2,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.tabs["easy"].enableToggle();
                 this.tabs["hard"].enableToggle();
                 this.clearScores();
@@ -175,6 +185,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
             "leaderboardScreenHardTab",
             1 / 3.2,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.tabs["easy"].enableToggle();
                 this.tabs["normal"].enableToggle();
                 this.clearScores();

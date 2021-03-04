@@ -29,7 +29,7 @@ export default class Endgame extends Phaser.Scene {
     create() {
         this.endGameMusic = this.sound.add("endGameMusic");
         this.endGameMusic.play({
-            volume: SettingsMenu.musicVolume / 4,
+            volume: SettingsMenu.musicVolume / 15,
             loop: true,
         });
         let printText = this.add.text(500, 400, "hello", {

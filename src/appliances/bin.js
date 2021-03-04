@@ -1,4 +1,5 @@
 import Appliance from "./appliance";
+import SettingsMenu from "../scenes/SettingsMenu";
 import Resources from "../resources/resources";
 
 export default class Bin extends Appliance {
@@ -11,6 +12,10 @@ export default class Bin extends Appliance {
         super(scene, x, y, texture, 0);
     }
     interact(item) {
+        this.scene.throwSFX = this.scene.sound.add("throwSFX");
+        this.scene.throwSFX.play({
+            volume: SettingsMenu.sfxVolume / 8,
+        });
         return null;
     }
 }

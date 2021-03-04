@@ -50,6 +50,9 @@ export default class SettingsMenu {
             "settingsMenuMinusBtn",
             1 / 3.2,
             () => {
+                this.scene.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 if (SettingsMenu.musicVolume <= 0) return;
                 SettingsMenu.musicVolume -= 1;
                 this.updateMusicBar();
@@ -63,6 +66,9 @@ export default class SettingsMenu {
             "settingsMenuPlusBtn",
             1 / 3.2,
             () => {
+                this.scene.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 if (SettingsMenu.musicVolume >= 18) return;
                 SettingsMenu.musicVolume += 1;
                 this.updateMusicBar();
@@ -76,6 +82,9 @@ export default class SettingsMenu {
             "settingsMenuMinusBtn",
             1 / 3.2,
             () => {
+                this.scene.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 if (SettingsMenu.sfxVolume <= 0) return;
                 SettingsMenu.sfxVolume -= 1;
                 this.updateSfxBar();
@@ -89,6 +98,9 @@ export default class SettingsMenu {
             "settingsMenuPlusBtn",
             1 / 3.2,
             () => {
+                this.scene.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 if (SettingsMenu.sfxVolume >= 18) return;
                 SettingsMenu.sfxVolume += 1;
                 this.updateSfxBar();
@@ -102,6 +114,9 @@ export default class SettingsMenu {
             "settingsMenuBackBtn",
             1 / 3.2,
             () => {
+                this.scene.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.hide();
             },
             null

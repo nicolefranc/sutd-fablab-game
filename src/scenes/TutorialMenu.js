@@ -1,5 +1,5 @@
 import Button from "../sprites/button";
-
+import SettingsMenu from "./SettingsMenu";
 import tutorialMenuFirstPage from "../resources/tutorial/how_to.png";
 import tutorialMenuSecondPage from "../resources/tutorial/equipments.png";
 import tutorialMenuLeftButton from "../resources/tutorial/left_button.png";
@@ -36,6 +36,9 @@ export default class TutorialMenu {
                 "tutorialMenuLeftButton",
                 ((800 / 2560) * 2276) / 2547,
                 () => {
+                    this.scene.btnPrsSound.play({
+                        volume: SettingsMenu.sfxVolume / 18,
+                    });
                     if (this.position == 0) {
                         this.hide();
                         return;
@@ -57,6 +60,9 @@ export default class TutorialMenu {
                 "tutorialMenuRightButton",
                 ((800 / 2560) * 2276) / 2547,
                 () => {
+                    this.scene.btnPrsSound.play({
+                        volume: SettingsMenu.sfxVolume / 18,
+                    });
                     if (this.position == 1) {
                         this.hide();
                         return;

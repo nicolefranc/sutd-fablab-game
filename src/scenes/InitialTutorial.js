@@ -5,6 +5,7 @@ export default class InitialTutorial extends Phaser.Scene {
     static firstGame = true;
 
     create() {
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.tutorialMenu = new TutorialMenu(
             this,
             () => {},

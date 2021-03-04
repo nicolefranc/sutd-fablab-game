@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-
+import SettingsMenu from "./SettingsMenu";
 import difficultyMenuBg from "../resources/Difficulty Menu/background_1.png";
 import difficultyMenuEasyButton from "../resources/Difficulty Menu/easy.png";
 import difficultyMenuNormalButton from "../resources/Difficulty Menu/normal.png";
@@ -41,7 +41,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     data.difficulty = "easy";
-                    this.btnPrsSound.play();
+                    this.btnPrsSound.play({
+                        volume: SettingsMenu.sfxVolume / 18,
+                    });
                     this.game.scene.pause("DifficultyMenu");
                     this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
@@ -57,7 +59,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     data.difficulty = "normal";
-                    this.btnPrsSound.play();
+                    this.btnPrsSound.play({
+                        volume: SettingsMenu.sfxVolume / 18,
+                    });
                     this.game.scene.pause("DifficultyMenu");
                     this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
@@ -73,7 +77,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     data.difficulty = "hard";
-                    this.btnPrsSound.play();
+                    this.btnPrsSound.play({
+                        volume: SettingsMenu.sfxVolume / 18,
+                    });
                     this.game.scene.pause("DifficultyMenu");
                     this.game.scene.start("CharacterMenu", data);
                     this.game.scene.bringToTop("CharacterMenu");
@@ -87,7 +93,9 @@ export default class DifficultyMenu extends Phaser.Scene {
             "backButton",
             0.5,
             () => {
-                this.btnPrsSound.play();
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.game.scene.pause("DifficultyMenu");
                 this.game.scene.start("MainMenu");
                 this.game.scene.bringToTop("MainMenu");

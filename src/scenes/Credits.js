@@ -2,6 +2,7 @@ import Button from "../sprites/button";
 //TODO: use the actual button png
 import backButton from "../resources/tutorial/left_button.png";
 import creditsBackground from "../resources/Main Menu/credits_background.png";
+import SettingsMenu from "./SettingsMenu";
 
 export default class Credits extends Phaser.Scene {
     constructor(config) {
@@ -13,6 +14,7 @@ export default class Credits extends Phaser.Scene {
     }
     create() {
         var scale = 500 / 768;
+        this.btnPrsSound = this.sound.add("btnPrsSound");
         this.background = this.add.image(400, 250, "creditsBackground");
         this.background.setScale(scale);
         const backButton = new Button(
@@ -22,6 +24,9 @@ export default class Credits extends Phaser.Scene {
             "backButton",
             0.5,
             () => {
+                this.btnPrsSound.play({
+                    volume: SettingsMenu.sfxVolume / 18,
+                });
                 this.game.scene.stop("Credits");
                 this.game.scene.start("MainMenu");
                 this.game.scene.bringToTop("MainMenu");
