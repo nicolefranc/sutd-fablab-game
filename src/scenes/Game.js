@@ -131,7 +131,7 @@ export default class Game extends Phaser.Scene {
         //     this.difficulty
         // )
 
-        console.log(this.scoreController.style.color);
+        // console.log(this.scoreController.style.color);
         // this.scoreController.setColor("0xE42828");
         // console.log(this.scoreController.style.color);
 
@@ -139,7 +139,7 @@ export default class Game extends Phaser.Scene {
         if (this.isMobile) {
             spawn = { x: 550, y: 350 };
         }
-        console.log(this.gender);
+        // console.log(this.gender);
         this.player = this.add.player(
             spawn.x,
             spawn.y,
@@ -470,14 +470,14 @@ export default class Game extends Phaser.Scene {
         this.scene.run("Pause");
         this.scene.pause("Game");
         this.scene.bringToTop("Pause");
-        console.log(this.scoreController.inPause);
+        // console.log(this.scoreController.inPause);
     }
     resumeGame() {
         this.sound.resumeAll();
         this.scoreController.changePause();
         this.scene.run("Game");
         this.scene.stop("Pause");
-        console.log(this.scoreController.inPause);
+        // console.log(this.scoreController.inPause);
     }
     // pauseGame() {
     //     this.scene.run("Pause");

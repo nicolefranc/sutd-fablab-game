@@ -38,7 +38,7 @@ export default class QuitGame extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                console.log("quit button pressed");
+                // console.log("quit button pressed");
                 MainMenu.dontPlay = false;
                 this.scene.start("MainMenu");
                 this.scene.stop("QuitGame");
@@ -58,7 +58,7 @@ export default class QuitGame extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                console.log("resume button pressed");
+                // console.log("resume button pressed");
                 this.scene.run("Pause");
                 this.scene.stop("QuitGame");
             },

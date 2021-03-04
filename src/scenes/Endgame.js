@@ -52,7 +52,7 @@ export default class Endgame extends Phaser.Scene {
             "leaderboardBtn",
             0.55,
             () => {
-                console.log("leaderboard button pressed");
+                // console.log("leaderboard button pressed");
                 this.sound.stopAll();
                 MainMenu.dontPlay = false;
                 this.scene.start("LeaderboardScreen");
@@ -70,7 +70,7 @@ export default class Endgame extends Phaser.Scene {
             "replayBtn",
             0.7,
             () => {
-                console.log("replay button pressed");
+                // console.log("replay button pressed");
                 this.sound.stopAll();
                 // this.scene.stop("Game");
                 // this.scene.stop("Endgame");

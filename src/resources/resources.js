@@ -310,7 +310,7 @@ export default class Resources {
             let imageKey = i + "_task";
             if (Resources.items[i]["orderImage"]) {
                 scene.load.image(imageKey, Resources.items[i]["orderImage"]);
-                console.log(`Added ${imageKey}`);
+                // console.log(`Added ${imageKey}`);
             }
         }
     }

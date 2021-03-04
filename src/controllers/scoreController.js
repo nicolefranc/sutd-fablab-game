@@ -61,7 +61,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
     }
 
     preUpdate(time, dt) {
-        console.log(this.isPause);
+        // console.log(this.isPause);
         if (this.acceptItems) {
             if (this.isPause === false) {
                 if (this.started) this.time -= dt;
@@ -122,7 +122,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
                 quantity: 1,
             });
         } else {
-            console.log(this.componentCollection[this.requiredItems[index]]);
+            // console.log(this.componentCollection[this.requiredItems[index]]);
             this.componentCollection[componentIndex].quantity += 1;
         }
         this.requiredItems[index] = null;
@@ -141,7 +141,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
         this.updateDisplay();
     }
     initiateEndGame() {
-        console.log(this.componentCollection);
+        // console.log(this.componentCollection);
         this.isEndgame = true;
         this.displayOverlay();
         // LeaderboardUtils.submitScore(
@@ -156,7 +156,7 @@ export default class ScoreController extends Phaser.GameObjects.Text {
     }
 
     displayOverlay() {
-        console.log("Displaying overlay...");
+        // console.log("Displaying overlay...");
     }
 }
 
@@ -174,7 +174,7 @@ Phaser.GameObjects.GameObjectFactory.register(
 
         this.displayList.add(text);
         this.updateList.add(text);
-        console.log(text);
+        // console.log(text);
 
         text.style.setColor("#E42828");
 

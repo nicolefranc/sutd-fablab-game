@@ -33,6 +33,6 @@ export default class Credits extends Phaser.Scene {
             }
         );
 
-        console.log("Welcome to the credits scene");
+        // console.log("Welcome to the credits scene");
     }
 }

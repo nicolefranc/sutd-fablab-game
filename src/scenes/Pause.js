@@ -43,7 +43,7 @@ export default class Pause extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                console.log("guide button pressed");
+                // console.log("guide button pressed");
                 this.tutorialMenu.show();
             }
         );
@@ -57,7 +57,7 @@ export default class Pause extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                console.log("options button pressed");
+                // console.log("options button pressed");
                 this.settingsMenu.show();
             }
         );
@@ -71,7 +71,7 @@ export default class Pause extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                console.log("quit button pressed");
+                // console.log("quit button pressed");
                 this.scene.run("QuitGame");
                 this.scene.bringToTop("QuitGame");
                 this.scene.stop("Pause");
