@@ -88,7 +88,7 @@ export default class Pause extends Phaser.Scene {
                 this.btnPrsSound.play({
                     volume: SettingsMenu.sfxVolume / 18,
                 });
-                eventsCenter.emit("resumeGame");
+                this.resumeGame();
             },
             "resumeBtnPrs"
         );
@@ -119,5 +119,8 @@ export default class Pause extends Phaser.Scene {
             },
             this.tutorialMenu
         );
+    }
+    resumeGame() {
+        eventsCenter.emit("resumeGame");
     }
 }

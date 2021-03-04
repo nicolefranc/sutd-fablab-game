@@ -473,9 +473,10 @@ export default class Game extends Phaser.Scene {
         // console.log(this.scoreController.inPause);
     }
     resumeGame() {
+        console.log("resume");
         this.sound.resumeAll();
         this.scoreController.changePause();
-        this.scene.run("Game");
+        this.scene.resume("Game");
         this.scene.stop("Pause");
         // console.log(this.scoreController.inPause);
     }
