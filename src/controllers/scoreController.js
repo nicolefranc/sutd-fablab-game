@@ -3,7 +3,7 @@ import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 import Resources from "../resources/resources";
 import EndgameOverlay from "../scenes/Endgame";
 //TODO add a method an DS to store the array of components that are submitted
-const GAME_DURATION = 12; //2 minutes in ms
+const GAME_DURATION = 120000; //2 minutes in ms
 
 export default class ScoreController extends Phaser.GameObjects.Text {
     constructor(scene, gridX, gridY, productItems, orderCount, difficulty) {

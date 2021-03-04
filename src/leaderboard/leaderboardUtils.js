@@ -126,7 +126,7 @@ export default class LeaderboardUtils {
             "/submit_score",
             jsonObject,
             (response)=>{
-                var data = JSON.parse(response)[0];
+                var data = JSON.parse(response);
                 successCallback(data);
             },
             errorCallback
