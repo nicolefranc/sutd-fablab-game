@@ -3,7 +3,7 @@ import SettingsMenu from "../scenes/SettingsMenu";
 
 // import fablabTiles from "../resources/tiles/tile sheet final2.png";
 // import fablabTilesJson from "../resources/tiles/fablab_complete.json";
-import fablabTiles from "../resources/tiles/tile-sheet-23feb.png";
+import fablabTiles from "../resources/tiles/tile sheet 3march.png";
 // Easy
 import fablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy.json";
 import mFablabTilesJsonEasy from "../resources/tiles/easy/fablab-tiles-easy-mobile.json";
