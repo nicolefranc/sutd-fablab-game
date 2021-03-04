@@ -79,9 +79,10 @@ export default class ScoreController extends Phaser.GameObjects.Text {
                 ":" +
                 this.padDisplay(Math.floor((this.time % 60000) / 1000)) + 
                 "\n\n";
-        } else outText += "Time's up!\n";
-        outText += "Score: " + this.score + "\n\n";
-        outText += "Current item:\n\t" + this.item + "\n\n";
+        } 
+        // else outText += "Time's up!\n";
+        // outText += "Score: " + this.score + "\n\n";
+        // outText += "Current item:\n\t" + this.item + "\n\n";
         this.setText(outText);
         // this.text = outText;
     }
