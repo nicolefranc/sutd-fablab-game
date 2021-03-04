@@ -94,7 +94,7 @@ export default class WaitingTool extends Appliance {
                                 "laserCutterSFX"
                             );
                             this.scene.laserSFX.play({
-                                volume: SettingsMenu.sfxVolume,
+                                volume: SettingsMenu.sfxVolume / 3,
                             });
                             break;
                         case "threeDPrinter":
@@ -102,7 +102,7 @@ export default class WaitingTool extends Appliance {
                                 "threeDPrinterSFX"
                             );
                             this.scene.printerSFX.play({
-                                volume: SettingsMenu.sfxVolume,
+                                volume: SettingsMenu.sfxVolume / 3,
                             });
                             break;
                     }

@@ -253,7 +253,6 @@ export default class EndgameOverlay extends Phaser.Scene {
         }
 
         this.indicatorText.visible = true;
-        console.log("NAME: " + this.submissionTexts["nameField"].text);
         LeaderboardUtils.submitScore(
             this.submissionTexts["nameField"].text,
             this.data["gender"],
@@ -277,8 +276,6 @@ export default class EndgameOverlay extends Phaser.Scene {
                 });
             },
             (err) => {
-                console.log(this.submissionTexts["name"]);
-                console.log(err);
                 this.indicatorText.text = "Error submitting scores to server";
                 this.indicatorText.x = 400;
                 this.indicatorText.y = 365;
