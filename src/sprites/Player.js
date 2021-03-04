@@ -67,7 +67,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             } else {
                 this.anims.stop();
             }
-            let speed = 100;
+            let speed = 150;
 
             // set animation here
 
@@ -132,8 +132,8 @@ Phaser.GameObjects.GameObjectFactory.register(
         );
 
         // sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8);
-        sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.65);
-        sprite.body.setOffset(50, 120);
+        sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.4);
+        sprite.body.setOffset(50, 200);
 
         return sprite;
     }

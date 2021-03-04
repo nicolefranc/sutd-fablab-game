@@ -28,7 +28,7 @@ import TutorialMenu from "./TutorialMenu";
 
 export default class MainMenu extends Phaser.Scene {
     static firstLoad = true;
-
+    static dontPlay = false;
     constructor(config) {
         super(config);
     }
@@ -68,12 +68,13 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     create() {
-        if (!this.bgm) {
-            this.bgm = this.sound.add("mainMenuBGM", {
+        this.bgm = this.sound.add("mainMenuBGM");
+        if (!MainMenu.dontPlay) {
+            this.bgm.play({
                 volume: SettingsMenu.musicVolume / 18,
                 loop: true,
             });
-            this.bgm.play();
+            MainMenu.dontPlay = true;
         }
         this.btnPrsSound = this.sound.add("btnPrsSound");
         var scale = 500 / 768;

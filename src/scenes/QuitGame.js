@@ -6,6 +6,7 @@ import quitBtnQPrs from "../resources/QuitGame/quitbutton.png";
 import cancelBtn from "../resources/QuitGame/cancelbutton.png";
 import cancelBtnPrs from "../resources/QuitGame/cancelbutton.png";
 import Button from "../sprites/button";
+import MainMenu from "./MainMenu";
 export default class QuitGame extends Phaser.Scene {
     static preloadAssets(scene) {
         scene.load.image("quitOverlay", quitOverlay);
@@ -33,11 +34,12 @@ export default class QuitGame extends Phaser.Scene {
             0.4,
             () => {
                 console.log("quit button pressed");
-                this.scene.run("MainMenu");
-                this.sound.play("mainMenuBGM");
+                MainMenu.dontPlay = false;
+                this.scene.start("MainMenu");
                 this.scene.stop("QuitGame");
                 this.scene.stop("Game");
                 this.scene.stop("GameUI");
+                this.sound.stopAll();
             },
             "quitBtnQPrs"
         );

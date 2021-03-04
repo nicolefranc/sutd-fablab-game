@@ -65,7 +65,6 @@ export default class Game extends Phaser.Scene {
     init(data) {
         this.difficulty = data.difficulty;
         this.gender = data.gender;
-        this.data = data;
     }
 
     preload() {
@@ -487,7 +486,10 @@ export default class Game extends Phaser.Scene {
         if (this.scoreController.isEndgame) {
             this.scene.pause("Game");
             this.sound.stopAll();
-            this.scene.run("Endgame", this.data);
+            this.scene.run("Endgame", {
+                gender: this.gender,
+                difficulty: this.difficulty,
+            });
             this.scene.bringToTop("Endgame");
         }
     }
