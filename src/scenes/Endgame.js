@@ -168,7 +168,7 @@ export default class EndgameOverlay extends Phaser.Scene {
         }
 
         const nameRegexPat = "^[a-zA-Z]{3}$";
-        const emailRegexPat = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\[\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
+        const emailRegexPat = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
         if ((!this.submissionTexts["nameField"].text.match(nameRegexPat)) || (!this.submissionTexts["emailField"].text.match(emailRegexPat))){
             this.submissionTexts["invalid"].visible = true;
             setTimeout(()=>{this.submitBtn.enableToggle();},1000);
