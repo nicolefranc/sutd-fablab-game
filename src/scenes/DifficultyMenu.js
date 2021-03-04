@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import SettingsMenu from "./SettingsMenu";
 import difficultyMenuBg from "../resources/Difficulty Menu/background_1.png";
-import difficultyMenuEasyButton from "../resources/Difficulty Menu/easy.png";
-import difficultyMenuNormalButton from "../resources/Difficulty Menu/normal.png";
-import difficultyMenuHardButton from "../resources/Difficulty Menu/hard.png";
+import difficultyMenuEasyButton from "../resources/Difficulty Menu/easy_dark.png";
+import difficultyMenuNormalButton from "../resources/Difficulty Menu/normal_dark.png";
+import difficultyMenuHardButton from "../resources/Difficulty Menu/hard_dark.png";
 import backButton from "../resources/tutorial/left_button.png";
 import Button from "../sprites/button";
 import OrderDisplay from "../controllers/orderDisplay";

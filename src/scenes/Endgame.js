@@ -9,9 +9,9 @@ import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
 import endgameSubmitBtn from "../resources/endgame/submit_btn.png";
 import endgameSubmitBtnPrs from "../resources/endgame/submit_btn_prs.png";
-import endgameRobot1 from "../resources/endgame/robot_1.png";
-import endgameRobot2 from "../resources/endgame/robot_2.png";
-import endgameRobot3 from "../resources/endgame/robot_3.png";
+import endgameRobot1 from "../resources/endgame/easy_robot_dark.png";
+import endgameRobot2 from "../resources/endgame/normal_robot_dark.png";
+import endgameRobot3 from "../resources/endgame/hard_robot_dark.png";
 
 import Resources from "../resources/resources";
 import SettingsMenu from "../scenes/SettingsMenu";
