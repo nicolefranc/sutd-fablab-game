@@ -8,6 +8,9 @@ import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
 import endgameSubmitBtn from "../resources/endgame/submit_btn.png";
 import endgameSubmitBtnPrs from "../resources/endgame/submit_btn_prs.png";
+import endgameRobot1 from "../resources/endgame/robot_1.png";
+import endgameRobot2 from "../resources/endgame/robot_2.png";
+import endgameRobot3 from "../resources/endgame/robot_3.png";
 
 import Resources from "../resources/resources";
 import SettingsMenu from "../scenes/SettingsMenu";
@@ -30,10 +33,6 @@ export default class EndgameOverlay extends Phaser.Scene {
         this.data = data;
     }
 
-    preload() {
-        EndgameOverlay.preloadAssets(this);
-    }
-
     static preloadAssets(scene) {
         scene.load.audio("endGameMusic", endGameMusic);
         scene.load.image("mainOverlay", mainOverlay);
@@ -43,6 +42,9 @@ export default class EndgameOverlay extends Phaser.Scene {
         scene.load.image("replayBtnPrs", replayBtnPrs);
         scene.load.image("endgameSubmitBtn",endgameSubmitBtn);
         scene.load.image("endgameSubmitBtnPrs",endgameSubmitBtnPrs);
+        scene.load.image("endgameRobot1",endgameRobot1);
+        scene.load.image("endgameRobot2",endgameRobot2);
+        scene.load.image("endgameRobot3",endgameRobot3);
     }
 
     //TODO: implement a resume button
@@ -56,12 +58,15 @@ export default class EndgameOverlay extends Phaser.Scene {
         this.mainOverlay = this.add.image(400, 250, "mainOverlay");
         this.mainOverlay.setScale(0.7);
         this.mainOverlay.setScrollFactor(0);
+        this.robotImage = this.add.image(400,250-(82.5*0.7),
+            this.data["difficulty"]==="easy"?"endgameRobot1":
+            this.data["difficulty"]==="normal"?"endgameRobot2":"endgameRobot3").setScale(0.7);
         this.nextBtn = new Button(
             this,
             550,
             410,
             "leaderboardBtn",
-            0.7,
+            0.5,
             () => {
                 console.log("leaderboard button pressed");
                 this.sound.stopAll();
@@ -80,6 +85,7 @@ export default class EndgameOverlay extends Phaser.Scene {
             0.7,
             () => {
                 console.log("replay button pressed");
+                this.scale.startFullscreen();
                 this.sound.stopAll();
                 // this.scene.stop("Game");
                 // this.scene.stop("Endgame");
@@ -88,22 +94,13 @@ export default class EndgameOverlay extends Phaser.Scene {
             },
             "replayBtnPrs"
         );
-        /*this.nextBtn.enable(false);
+        this.nextBtn.enable(false);
         this.nextBtn.setVisible(false);
         this.replayBtn.enable(false);
-        this.replayBtn.setVisible(false);*/
+        this.replayBtn.setVisible(false);
+
         
-        const dummyResult = {
-            "name": "SEA",
-            "gender": "m",
-            "difficulty": "easy",
-            "score": 10000,
-            "rank": 100,
-            "email": "aaaaaaaaaaaaa@aaaa"
-        }
-        this.displayResult(dummyResult);
-        
-        //this.createSubmissionFields();
+        this.createSubmissionFields();
     }
 
     createSubmissionFields() {
@@ -164,8 +161,15 @@ export default class EndgameOverlay extends Phaser.Scene {
     }
 
     submit() {
-        console.log([this.submissionTexts["nameField"].text,this.submissionTexts["emailField"].text])
         if ((this.submissionTexts["nameField"].text==="") || (this.submissionTexts["emailField"].text==="")) {
+            this.submissionTexts["invalid"].visible = true;
+            setTimeout(()=>{this.submitBtn.enableToggle();},1000);
+            return;
+        }
+
+        const nameRegexPat = "^[a-zA-Z]{3}$";
+        const emailRegexPat = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\[\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
+        if ((!this.submissionTexts["nameField"].text.match(nameRegexPat)) || (!this.submissionTexts["emailField"].text.match(emailRegexPat))){
             this.submissionTexts["invalid"].visible = true;
             setTimeout(()=>{this.submitBtn.enableToggle();},1000);
             return;
@@ -180,12 +184,12 @@ export default class EndgameOverlay extends Phaser.Scene {
 
         LeaderboardUtils.submitScore(
             this.submissionTexts["nameField"].text,
-            "gender",
+            this.data["gender"],
             this.submissionTexts["emailField"].text,
-            "difficulty",
-            "score",
+            this.data["difficulty"],
+            this.data["score"],
             0,
-            "materials",
+            this.data["materials"],
             (result)=>{
                 this.indicatorText.visible = false;
                 this.submitBtn.setVisible(false);
@@ -193,15 +197,28 @@ export default class EndgameOverlay extends Phaser.Scene {
                 this.nextBtn.enable(true);
                 this.replayBtn.setVisible(true);
                 this.replayBtn.enable(true);
-                this.displayResult(result);
+                this.displayResult({
+                    "rank": result["rank"],
+                    "name": result["name"],
+                    "score": result["score"],
+                    "email": this.submissionTexts["emailField"].text
+                });
             },
             (err)=>{
                 this.indicatorText.text = "Error submitting scores to server";
+                this.indicatorText.x = 400;
+                this.indicatorText.y = 365;
                 this.submitBtn.setVisible(false);
                 this.nextBtn.setVisible(true);
                 this.nextBtn.enable(true);
                 this.replayBtn.setVisible(true);
                 this.replayBtn.enable(true);
+                this.displayResult({
+                    "rank": "??",
+                    "name": this.submissionTexts["name"],
+                    "score": this.data["score"],
+                    "email": this.submissionTexts["emailField"].text
+                });
             }
         )
 

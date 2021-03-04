@@ -176,8 +176,6 @@ export default class MainMenu extends Phaser.Scene {
             this.tutorialMenu
         );
         this.loadingText.visible = false;
-        this.scene.stop("LoadingScreen");
-        this.scene.bringToTop("MainMenu");
     }
     update() {
         this.bgm.volume = SettingsMenu.musicVolume / 18;

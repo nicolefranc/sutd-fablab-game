@@ -92,5 +92,4 @@ game.scene.add("MainMenu", MainMenu);
 game.scene.add("Credits", Credits);
 game.scene.add("Endgame", Endgame);
 game.scene.add("InitialTutorial", InitialTutorial);
-game.scene.add("TestScene",TestScene);
-game.scene.start("Endgame");
+game.scene.start("MainMenu");
