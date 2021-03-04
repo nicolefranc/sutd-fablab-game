@@ -55,8 +55,8 @@ export default class Endgame extends Phaser.Scene {
                 console.log("leaderboard button pressed");
                 this.sound.stopAll();
                 MainMenu.dontPlay = false;
-                this.scene.start("MainMenu");
-                this.scene.bringToTop("MainMenu");
+                this.scene.start("LeaderboardScreen");
+                this.scene.bringToTop("LeaderboardScreen");
                 this.scene.stop("Game");
                 this.scene.stop("GameUI");
                 this.scene.stop("Endgame");
