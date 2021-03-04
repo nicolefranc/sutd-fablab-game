@@ -107,6 +107,7 @@ export default class LeaderboardUtils {
         email,
         difficulty,
         score,
+        bonus,
         materials,
         successCallback,
         errorCallback
@@ -117,13 +118,17 @@ export default class LeaderboardUtils {
             email: email,
             difficulty: difficulty,
             score: score,
+            bonus: bonus,
             materials: materials
         });
 
         LeaderboardUtils.postJson(
             "/submit_score",
             jsonObject,
-            successCallback,
+            (response)=>{
+                var data = JSON.parse(response);
+                successCallback(data);
+            },
             errorCallback
         );
     }

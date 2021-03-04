@@ -13,6 +13,9 @@ import GameUI from "./scenes/GameUI";
 
 import font from "./resources/font/Peepo.woff";
 import InitialTutorial from "./scenes/InitialTutorial";
+import TestScene from "./scenes/TestScene";
+
+import TextEditPlugin from "../node_modules/phaser3-rex-plugins/plugins/textedit-plugin";
 
 var WebFont = require("webfontloader");
 
@@ -52,6 +55,17 @@ const config = {
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 800,
         height: 500,
+    },
+    parent: "main",
+    dom: {
+        createContainer: true
+    },
+    plugins: {
+        global: [{
+            key: 'rextexteditplugin',
+            plugin: TextEditPlugin,
+            start: true
+        }]
     },
     physics: {
         default: "arcade",

@@ -496,12 +496,16 @@ export default class Game extends Phaser.Scene {
         }
         this.player.update(this.cursors);
         if (this.scoreController.isEndgame) {
+            this.scale.stopFullscreen();
             this.scene.pause("Game");
             this.sound.stopAll();
-            this.scene.run("Endgame", {
-                gender: this.gender,
+            const data = {
                 difficulty: this.difficulty,
-            });
+                gender: this.gender === "girl" ? "F" : "M",
+                score: this.scoreController.score,
+                materials: this.scoreController.componentCollection,
+            };
+            this.scene.run("Endgame", data);
             this.scene.bringToTop("Endgame");
         }
     }
