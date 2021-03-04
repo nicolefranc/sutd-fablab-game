@@ -6,13 +6,32 @@ import leaderboardBtnPrs from "../resources/endgame/leaderboardbuttonpressed.png
 import mainOverlay from "../resources/endgame/Popup.png";
 import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
+import endgameSubmitBtn from "../resources/endgame/submit_btn.png";
+import endgameSubmitBtnPrs from "../resources/endgame/submit_btn_prs.png";
+
 import Resources from "../resources/resources";
 import SettingsMenu from "../scenes/SettingsMenu";
+import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 
 export default class EndgameOverlay extends Phaser.Scene {
 
+    static textDefaultConfig = {
+        fontFamily: "peepo",
+        fontSize: 18,
+        color: "#000000"
+    };
+    static textLargeConfig = {
+        fontFamily: "peepo",
+        fontSize: 25,
+        color: "#000000"  
+    };
+
     init(data) {
         this.data = data;
+    }
+
+    preload() {
+        EndgameOverlay.preloadAssets(this);
     }
 
     static preloadAssets(scene) {
@@ -22,6 +41,8 @@ export default class EndgameOverlay extends Phaser.Scene {
         scene.load.image("leaderboardBtnPrs", leaderboardBtnPrs);
         scene.load.image("replayBtn", replayBtn);
         scene.load.image("replayBtnPrs", replayBtnPrs);
+        scene.load.image("endgameSubmitBtn",endgameSubmitBtn);
+        scene.load.image("endgameSubmitBtnPrs",endgameSubmitBtnPrs);
     }
 
     //TODO: implement a resume button
@@ -35,12 +56,12 @@ export default class EndgameOverlay extends Phaser.Scene {
         this.mainOverlay = this.add.image(400, 250, "mainOverlay");
         this.mainOverlay.setScale(0.7);
         this.mainOverlay.setScrollFactor(0);
-        const nextBtn = new Button(
+        this.nextBtn = new Button(
             this,
             550,
             410,
             "leaderboardBtn",
-            0.55,
+            0.7,
             () => {
                 console.log("leaderboard button pressed");
                 this.sound.stopAll();
@@ -51,7 +72,7 @@ export default class EndgameOverlay extends Phaser.Scene {
             },
             "leaderboardBtnPrs"
         );
-        const replayBtn = new Button(
+        this.replayBtn = new Button(
             this,
             215,
             410,
@@ -67,5 +88,155 @@ export default class EndgameOverlay extends Phaser.Scene {
             },
             "replayBtnPrs"
         );
+        /*this.nextBtn.enable(false);
+        this.nextBtn.setVisible(false);
+        this.replayBtn.enable(false);
+        this.replayBtn.setVisible(false);*/
+        
+        const dummyResult = {
+            "name": "SEA",
+            "gender": "m",
+            "difficulty": "easy",
+            "score": 10000,
+            "rank": 100,
+            "email": "aaaaaaaaaaaaa@aaaa"
+        }
+        this.displayResult(dummyResult);
+        
+        //this.createSubmissionFields();
+    }
+
+    createSubmissionFields() {
+        
+        this.submissionTexts = {};
+        this.submissionTexts["name"] = this.add.text(175,300,"Name (max 3 chars)",EndgameOverlay.textDefaultConfig).setOrigin(0,0.5);
+        this.submissionTexts["nameField"] = this.add.text(175,325,"",{
+            fontFamily: "peepo",
+            fontSize: 18,
+            color: "#ffffff",
+            backgroundColor: '#333333',
+            align: "left",
+            fixedWidth: 50,
+            fixedHeight: 26,
+            padding: {x: 3, y: 2}
+        })
+        .setOrigin(0,0.5)
+        .setInteractive()
+        .on("pointerdown",()=>{
+            var config = {
+                onTextChanged: function (textObject, text) {
+                    textObject.text = text.substring(0,3);
+                },
+                selectAll: true
+            }
+            this.plugins.get('rextexteditplugin').edit(this.submissionTexts["nameField"], config);
+        },this);
+        this.submissionTexts["email"] = this.add.text(375,300,"Email",EndgameOverlay.textDefaultConfig).setOrigin(0,0.5);
+        this.submissionTexts["emailField"] = this.add.text(375,325,"",{
+            fontFamily: "peepo",
+            fontSize: 18,
+            color: "#ffffff",
+            backgroundColor: '#333333',
+            align: "left",
+            fixedWidth: 250,
+            fixedHeight: 26,
+            padding: {x: 3, y: 2}
+        })
+        .setOrigin(0,0.5)
+        .setInteractive()
+        .on("pointerdown",()=>{
+            var config = {
+                onTextChanged: function (textObject, text) {
+                    textObject.text = text;
+                },
+                selectAll: true
+            }
+            this.plugins.get('rextexteditplugin').edit(this.submissionTexts["emailField"], config);
+        },this);
+        
+        this.submitBtn = new Button(this,400,410,"endgameSubmitBtn",0.7*83/155,()=>{
+            this.submit();
+        },"endgameSubmitBtn",true,"endgameSubmitBtnPrs");
+        this.submissionTexts["invalid"] = this.add.text(400,365,"Invalid name/email",EndgameOverlay.textDefaultConfig).setOrigin(0.5,0.5);
+        this.submissionTexts["invalid"].visible = false;
+        this.indicatorText = this.add.text(400,312.5,"Loading...",EndgameOverlay.textDefaultConfig).setOrigin(0.5,0.5);
+        this.indicatorText.visible = false;
+    }
+
+    submit() {
+        console.log([this.submissionTexts["nameField"].text,this.submissionTexts["emailField"].text])
+        if ((this.submissionTexts["nameField"].text==="") || (this.submissionTexts["emailField"].text==="")) {
+            this.submissionTexts["invalid"].visible = true;
+            setTimeout(()=>{this.submitBtn.enableToggle();},1000);
+            return;
+        }
+
+        for (var i in this.submissionTexts) {
+            this.submissionTexts[i].enable = false;
+            this.submissionTexts[i].visible = false;
+        }
+
+        this.indicatorText.visible = true;
+
+        LeaderboardUtils.submitScore(
+            this.submissionTexts["nameField"].text,
+            "gender",
+            this.submissionTexts["emailField"].text,
+            "difficulty",
+            "score",
+            0,
+            "materials",
+            (result)=>{
+                this.indicatorText.visible = false;
+                this.submitBtn.setVisible(false);
+                this.nextBtn.setVisible(true);
+                this.nextBtn.enable(true);
+                this.replayBtn.setVisible(true);
+                this.replayBtn.enable(true);
+                this.displayResult(result);
+            },
+            (err)=>{
+                this.indicatorText.text = "Error submitting scores to server";
+                this.submitBtn.setVisible(false);
+                this.nextBtn.setVisible(true);
+                this.nextBtn.enable(true);
+                this.replayBtn.setVisible(true);
+                this.replayBtn.enable(true);
+            }
+        )
+
+    }
+
+    displayResult(result) {
+
+        const baseHeight = 300;
+        const downHeight = baseHeight + 35;
+        const boxColor = "0xe4e9ef";
+
+        this.results = {};
+        this.labels = {};
+        this.borders = {};
+
+        this.borders["overall"] = this.add.rectangle(400,baseHeight,505,55,"0xcdd0d9");
+
+        this.borders["rank"] = this.add.rectangle(200,baseHeight,95,50,boxColor);
+        this.results["rank"] = this.add.text(200,baseHeight,"#"+result["rank"],EndgameOverlay.textLargeConfig).setOrigin(0.5,0.5);
+        this.labels["rank"] = this.add.text(200,downHeight,"rank",EndgameOverlay.textDefaultConfig).setOrigin(0.5,0.5);
+        
+
+        this.borders["name"] = this.add.rectangle(300,baseHeight,95,50,boxColor);
+        this.results["name"] = this.add.text(300,baseHeight,result["name"],EndgameOverlay.textLargeConfig).setOrigin(0.5,0.5);
+        this.labels["name"] = this.add.text(300,downHeight,"name",EndgameOverlay.textDefaultConfig).setOrigin(0.5,0.5);
+        
+        
+        this.borders["score"] = this.add.rectangle(400,baseHeight,95,50,boxColor);
+        this.results["score"] = this.add.text(400,baseHeight,""+result["score"],EndgameOverlay.textLargeConfig).setOrigin(0.5,0.5);
+        this.labels["score"] = this.add.text(400,downHeight,"score",EndgameOverlay.textDefaultConfig).setOrigin(0.5,0.5);
+        
+        
+        this.borders["email"] = this.add.rectangle(550,baseHeight,195,50,boxColor);
+        this.results["email"] = this.add.text(550,baseHeight,result["email"].length>12?result["email"].substring(0,10)+"...":result["email"],EndgameOverlay.textLargeConfig).setOrigin(0.5,0.5);
+        this.labels["email"] = this.add.text(550,downHeight,"email",EndgameOverlay.textDefaultConfig).setOrigin(0.5,0.5);
+        
     }
 }

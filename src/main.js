@@ -13,6 +13,9 @@ import GameUI from "./scenes/GameUI";
 
 import font from "./resources/font/Peepo.woff";
 import InitialTutorial from "./scenes/InitialTutorial";
+import TestScene from "./scenes/TestScene";
+
+import TextEditPlugin from "../node_modules/phaser3-rex-plugins/plugins/textedit-plugin";
 
 var WebFont = require("webfontloader");
 
@@ -53,6 +56,17 @@ const config = {
         width: 800,
         height: 500,
     },
+    parent: "main",
+    dom: {
+        createContainer: true
+    },
+    plugins: {
+        global: [{
+            key: 'rextexteditplugin',
+            plugin: TextEditPlugin,
+            start: true
+        }]
+    },
     physics: {
         default: "arcade",
         arcade: {
@@ -78,4 +92,5 @@ game.scene.add("MainMenu", MainMenu);
 game.scene.add("Credits", Credits);
 game.scene.add("Endgame", Endgame);
 game.scene.add("InitialTutorial", InitialTutorial);
-game.scene.start("MainMenu");
+game.scene.add("TestScene",TestScene);
+game.scene.start("Endgame");
