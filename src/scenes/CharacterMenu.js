@@ -31,9 +31,11 @@ export default class CharacterMenu extends Phaser.Scene {
     create() {
         this.btnPrsSound = this.sound.add("btnPrsSound");
         this.images = {};
-        var scale = 450 / 768;
+
+        var scaleY = 500 / 768;
+        var scaleX = 800 / 1368;
         this.images["bg"] = this.add.image(800 / 2, 500 / 2, "characterMenuBg");
-        this.images["bg"].setScale(scale);
+        this.images["bg"].setScale(scaleX, scaleY);
         this.images["boyChara"] = this.add.image(800 / 4, 500 / 2, "boyChara");
         this.images["boyChara"].setScale(0.7, 0.7);
         this.images["girlChara"] = this.add.image(600, 500 / 2, "girlChara");

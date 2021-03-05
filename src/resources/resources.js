@@ -296,11 +296,12 @@ export default class Resources {
     }
     static get getComponentHard() {
         return [
-            "drilledAcrylic",
-            "drilledMetal",
             "acrylicStrips",
-            "threeDPrint",
+            "woodStrips",
+            "drilledMetal",
+            "drilledAcrylic",
             "solderedPcb",
+            "threeDPrint",
         ];
     }
 

@@ -25,6 +25,7 @@ import QuitGame from "./QuitGame";
 import Game from "./Game";
 import CharacterMenu from "./CharacterMenu";
 import TutorialMenu from "./TutorialMenu";
+import LeaderboardUtils from "../leaderboard/leaderboardUtils";
 
 export default class MainMenu extends Phaser.Scene {
     static firstLoad = true;
@@ -68,6 +69,19 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     create() {
+        let jsonComponent = require("../../output.json");
+        this.components = {};
+        for (let i = 0; i < jsonComponent.length; i++) {
+            this.components[jsonComponent[i].name] = jsonComponent[i].quantity;
+        }
+        // LeaderboardUtils.getMaterials(
+        //     (response) => {
+        //         this.components = response;
+        //     },
+        //     (err) => {
+        //         this.components = null;
+        //     }
+        // );
         this.bgm = this.sound.add("mainMenuBGM");
         if (!MainMenu.dontPlay) {
             this.bgm.play({
@@ -77,9 +91,11 @@ export default class MainMenu extends Phaser.Scene {
             MainMenu.dontPlay = true;
         }
         this.btnPrsSound = this.sound.add("btnPrsSound");
+
         var scale = 500 / 768;
+        var scaleX = 800 / 1368;
         this.background = this.add.image(400, 250, "mainMenuBackground");
-        this.background.setScale(scale);
+        this.background.setScale(scaleX, scale);
         this.buttons = {};
         this.buttons["options"] = new Button(
             this,
@@ -111,7 +127,9 @@ export default class MainMenu extends Phaser.Scene {
 
                 this.scale.startFullscreen();
 
-                this.game.scene.start("DifficultyMenu");
+                this.game.scene.start("DifficultyMenu", {
+                    components: this.components,
+                });
                 this.game.scene.bringToTop("DifficultyMenu");
                 this.game.scene.pause("MainMenu");
             },
