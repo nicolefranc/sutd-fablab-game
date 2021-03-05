@@ -496,6 +496,7 @@ export default class Game extends Phaser.Scene {
             this.scale.stopFullscreen();
             this.scene.pause("Game");
             this.sound.stopAll();
+            // console.log(this.scoreController.score);
             const data = {
                 difficulty: this.difficulty,
                 gender: this.gender === "girl" ? "F" : "M",

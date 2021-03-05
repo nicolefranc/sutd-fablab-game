@@ -126,7 +126,8 @@ export default class GameUI extends Phaser.Scene {
     }
 
     update() {
-        this.score.setText(this.padScore(this.timer.score));
+        if (this.timer.score)
+            this.score.setText(this.padScore(this.timer.score));
 
         // console.log(`Holding: ${this.timer.item}`)
         // console.log(`Previous: ${this.prevItemText}`)
@@ -160,8 +161,6 @@ export default class GameUI extends Phaser.Scene {
             }
         } else {
             if (this.prevItemImg) {
-                console.log("REMOVING");
-                console.log(this.prevItemText);
                 this.prevItemImg.setVisible(false);
                 this.holdingLayer.remove(this.prevItemImg);
             }
