@@ -129,7 +129,7 @@ export default class EndgameOverlay extends Phaser.Scene {
             .text(
                 175,
                 300,
-                "Name (max 3 chars)",
+                "Name (3 letters)",
                 EndgameOverlay.textDefaultConfig
             )
             .setOrigin(0, 0.5);

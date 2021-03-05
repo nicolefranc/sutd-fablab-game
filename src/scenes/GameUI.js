@@ -146,6 +146,8 @@ export default class GameUI extends Phaser.Scene {
                 ); // Display the item's image
                 currentItemImg.setScale(0.1);
                 this.holdingLayer.add(currentItemImg);
+                if (this.prevItemImg !== null)
+                    this.prevItemImg.setVisible(false);
                 this.prevItemImg = currentItemImg;
                 this.prevItemText = currentItem;
             } else if (this.prevItemText === currentItem) {
@@ -158,6 +160,8 @@ export default class GameUI extends Phaser.Scene {
             }
         } else {
             if (this.prevItemImg) {
+                console.log("REMOVING");
+                console.log(this.prevItemText);
                 this.prevItemImg.setVisible(false);
                 this.holdingLayer.remove(this.prevItemImg);
             }
