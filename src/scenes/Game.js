@@ -67,6 +67,7 @@ export default class Game extends Phaser.Scene {
 
     init(data) {
         this.difficulty = data.difficulty;
+        this.completed = data.completed;
         this.gender = data.gender;
     }
 
@@ -499,6 +500,7 @@ export default class Game extends Phaser.Scene {
             // console.log(this.scoreController.score);
             const data = {
                 difficulty: this.difficulty,
+                completed: this.completed,
                 gender: this.gender === "girl" ? "F" : "M",
                 score: this.scoreController.score,
                 materials: this.scoreController.componentCollection,

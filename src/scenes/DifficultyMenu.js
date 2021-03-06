@@ -13,15 +13,15 @@ import backButton from "../resources/tutorial/left_button.png";
 import Button from "../sprites/button";
 import OrderDisplay from "../controllers/orderDisplay";
 
-const JIG_ACR_MAX = 10;
-const JIG_WOD_MAX = 70;
-const DRL_WOD_MAX = 100;
-const STR_ACR_MAX = 100;
-const JIG_MTL_MAX = 100;
-const THR_PRT_MAX = 100;
-const STR_WOD_MAX = 600;
-const DRL_MTL_MAX = 800;
-const DRL_ACR_MAX = 900;
+const JIG_ACR_MAX = 500;
+const JIG_WOD_MAX = 500;
+const DRL_WOD_MAX = 1000;
+const STR_ACR_MAX = 800;
+const JIG_MTL_MAX = 800;
+const THR_PRT_MAX = 500;
+const STR_WOD_MAX = 250;
+const DRL_MTL_MAX = 500;
+const DRL_ACR_MAX = 250;
 const SOL_PCB_MAX = 999;
 
 export default class DifficultyMenu extends Phaser.Scene {
@@ -61,7 +61,8 @@ export default class DifficultyMenu extends Phaser.Scene {
     }
 
     create() {
-        const data = {};
+        this.data = {};
+        this.data.completed = false;
 
         this.btnPrsSound = this.sound.add("btnPrsSound");
         this.images = {};
@@ -90,16 +91,19 @@ export default class DifficultyMenu extends Phaser.Scene {
         //EASY Components
         if (this.components !== null) {
             if (this.easyFulfilled()) {
+                this.data.completed = true;
                 this.renderEasyTexture();
             } else {
                 this.renderEasyBlack();
             }
             if (this.normalFulfilled()) {
+                this.data.completed = true;
                 this.renderNormalTexture();
             } else {
                 this.renderNormalBlack();
             }
             if (this.hardFulfilled()) {
+                this.data.completed = true;
                 this.renderHardTexture();
             } else {
                 this.renderHardBlack();
@@ -329,12 +333,12 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuEasyButton",
                 500 / 769,
                 () => {
-                    data.difficulty = "easy";
+                    this.data.difficulty = "easy";
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", data);
+                    this.game.scene.start("CharacterMenu", this.data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -349,12 +353,12 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuEasyButtonDark",
                 500 / 769,
                 () => {
-                    data.difficulty = "easy";
+                    this.data.difficulty = "easy";
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", data);
+                    this.game.scene.start("CharacterMenu", this.data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -369,12 +373,12 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuNormalButton",
                 500 / 769,
                 () => {
-                    data.difficulty = "normal";
+                    this.data.difficulty = "normal";
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", data);
+                    this.game.scene.start("CharacterMenu", this.data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -389,12 +393,12 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuNormalButtonDark",
                 500 / 769,
                 () => {
-                    data.difficulty = "normal";
+                    this.data.difficulty = "normal";
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", data);
+                    this.game.scene.start("CharacterMenu", this.data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -409,12 +413,12 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuHardButton",
                 500 / 769,
                 () => {
-                    data.difficulty = "hard";
+                    this.data.difficulty = "hard";
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", data);
+                    this.game.scene.start("CharacterMenu", this.data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),
@@ -429,12 +433,12 @@ export default class DifficultyMenu extends Phaser.Scene {
                 "difficultyMenuHardButtonDark",
                 500 / 769,
                 () => {
-                    data.difficulty = "hard";
+                    this.data.difficulty = "hard";
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
                     this.game.scene.pause("DifficultyMenu");
-                    this.game.scene.start("CharacterMenu", data);
+                    this.game.scene.start("CharacterMenu", this.data);
                     this.game.scene.bringToTop("CharacterMenu");
                 }
             ),

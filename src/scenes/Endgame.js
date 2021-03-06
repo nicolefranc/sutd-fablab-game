@@ -9,9 +9,12 @@ import replayBtn from "../resources/endgame/replaybutton.png";
 import replayBtnPrs from "../resources/endgame/replaybuttonpressed.png";
 import endgameSubmitBtn from "../resources/endgame/submit_btn.png";
 import endgameSubmitBtnPrs from "../resources/endgame/submit_btn_prs.png";
-import endgameRobot1 from "../resources/endgame/easy_robot_dark.png";
-import endgameRobot2 from "../resources/endgame/normal_robot_dark.png";
-import endgameRobot3 from "../resources/endgame/hard_robot_dark.png";
+import endgameRobot1Dark from "../resources/endgame/easy_robot_dark.png";
+import endgameRobot2Dark from "../resources/endgame/normal_robot_dark.png";
+import endgameRobot3Dark from "../resources/endgame/hard_robot_dark.png";
+import endgameRobot1 from "../resources/endgame/easy_robot.png";
+import endgameRobot2 from "../resources/endgame/normal_robot.png";
+import endgameRobot3 from "../resources/endgame/hard_robot.png";
 
 import Resources from "../resources/resources";
 import SettingsMenu from "../scenes/SettingsMenu";
@@ -47,6 +50,9 @@ export default class EndgameOverlay extends Phaser.Scene {
         scene.load.image("endgameRobot1", endgameRobot1);
         scene.load.image("endgameRobot2", endgameRobot2);
         scene.load.image("endgameRobot3", endgameRobot3);
+        scene.load.image("endgameRobot1Dark", endgameRobot1Dark);
+        scene.load.image("endgameRobot2Dark", endgameRobot2Dark);
+        scene.load.image("endgameRobot3Dark", endgameRobot3Dark);
     }
 
     //TODO: implement a resume button
@@ -69,17 +75,31 @@ export default class EndgameOverlay extends Phaser.Scene {
         this.mainOverlay = this.add.image(400, 250, "mainOverlay");
         this.mainOverlay.setScale(0.7);
         this.mainOverlay.setScrollFactor(0);
-        this.robotImage = this.add
-            .image(
-                400,
-                250 - 82.5 * 0.7,
-                this.data["difficulty"] === "easy"
-                    ? "endgameRobot1"
-                    : this.data["difficulty"] === "normal"
-                    ? "endgameRobot2"
-                    : "endgameRobot3"
-            )
-            .setScale(0.7);
+        if (this.data.completed === true) {
+            this.robotImage = this.add
+                .image(
+                    400,
+                    250 - 82.5 * 0.7,
+                    this.data["difficulty"] === "easy"
+                        ? "endgameRobot1"
+                        : this.data["difficulty"] === "normal"
+                        ? "endgameRobot2"
+                        : "endgameRobot3"
+                )
+                .setScale(0.7);
+        } else {
+            this.robotImage = this.add
+                .image(
+                    400,
+                    250 - 82.5 * 0.7,
+                    this.data["difficulty"] === "easy"
+                        ? "endgameRobot1Dark"
+                        : this.data["difficulty"] === "normal"
+                        ? "endgameRobot2Dark"
+                        : "endgameRobot3Dark"
+                )
+                .setScale(0.7);
+        }
         this.nextBtn = new Button(
             this,
             550,

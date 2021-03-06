@@ -69,19 +69,24 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     create() {
-        let jsonComponent = require("../../output.json");
         this.components = {};
-        for (let i = 0; i < jsonComponent.length; i++) {
-            this.components[jsonComponent[i].name] = jsonComponent[i].quantity;
-        }
-        // LeaderboardUtils.getMaterials(
-        //     (response) => {
-        //         this.components = response;
-        //     },
-        //     (err) => {
-        //         this.components = null;
-        //     }
-        // );
+        let jsonComponent;
+        // let jsonComponent = require("../../output.json");
+        // for (let i = 0; i < jsonComponent.length; i++) {
+        //     this.components[jsonComponent[i].name] = jsonComponent[i].quantity;
+        // }
+        LeaderboardUtils.getMaterials(
+            (response) => {
+                jsonComponent = response;
+                for (let i = 0; i < jsonComponent.length; i++) {
+                    this.components[jsonComponent[i].name] =
+                        jsonComponent[i].quantity;
+                }
+            },
+            (err) => {
+                this.components = null;
+            }
+        );
         this.bgm = this.sound.add("mainMenuBGM");
         if (!MainMenu.dontPlay) {
             this.bgm.play({
