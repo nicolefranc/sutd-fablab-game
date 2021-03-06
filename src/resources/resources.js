@@ -128,9 +128,6 @@ export default class Resources {
                     jigsawAcrylic: {
                         output: "acrylicStrips",
                     },
-                    jigsawMetal: {
-                        output: "metalStrips",
-                    },
                     jigsawWood: {
                         output: "woodStrips",
                     },
