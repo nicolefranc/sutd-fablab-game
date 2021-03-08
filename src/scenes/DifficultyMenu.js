@@ -87,23 +87,25 @@ export default class DifficultyMenu extends Phaser.Scene {
             }
         );
         this.images["bg"]["image"].setScale(scaleX, scaleY);
-
+        this.data.easyCompleted = false;
+        this.data.normalCompleted = false;
+        this.data.hardCompleted = false;
         //EASY Components
         if (this.components !== null) {
             if (this.easyFulfilled()) {
-                this.data.completed = true;
+                this.data.easyCompleted = true;
                 this.renderEasyTexture();
             } else {
                 this.renderEasyBlack();
             }
             if (this.normalFulfilled()) {
-                this.data.completed = true;
+                this.data.normalCompleted = true;
                 this.renderNormalTexture();
             } else {
                 this.renderNormalBlack();
             }
             if (this.hardFulfilled()) {
-                this.data.completed = true;
+                this.data.hardCompleted = true;
                 this.renderHardTexture();
             } else {
                 this.renderHardBlack();
@@ -334,6 +336,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.data.difficulty = "easy";
+                    if (this.data.easyCompleted === true) {
+                        this.data.completed = true;
+                    }
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
@@ -354,6 +359,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.data.difficulty = "easy";
+                    if (this.data.easyCompleted === true) {
+                        this.data.completed = true;
+                    }
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
@@ -374,6 +382,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.data.difficulty = "normal";
+                    if (this.data.normalCompleted === true) {
+                        this.data.completed = true;
+                    }
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
@@ -394,6 +405,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.data.difficulty = "normal";
+                    if (this.data.normalCompleted === true) {
+                        this.data.completed = true;
+                    }
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
@@ -414,6 +428,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.data.difficulty = "hard";
+                    if (this.data.hardCompleted === true) {
+                        this.data.completed = true;
+                    }
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
@@ -434,6 +451,9 @@ export default class DifficultyMenu extends Phaser.Scene {
                 500 / 769,
                 () => {
                     this.data.difficulty = "hard";
+                    if (this.data.hardCompleted === true) {
+                        this.data.completed = true;
+                    }
                     this.btnPrsSound.play({
                         volume: SettingsMenu.sfxVolume / 18,
                     });
