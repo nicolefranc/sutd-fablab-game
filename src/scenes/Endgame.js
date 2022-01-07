@@ -34,6 +34,8 @@ export default class EndgameOverlay extends Phaser.Scene {
         color: "#000000",
     };
 
+    static emailAddressKey = "emailAddress";
+
     init(data) {
         this.data = data;
     }
@@ -185,7 +187,7 @@ export default class EndgameOverlay extends Phaser.Scene {
             .text(375, 300, "Email", EndgameOverlay.textDefaultConfig)
             .setOrigin(0, 0.5);
         this.submissionTexts["emailField"] = this.add
-            .text(375, 325, "", {
+            .text(375, 325, localStorage.getItem(EndgameOverlay.emailAddressKey)===null? "" : localStorage.getItem(EndgameOverlay.emailAddressKey), {
                 fontFamily: "peepo",
                 fontSize: 18,
                 color: "#ffffff",
@@ -273,6 +275,9 @@ export default class EndgameOverlay extends Phaser.Scene {
         }
 
         this.indicatorText.visible = true;
+
+        localStorage.setItem(EndgameOverlay.emailAddressKey,this.submissionTexts["emailField"].text);
+        
         LeaderboardUtils.submitScore(
             this.submissionTexts["nameField"].text,
             this.data["gender"],
