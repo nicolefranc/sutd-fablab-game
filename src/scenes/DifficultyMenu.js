@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import SettingsMenu from "./SettingsMenu";
-import difficultyMenuBg from "../resources/Difficulty Menu/background_1.png";
+import difficultyMenuBg from "../resources/Difficulty Menu/difficulty_menu_final_2.png";
 import difficultyMenuEasyButtonDark from "../resources/Difficulty Menu/easy_dark.png";
 import difficultyMenuNormalButtonDark from "../resources/Difficulty Menu/normal_dark.png";
 import difficultyMenuHardButtonDark from "../resources/Difficulty Menu/hard_dark.png";
@@ -330,7 +330,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         (251 / 1368) * 800,
         (426 / 769) * 500,
         "difficultyMenuEasyButton",
-        500 / 769,
+        170 / 769,
         () => {
           this.data.difficulty = "easy";
           if (this.data.easyCompleted === true) {
@@ -353,7 +353,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         (251 / 1368) * 800,
         (426 / 769) * 500,
         "difficultyMenuEasyButtonDark",
-        500 / 769,
+        170 / 769,
         () => {
           this.data.difficulty = "easy";
           if (this.data.easyCompleted === true) {
@@ -376,7 +376,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         (684 / 1368) * 800,
         (427 / 769) * 500,
         "difficultyMenuNormalButton",
-        500 / 769,
+        175 / 769,
         () => {
           this.data.difficulty = "normal";
           if (this.data.normalCompleted === true) {
@@ -399,7 +399,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         (684 / 1368) * 800,
         (427 / 769) * 500,
         "difficultyMenuNormalButtonDark",
-        500 / 769,
+        175 / 769,
         () => {
           this.data.difficulty = "normal";
           if (this.data.normalCompleted === true) {
@@ -422,7 +422,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         (1117 / 1368) * 800,
         (427 / 769) * 500,
         "difficultyMenuHardButton",
-        500 / 769,
+        175 / 769,
         () => {
           this.data.difficulty = "hard";
           if (this.data.hardCompleted === true) {
@@ -445,7 +445,7 @@ export default class DifficultyMenu extends Phaser.Scene {
         (1117 / 1368) * 800,
         (427 / 769) * 500,
         "difficultyMenuHardButtonDark",
-        500 / 769,
+        175 / 769,
         () => {
           this.data.difficulty = "hard";
           if (this.data.hardCompleted === true) {
