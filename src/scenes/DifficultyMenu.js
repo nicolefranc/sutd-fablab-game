@@ -31,12 +31,12 @@ export default class DifficultyMenu extends Phaser.Scene {
   static textDefaultConfig = {
     fontFamily: "peepo",
     fontSize: 18,
-    color: "#ffffff",
+    color: "#000000",
   };
   static textTitleConfig = {
     fontFamily: "peepo",
     fontSize: 20,
-    color: "#ffffff",
+    color: "#000000",
     align: "center",
   };
 
@@ -298,6 +298,15 @@ export default class DifficultyMenu extends Phaser.Scene {
       this.renderEasyBlack();
       this.renderNormalBlack();
       this.renderHardBlack();
+      this.texts = {};
+      this.texts.easy = {};
+      this.texts.general = {};
+      this.texts.general.instructions = this.add.text(
+        (350 / 1368) * 800,
+        (150 / 769) * 500,
+        "Collaboration is key at SUTD!\nHelp us fabricate the components needed\nto unlock the secret illustrations!",
+        DifficultyMenu.textTitleConfig
+      );
     }
   }
   easyFulfilled() {
