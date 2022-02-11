@@ -298,15 +298,6 @@ export default class DifficultyMenu extends Phaser.Scene {
       this.renderEasyBlack();
       this.renderNormalBlack();
       this.renderHardBlack();
-      this.texts = {};
-      this.texts.easy = {};
-      this.texts.general = {};
-      this.texts.general.instructions = this.add.text(
-        (350 / 1368) * 800,
-        (150 / 769) * 500,
-        "Collaboration is key at SUTD!\nHelp us fabricate the components needed\nto unlock the secret illustrations!",
-        DifficultyMenu.textTitleConfig
-      );
     }
   }
   easyFulfilled() {
