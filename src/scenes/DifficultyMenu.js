@@ -33,6 +33,12 @@ export default class DifficultyMenu extends Phaser.Scene {
     fontSize: 18,
     color: "#ffffff",
   };
+  static textTitleConfig = {
+    fontFamily: "peepo",
+    fontSize: 20,
+    color: "#ffffff",
+    align: "center",
+  };
 
   static preloadAssets(scene) {
     scene.load.image("difficultyMenuBg", difficultyMenuBg);
@@ -110,6 +116,13 @@ export default class DifficultyMenu extends Phaser.Scene {
 
       this.texts = {};
       this.texts.easy = {};
+      this.texts.general = {};
+      this.texts.general.instructions = this.add.text(
+        (350 / 1368) * 800,
+        (150 / 769) * 500,
+        "Collaboration is key at SUTD!\nHelp us fabricate the components needed\nto unlock the secret illustrations!",
+        DifficultyMenu.textTitleConfig
+      );
       this.images["easy"] = {};
       this.images["easy"]["jigsawAcrylic"] = this.add.image(
         (75 / 1368) * 800,
