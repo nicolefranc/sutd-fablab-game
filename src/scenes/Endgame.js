@@ -93,7 +93,7 @@ export default class EndgameOverlay extends Phaser.Scene {
     } else {
       this.robotImage = this.add
         .image(
-          400,
+          395,
           250 - 82.5 * 0.7,
           this.data["difficulty"] === "easy"
             ? "endgameRobot1Dark"
