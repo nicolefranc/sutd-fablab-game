@@ -113,7 +113,7 @@ export default class EndgameOverlay extends Phaser.Scene {
         // console.log("leaderboard button pressed");
         this.sound.stopAll();
         MainMenu.dontPlay = false;
-        this.scene.start("LeaderboardScreen");
+        this.scene.start("LeaderboardScreen",{"difficulty":this.data["difficulty"]});
         this.scene.bringToTop("LeaderboardScreen");
         this.scene.stop("Game");
         this.scene.stop("GameUI");

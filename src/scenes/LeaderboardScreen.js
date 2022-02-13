@@ -70,6 +70,10 @@ export default class LeaderboardScreen extends Phaser.Scene {
     scene.load.image("leaderboardScreenBackBtn", leaderboardScreenBackBtn);
   }
 
+  init(data) {
+    this.initialDifficulty = "difficulty" in data? data["difficulty"] : "easy";
+  }
+
   create() {
     this.btnPrsSound = this.sound.add("btnPrsSound");
     this.bg = this.add
@@ -108,22 +112,9 @@ export default class LeaderboardScreen extends Phaser.Scene {
 
     this.timeout = null;
 
-    this.checkScoresIfLoaded("easy");
     this.scoreObjects = [];
-
     this.clearScores();
-    if (this.scores["easy"] === null) {
-      this.text.text = "Loading...";
-      this.timeout = setTimeout(() => {
-        if (this.scores["easy"] === null) {
-          this.text.text = "Error loading scores. Please try again later.";
-        } else {
-          this.loadScores(this.scores["easy"]);
-          this.text.text = "";
-        }
-        this.timeout = null;
-      }, 5000);
-    } else this.loadScores(this.scores["easy"]);
+    this.checkScoresIfLoaded(this.initialDifficulty);
 
     this.tabs["easy"] = new Button(
       this,
@@ -189,7 +180,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
       true,
       "leaderboardScreenHardTabPrs"
     );
-    this.tabs["easy"].disableToggle();
+    this.tabs[this.initialDifficulty].disableToggle();
   }
 
   getScores(difficulty) {
@@ -227,6 +218,7 @@ export default class LeaderboardScreen extends Phaser.Scene {
       for (var i = 0; i < this.scoreRetries[difficulty] % 3; i++) text += ".";
       this.text.text = text;
       this.scoreRetries[difficulty] += 1;
+      if (this.timeout != null) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
         this.checkScoresIfLoaded(difficulty);
       }, 500);
