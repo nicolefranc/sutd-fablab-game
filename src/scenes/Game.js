@@ -19,16 +19,28 @@ import blankHorizontalTiles from "../resources/tiles/blankHorizontalTiles.png";
 import blankVerticalTiles from "../resources/tiles/blankVerticalTiles.png";
 
 //Audio
-import gameBGM from "../resources/audio/Gameplay.webm";
-import threeDPrinterSFX from "../resources/audio/3D Printer.webm";
-import laserCutterSFX from "../resources/audio/Laser Cutter.webm";
-import sawSFX from "../resources/audio/Saw.webm";
-import solderSFX from "../resources/audio/Solder.webm";
-import drillSFX from "../resources/audio/Drill (From Zapsplat).webm";
-import fixingSFX from "../resources/audio/Fixing Tools (From Zapsplat).webm";
-import completedSFX from "../resources/audio/Completed Component.webm";
-import pickupSFX from "../resources/audio/Player Picks Up Item.webm";
-import throwSFX from "../resources/audio/Player Throws Item Away.webm";
+import gameBGM from "../resources/audio/Gameplay.ogg";
+import threeDPrinterSFX from "../resources/audio/3D Printer.ogg";
+import laserCutterSFX from "../resources/audio/Laser Cutter.ogg";
+import sawSFX from "../resources/audio/Saw.ogg";
+import solderSFX from "../resources/audio/Solder.ogg";
+import drillSFX from "../resources/audio/Drill (From Zapsplat).ogg";
+import fixingSFX from "../resources/audio/Fixing Tools (From Zapsplat).ogg";
+import completedSFX from "../resources/audio/Completed Component.ogg";
+import pickupSFX from "../resources/audio/Player Picks Up Item.ogg";
+import throwSFX from "../resources/audio/Player Throws Item Away.ogg";
+
+import gameBGMFallback from "../resources/audio/Gameplay.m4a";
+import threeDPrinterSFXFallback from "../resources/audio/3D Printer.m4a";
+import laserCutterSFXFallback from "../resources/audio/Laser Cutter.m4a";
+import sawSFXFallback from "../resources/audio/Saw.m4a";
+import solderSFXFallback from "../resources/audio/Solder.m4a";
+import drillSFXFallback from "../resources/audio/Drill (From Zapsplat).m4a";
+import fixingSFXFallback from "../resources/audio/Fixing Tools (From Zapsplat).m4a";
+import completedSFXFallback from "../resources/audio/Completed Component.m4a";
+import pickupSFXFallback from "../resources/audio/Player Picks Up Item.m4a";
+import throwSFXFallback from "../resources/audio/Player Throws Item Away.m4a";
+
 //Resources
 import Resources from "../resources/resources";
 import InteractiveTools from "../appliances/interactiveTools";
@@ -206,16 +218,29 @@ export default class Game extends Phaser.Scene {
   }
 
   static preloadAudio(scene) {
-    scene.load.audio("gameBGM", gameBGM);
-    scene.load.audio("threeDPrinterSFX", threeDPrinterSFX);
-    scene.load.audio("drillSFX", drillSFX);
-    scene.load.audio("fixingSFX", fixingSFX);
-    scene.load.audio("laserCutterSFX", laserCutterSFX);
-    scene.load.audio("sawSFX", sawSFX);
-    scene.load.audio("solderSFX", solderSFX);
-    scene.load.audio("completedSFX", completedSFX);
-    scene.load.audio("throwSFX", throwSFX);
-    scene.load.audio("pickupSFX", pickupSFX);
+    if (scene.sys.game.device.audio.ogg) {
+      scene.load.audio("gameBGM", gameBGM);
+      scene.load.audio("threeDPrinterSFX", threeDPrinterSFX);
+      scene.load.audio("drillSFX", drillSFX);
+      scene.load.audio("fixingSFX", fixingSFX);
+      scene.load.audio("laserCutterSFX", laserCutterSFX);
+      scene.load.audio("sawSFX", sawSFX);
+      scene.load.audio("solderSFX", solderSFX);
+      scene.load.audio("completedSFX", completedSFX);
+      scene.load.audio("throwSFX", throwSFX);
+      scene.load.audio("pickupSFX", pickupSFX);
+    } else {
+      scene.load.audio("gameBGM", gameBGMFallback);
+      scene.load.audio("threeDPrinterSFX", threeDPrinterSFXFallback);
+      scene.load.audio("drillSFX", drillSFXFallback);
+      scene.load.audio("fixingSFX", fixingSFXFallback);
+      scene.load.audio("laserCutterSFX", laserCutterSFXFallback);
+      scene.load.audio("sawSFX", sawSFXFallback);
+      scene.load.audio("solderSFX", solderSFXFallback);
+      scene.load.audio("completedSFX", completedSFXFallback);
+      scene.load.audio("throwSFX", throwSFXFallback);
+      scene.load.audio("pickupSFX", pickupSFXFallback);
+    }
   }
 
   static preloadTiles(scene) {
