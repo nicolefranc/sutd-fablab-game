@@ -1,7 +1,8 @@
 import Phaser from "phaser";
 import Button from "../sprites/button";
 
-import endGameMusic from "../resources/audio/Ending.webm";
+import endGameMusic from "../resources/audio/Ending.ogg";
+import endGameMusicFallback from "../resources/audio/Ending.m4a";
 import leaderboardBtn from "../resources/endgame/leaderboardbutton.png";
 import leaderboardBtnPrs from "../resources/endgame/leaderboardbuttonpressed.png";
 import mainOverlay from "../resources/endgame/Popup.png";
@@ -42,7 +43,11 @@ export default class EndgameOverlay extends Phaser.Scene {
   }
 
   static preloadAssets(scene) {
-    scene.load.audio("endGameMusic", endGameMusic);
+    if (scene.sys.game.device.audio.ogg) {
+      scene.load.audio("endGameMusic", endGameMusic);
+    } else {
+      scene.load.audio("endGameMusic", endGameMusicFallback);
+    }
     scene.load.image("mainOverlay", mainOverlay);
     scene.load.image("leaderboardBtn", leaderboardBtn);
     scene.load.image("leaderboardBtnPrs", leaderboardBtnPrs);
@@ -113,7 +118,9 @@ export default class EndgameOverlay extends Phaser.Scene {
         // console.log("leaderboard button pressed");
         this.sound.stopAll();
         MainMenu.dontPlay = false;
-        this.scene.start("LeaderboardScreen",{"difficulty":this.data["difficulty"]});
+        this.scene.start("LeaderboardScreen", {
+          difficulty: this.data["difficulty"],
+        });
         this.scene.bringToTop("LeaderboardScreen");
         this.scene.stop("Game");
         this.scene.stop("GameUI");

@@ -1,7 +1,8 @@
 import Phaser, { Tilemaps } from "phaser";
 
 import background from "../resources/Main Menu/background.png";
-import mainMenuBGM from "../resources/audio/Main Menu.webm";
+import mainMenuBGM from "../resources/audio/Main Menu.ogg";
+import mainMenuBGMFallback from "../resources/audio/Main Menu.m4a";
 //buttons
 import Button from "../sprites/button";
 import leaderboard from "../resources/Main Menu/leaderboard.png";
@@ -12,7 +13,8 @@ import start from "../resources/Main Menu/start.png";
 import startPrs from "../resources/Main Menu/start_prs.png";
 import credits from "../resources/Main Menu/credits.png";
 import creditsPrs from "../resources/Main Menu/credits_prs.png";
-import btnPrsSound from "../resources/audio/Button Click.webm";
+import btnPrsSound from "../resources/audio/Button Click.ogg";
+import btnPrsSoundFallback from "../resources/audio/Button Click.m4a";
 import Resources from "../resources/resources";
 import SettingsMenu from "./SettingsMenu";
 import LeaderboardScreen from "./LeaderboardScreen";
@@ -51,8 +53,14 @@ export default class MainMenu extends Phaser.Scene {
     this.load.image("startBtnPrs", startPrs);
     this.load.image("creditsBtn", credits);
     this.load.image("creditsBtnPrs", creditsPrs);
-    this.load.audio("btnPrsSound", btnPrsSound);
-    this.load.audio("mainMenuBGM", mainMenuBGM);
+    if (this.sys.game.device.audio.ogg) {
+      this.load.audio("btnPrsSound", btnPrsSound);
+      this.load.audio("mainMenuBGM", mainMenuBGM);
+    } else {
+      //fallback using m4a
+      this.load.audio("btnPrsSound", btnPrsSoundFallback);
+      this.load.audio("mainMenuBGM", mainMenuBGMFallback);
+    }
     Resources.preloadMaterialImages(this);
     Credits.preloadAssets(this);
     DifficultyMenu.preloadAssets(this);
